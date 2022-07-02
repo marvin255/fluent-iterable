@@ -120,8 +120,6 @@ final class FluentIterable
      */
     public function findFirst(): Optional
     {
-        $this->iterator->next();
-
         return $this->iterator->valid()
             ? Optional::of($this->iterator->current())
             : Optional::empty();
