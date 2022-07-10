@@ -38,6 +38,7 @@ final class FluentIterable
      * @param iterable<mixed, T> $iterable
      *
      * @return self<T>
+     *
      * @psalm-return (
      *     T is string ? self<string> : (
      *         T is int ? self<int> : (
