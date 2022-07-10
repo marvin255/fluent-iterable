@@ -13,17 +13,17 @@ use Marvin255\Optional\Optional;
 /**
  * Fluent interface for any iterable entity.
  *
- * @psalm-template TValue
+ * @template TValue
  */
 final class FluentIterable
 {
     /**
-     * @psalm-var Iterator<int, TValue>
+     * @var Iterator<int, TValue>
      */
     private readonly Iterator $iterator;
 
     /**
-     * @psalm-param Iterator<int, TValue> $iterator
+     * @param Iterator<int, TValue> $iterator
      */
     private function __construct(Iterator $iterator)
     {
@@ -34,7 +34,10 @@ final class FluentIterable
      * Create new FluentIterable item from the given iterable.
      *
      * @template T
-     * @psalm-param iterable<mixed, T> $iterable
+     *
+     * @param iterable<mixed, T> $iterable
+     *
+     * @return self<T>
      * @psalm-return (
      *     T is string ? self<string> : (
      *         T is int ? self<int> : (
@@ -53,8 +56,11 @@ final class FluentIterable
     /**
      * Filter elements of an iterable using a callback function.
      *
+     * @param callable $callback
+     *
+     * @return self<TValue>
+     *
      * @psalm-param callable(TValue, int=): bool $callback
-     * @psalm-return self<TValue>
      */
     public function filter(callable $callback): self
     {
@@ -74,8 +80,12 @@ final class FluentIterable
      * Apply the callback to the elements of the given iterable and collect converted values.
      *
      * @template TConverted
+     *
+     * @param callable $callback
+     *
+     * @return self<TConverted>
+     *
      * @psalm-param callable(TValue, int=): TConverted $callback
-     * @psalm-return self<TConverted>
      */
     public function map(callable $callback): self
     {
@@ -86,6 +96,8 @@ final class FluentIterable
 
     /**
      * Apply a user supplied function to every member of an iterable.
+     *
+     * @param callable $callback
      *
      * @psalm-param callable(TValue, int=): void $callback
      */
@@ -100,9 +112,13 @@ final class FluentIterable
      * Iteratively reduce the iterable to a single value using a callback function.
      *
      * @template TConverted
+     *
+     * @param callable   $callback
+     * @param TConverted $initial
+     *
+     * @return Optional<TConverted>
+     *
      * @psalm-param callable(TConverted, TValue, int=): TConverted $callback
-     * @psalm-param TConverted $initial
-     * @psalm-return Optional<TConverted>
      */
     public function reduce(callable $callback, mixed $initial = null): Optional
     {
@@ -116,7 +132,7 @@ final class FluentIterable
     /**
      * Return the first item from an iterable.
      *
-     * @psalm-return Optional<TValue>
+     * @return Optional<TValue>
      */
     public function findFirst(): Optional
     {
@@ -128,7 +144,7 @@ final class FluentIterable
     /**
      * Return the last item from an iterable.
      *
-     * @psalm-return Optional<TValue>
+     * @return Optional<TValue>
      */
     public function findLast(): Optional
     {
@@ -143,7 +159,7 @@ final class FluentIterable
     /**
      * Convert the internal data to an array and return it.
      *
-     * @psalm-return array<int, TValue>
+     * @return array<int, TValue>
      */
     public function toArray(): array
     {
@@ -158,7 +174,7 @@ final class FluentIterable
     /**
      * Return the internal iterator.
      *
-     * @psalm-return Iterator<int, TValue>
+     * @return Iterator<int, TValue>
      */
     public function toIterator(): Iterator
     {
