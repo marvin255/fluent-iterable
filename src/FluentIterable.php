@@ -180,12 +180,7 @@ final class FluentIterable
      */
     public function toArray(): array
     {
-        $result = [];
-        foreach ($this->iterator as $item) {
-            $result[] = $item;
-        }
-
-        return $result;
+        return iterator_to_array($this->iterator, false);
     }
 
     /**
