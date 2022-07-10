@@ -13,6 +13,49 @@ use Marvin255\FluentIterable\FluentIterable;
 class FluentIterableTest extends BaseCase
 {
     /**
+     * @psalm-param iterable<int, int> $input
+     * @psalm-param iterable<int, int> $merge
+     * @psalm-param array<int, mixed> $reference
+     * @dataProvider provideMergeData
+     */
+    public function testMerge(iterable $input, iterable $merge, array $reference): void
+    {
+        $result = FluentIterable::of($input)->merge($merge)->toArray();
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideMergeData(): array
+    {
+        return [
+            'array with array' => [
+                [1, 2, 3, 4],
+                [5, 6, 7],
+                [1, 2, 3, 4, 5, 6, 7],
+            ],
+            'array with iterator' => [
+                [1, 2, 3, 4],
+                (new ArrayObject([5, 6, 7]))->getIterator(),
+                [1, 2, 3, 4, 5, 6, 7],
+            ],
+            'array with generator' => [
+                [1, 2, 3, 4],
+                (function () {
+                    yield 5;
+                    yield 6;
+                    yield 7;
+                })(),
+                [1, 2, 3, 4, 5, 6, 7],
+            ],
+            'empty' => [
+                [],
+                [],
+                [],
+            ],
+        ];
+    }
+
+    /**
      * @psalm-param iterable $input
      * @psalm-param callable(mixed, int=): bool $filter
      * @psalm-param array<int, mixed> $reference

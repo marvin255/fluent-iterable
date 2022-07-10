@@ -8,6 +8,7 @@ use CallbackFilterIterator;
 use Iterator;
 use Marvin255\FluentIterable\Iterator\AnySourceIterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
+use Marvin255\FluentIterable\Iterator\MergedIteratorsIterator;
 use Marvin255\Optional\Optional;
 
 /**
@@ -52,6 +53,21 @@ final class FluentIterable
     public static function of(iterable $iterable): self
     {
         return new self(AnySourceIterator::of($iterable));
+    }
+
+    /**
+     * Filter elements of an iterable using a callback function.
+     *
+     * @param iterable<mixed, TValue> $iterable
+     *
+     * @return self<TValue>
+     */
+    public function merge(iterable $iterable): self
+    {
+        $newIterator = AnySourceIterator::of($iterable);
+        $mergedIterator = MergedIteratorsIterator::of($this->iterator, $newIterator);
+
+        return new self($mergedIterator);
     }
 
     /**

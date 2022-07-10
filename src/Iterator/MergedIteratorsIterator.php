@@ -42,6 +42,11 @@ class MergedIteratorsIterator implements Iterator
         $this->iteratorsCount = \count($checkedIterators);
     }
 
+    public static function of(iterable ...$iterators): MergedIteratorsIterator
+    {
+        return new self($iterators);
+    }
+
     public function current(): mixed
     {
         return $this->getCurrentIterator()?->current();
