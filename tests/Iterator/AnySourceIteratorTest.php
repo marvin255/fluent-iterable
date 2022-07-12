@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use ArrayObject;
+use Generator;
 use Marvin255\FluentIterable\Iterator\AnySourceIterator;
 use Marvin255\FluentIterable\Tests\BaseCase;
 
@@ -40,6 +41,13 @@ class AnySourceIteratorTest extends BaseCase
             $result[$key] = $item;
         }
 
+        if (!($input instanceof Generator)) {
+            $result = [];
+            foreach ($immutableIterator as $key => $item) {
+                $result[$key] = $item;
+            }
+        }
+
         $this->assertSame($reference, $result);
     }
 
@@ -64,6 +72,10 @@ class AnySourceIteratorTest extends BaseCase
             ],
             'iterator' => [
                 (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                ['q', 'w', 'e'],
+            ],
+            'iterator aggregate' => [
+                (new ArrayObject(['q', 'w', 'e'])),
                 ['q', 'w', 'e'],
             ],
             'empty iterator' => [
