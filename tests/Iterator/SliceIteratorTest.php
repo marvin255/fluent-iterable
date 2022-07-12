@@ -16,7 +16,7 @@ use Marvin255\FluentIterable\Tests\BaseCase;
  */
 class SliceIteratorTest extends BaseCase
 {
-    public function testConstructNegativeFrom(): void
+    public function testConstructNegativeOffset(): void
     {
         $this->expectException(InvalidArgumentException::class);
         new SliceIterator(
@@ -26,7 +26,7 @@ class SliceIteratorTest extends BaseCase
         );
     }
 
-    public function testConstructNegativeTo(): void
+    public function testConstructNegativeLength(): void
     {
         $this->expectException(InvalidArgumentException::class);
         new SliceIterator(
@@ -36,13 +36,13 @@ class SliceIteratorTest extends BaseCase
         );
     }
 
-    public function testConstructNegativeFromGreaterThanTo(): void
+    public function testConstructZeroLength(): void
     {
         $this->expectException(InvalidArgumentException::class);
         new SliceIterator(
             (new ArrayObject([]))->getIterator(),
             10,
-            1
+            0
         );
     }
 
@@ -81,35 +81,41 @@ class SliceIteratorTest extends BaseCase
                 2,
                 ['w', 'e'],
             ],
-            'iterator null from' => [
+            'iterator null offset' => [
                 (new ArrayObject(['q', 'w', 'e', 'r']))->getIterator(),
                 null,
                 2,
-                ['q', 'w', 'e'],
+                ['q', 'w'],
             ],
-            'iterator null to' => [
+            'iterator null length' => [
                 (new ArrayObject(['q', 'w', 'e', 'r']))->getIterator(),
                 2,
                 null,
                 ['e', 'r'],
             ],
-            'iterator from greater than length' => [
+            'iterator offset greater than length' => [
                 (new ArrayObject(['q', 'w', 'e', 'r']))->getIterator(),
                 10,
                 15,
                 [],
             ],
-            'iterator from equals to' => [
+            'iterator get one element' => [
                 (new ArrayObject(['q', 'w', 'e', 'r']))->getIterator(),
                 2,
-                2,
+                1,
                 ['e'],
             ],
-            'iterator from equals to and equals zero' => [
+            'iterator get first element' => [
                 (new ArrayObject(['q', 'w', 'e', 'r']))->getIterator(),
                 0,
-                0,
+                1,
                 ['q'],
+            ],
+            'iterator length more that real' => [
+                (new ArrayObject(['q', 'w', 'e', 'r']))->getIterator(),
+                2,
+                1000,
+                ['e', 'r'],
             ],
             'generator' => [
                 (function () {

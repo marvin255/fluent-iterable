@@ -193,6 +193,49 @@ class FluentIterableTest extends BaseCase
     }
 
     /**
+     * @psalm-param iterable $input
+     * @psalm-param ?int $offset
+     * @psalm-param ?int $length
+     * @psalm-param array<int, mixed> $reference
+     * @dataProvider provideSliceData
+     */
+    public function testSlice(iterable $input, ?int $offset, ?int $length, array $reference): void
+    {
+        $result = FluentIterable::of($input)->slice($offset, $length)->toArray();
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideSliceData(): array
+    {
+        return [
+            'array' => [
+                [1, 2, 3, 4],
+                2,
+                1,
+                [3],
+            ],
+            'iterator' => [
+                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                2,
+                1,
+                [3],
+            ],
+            'generator' => [
+                (function () {
+                    yield 1;
+                    yield 2;
+                    yield 3;
+                    yield 4;
+                })(),
+                2,
+                1,
+                [3],
+            ],
+        ];
+    }
+
+    /**
      * @psalm-param iterable<int, int> $input
      * @psalm-param array<int, int> $reference
      * @psalm-suppress MixedArrayAssignment

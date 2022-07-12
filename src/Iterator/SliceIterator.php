@@ -21,30 +21,28 @@ class SliceIterator implements Iterator
      */
     private readonly Iterator $iterator;
 
-    private readonly ?int $from;
+    private readonly ?int $offset;
 
-    private readonly ?int $to;
+    private readonly ?int $length;
 
     private int $count = 0;
 
     /**
      * @param Iterator<mixed, TValue> $iterator
-     * @param ?int                    $from
-     * @param ?int                    $to
+     * @param ?int                    $offset
+     * @param ?int                    $length
      */
-    public function __construct(Iterator $iterator, ?int $from = null, ?int $to = null)
+    public function __construct(Iterator $iterator, ?int $offset = null, ?int $length = null)
     {
-        if ($from !== null && $from < 0) {
-            throw new InvalidArgumentException("\"From\" parameter can't be less than 0");
-        } elseif ($to !== null && $to < 0) {
-            throw new InvalidArgumentException("\"To\" parameter can't be less than 0");
-        } elseif ($from !== null && $to !== null && $from > $to) {
-            throw new InvalidArgumentException("\"From\" parameter can't be more than \"To\" parameter");
+        if ($offset !== null && $offset < 0) {
+            throw new InvalidArgumentException("\"from\" parameter can't be less than 0");
+        } elseif ($length !== null && $length <= 0) {
+            throw new InvalidArgumentException("\"length\" parameter can't be less than 0");
         }
 
         $this->iterator = $iterator;
-        $this->from = $from;
-        $this->to = $to;
+        $this->offset = $offset;
+        $this->length = $length;
     }
 
     /**
@@ -57,8 +55,8 @@ class SliceIterator implements Iterator
 
     public function key(): int
     {
-        return $this->from !== null
-            ? $this->count - $this->from
+        return $this->offset !== null
+            ? $this->count - $this->offset
             : $this->count;
     }
 
@@ -76,11 +74,12 @@ class SliceIterator implements Iterator
 
     public function valid(): bool
     {
-        if ($this->to !== null && $this->count > $this->to) {
+        $offset = $this->offset === null ? 0 : $this->offset;
+        if ($this->length !== null && $this->count > $offset + $this->length - 1) {
             return false;
         }
 
-        while ($this->from !== null && $this->count < $this->from) {
+        while ($this->offset !== null && $this->count < $this->offset) {
             $this->next();
         }
 

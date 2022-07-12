@@ -113,7 +113,7 @@ final class FluentIterable
     }
 
     /**
-     * Apply a user supplied function to every member of an iterable.
+     * Skip some element in the beginning of list.
      *
      * @param int $offset
      *
@@ -122,6 +122,21 @@ final class FluentIterable
     public function skip(int $offset): self
     {
         $iterator = new SliceIterator($this->iterator, $offset);
+
+        return new self($iterator);
+    }
+
+    /**
+     * Return just a slice from offset with set length.
+     *
+     * @param ?int $offset
+     * @param ?int $length
+     *
+     * @return self<TValue>
+     */
+    public function slice(?int $offset = null, ?int $length = null): self
+    {
+        $iterator = new SliceIterator($this->iterator, $offset, $length);
 
         return new self($iterator);
     }
