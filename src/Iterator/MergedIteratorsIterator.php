@@ -23,8 +23,6 @@ class MergedIteratorsIterator implements Iterator
      */
     private readonly array $iterators;
 
-    private int $iteratorsCount = 0;
-
     private int $itemCounter = 0;
 
     private int $iteratorCounter = 0;
@@ -39,7 +37,6 @@ class MergedIteratorsIterator implements Iterator
             $checkedIterators[] = $iterator;
         }
         $this->iterators = $checkedIterators;
-        $this->iteratorsCount = \count($checkedIterators);
     }
 
     public static function of(iterable ...$iterators): MergedIteratorsIterator
