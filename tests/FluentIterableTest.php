@@ -154,6 +154,51 @@ class FluentIterableTest extends BaseCase
     }
 
     /**
+     * @psalm-param iterable<int, int> $input
+     * @psalm-param array<int, int> $reference
+     * @dataProvider provideWalkData
+     */
+    public function testWalk(iterable $input, array $reference): void
+    {
+        /** @var array<int, int> */
+        $result = [];
+        FluentIterable::of($input)->walk(
+            function (int $item, int $key) use (&$result): void {
+                $result[$key] = $item;
+            }
+        );
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideWalkData(): array
+    {
+        return [
+            'array' => [
+                [1, 2, 3, 4],
+                [1, 2, 3, 4],
+            ],
+            'iterator' => [
+                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                [1, 2, 3, 4],
+            ],
+            'generator' => [
+                (function () {
+                    yield 1;
+                    yield 2;
+                    yield 3;
+                    yield 4;
+                })(),
+                [1, 2, 3, 4],
+            ],
+            'empty input' => [
+                [],
+                [],
+            ],
+        ];
+    }
+
+    /**
      * @psalm-param iterable $input
      * @psalm-param callable(mixed, mixed, int=): mixed $reducer
      * @psalm-param mixed $initial
