@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<psalm
+    cacheDirectory="/tmp"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config file:///var/www/vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="./src"/>
+        <directory name="./tests"/>
+    </projectFiles>
+
+    <issueHandlers>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <directory name="./tests"/>
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+        <MixedAssignment errorLevel="suppress" />
+    </issueHandlers>
+</psalm>
