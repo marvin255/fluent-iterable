@@ -154,6 +154,45 @@ class FluentIterableTest extends BaseCase
     }
 
     /**
+     * @psalm-param iterable $input
+     * @psalm-param int $offset
+     * @psalm-param array<int, mixed> $reference
+     * @dataProvider provideSkipData
+     */
+    public function testSkip(iterable $input, int $offset, array $reference): void
+    {
+        $result = FluentIterable::of($input)->skip($offset)->toArray();
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideSkipData(): array
+    {
+        return [
+            'array' => [
+                [1, 2, 3, 4],
+                2,
+                [3, 4],
+            ],
+            'iterator' => [
+                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                2,
+                [3, 4],
+            ],
+            'generator' => [
+                (function () {
+                    yield 1;
+                    yield 2;
+                    yield 3;
+                    yield 4;
+                })(),
+                2,
+                [3, 4],
+            ],
+        ];
+    }
+
+    /**
      * @psalm-param iterable<int, int> $input
      * @psalm-param array<int, int> $reference
      * @psalm-suppress MixedArrayAssignment

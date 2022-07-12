@@ -9,6 +9,7 @@ use Iterator;
 use Marvin255\FluentIterable\Iterator\AnySourceIterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
 use Marvin255\FluentIterable\Iterator\MergedIteratorsIterator;
+use Marvin255\FluentIterable\Iterator\SliceIterator;
 use Marvin255\Optional\Optional;
 
 /**
@@ -107,6 +108,20 @@ final class FluentIterable
     public function map(callable $callback): self
     {
         $iterator = new CallbackMapIterator($this->iterator, $callback);
+
+        return new self($iterator);
+    }
+
+    /**
+     * Apply a user supplied function to every member of an iterable.
+     *
+     * @param int $offset
+     *
+     * @return self<TValue>
+     */
+    public function skip(int $offset): self
+    {
+        $iterator = new SliceIterator($this->iterator, $offset);
 
         return new self($iterator);
     }
