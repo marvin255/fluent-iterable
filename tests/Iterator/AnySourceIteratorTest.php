@@ -75,7 +75,7 @@ class AnySourceIteratorTest extends BaseCase
                 ['q', 'w', 'e'],
             ],
             'iterator aggregate' => [
-                (new ArrayObject(['q', 'w', 'e'])),
+                new ArrayObject(['q', 'w', 'e']),
                 ['q', 'w', 'e'],
             ],
             'empty iterator' => [
