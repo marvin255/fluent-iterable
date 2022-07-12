@@ -466,4 +466,28 @@ class FluentIterableTest extends BaseCase
             ],
         ];
     }
+
+    public function testFluent(): void
+    {
+        $input = (function () {
+            yield 1;
+            yield 2;
+            yield 3;
+            yield 4;
+            yield 5;
+            yield 6;
+            yield 7;
+        })();
+
+        $result = FluentIterable::of($input)
+            ->skip(3)
+            ->filter(fn (int $item): bool => $item > 2)
+            ->filter(fn (int $item): bool => $item < 7)
+            ->slice(1, 2)
+            ->map(fn (int $item): int => $item + 1)
+            ->map(fn (int $item): int => $item + 1)
+            ->toArray();
+
+        $this->assertSame([7, 8], $result);
+    }
 }
