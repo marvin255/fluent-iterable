@@ -49,7 +49,7 @@ class MergedIteratorsIterator implements Iterator
 
     public function current(): mixed
     {
-        return $this->getCurrentIterator()?->current();
+        return $this->getCurrentIterator()->current();
     }
 
     public function key(): int
@@ -60,7 +60,7 @@ class MergedIteratorsIterator implements Iterator
     public function next(): void
     {
         ++$this->itemCounter;
-        $this->getCurrentIterator()?->next();
+        $this->getCurrentIterator()->next();
     }
 
     public function rewind(): void
@@ -74,18 +74,20 @@ class MergedIteratorsIterator implements Iterator
 
     public function valid(): bool
     {
-        $isValid = $this->getCurrentIterator()?->valid() === true;
+        if (!isset($this->iterators[$this->iteratorCounter])) {
+            return false;
+        }
 
-        while ($this->iteratorCounter < $this->iteratorsCount && !$isValid) {
-            ++$this->iteratorCounter;
-            $isValid = $this->getCurrentIterator()?->valid() === true;
+        $isValid = $this->iterators[$this->iteratorCounter]->valid();
+        while (!$isValid && isset($this->iterators[++$this->iteratorCounter])) {
+            $isValid = $this->iterators[$this->iteratorCounter]->valid();
         }
 
         return $isValid;
     }
 
-    private function getCurrentIterator(): ?Iterator
+    private function getCurrentIterator(): Iterator
     {
-        return $this->iterators[$this->iteratorCounter] ?? null;
+        return $this->iterators[$this->iteratorCounter];
     }
 }

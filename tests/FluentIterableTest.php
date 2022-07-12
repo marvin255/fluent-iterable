@@ -156,11 +156,11 @@ class FluentIterableTest extends BaseCase
     /**
      * @psalm-param iterable<int, int> $input
      * @psalm-param array<int, int> $reference
+     * @psalm-suppress MixedArrayAssignment
      * @dataProvider provideWalkData
      */
     public function testWalk(iterable $input, array $reference): void
     {
-        /** @var array<int, int> */
         $result = [];
         FluentIterable::of($input)->walk(
             function (int $item, int $key) use (&$result): void {
