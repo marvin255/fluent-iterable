@@ -3,7 +3,7 @@
 [![Latest Stable Version](https://poser.pugx.org/marvin255/fluent-iterable/v/stable.png)](https://packagist.org/packages/marvin255/fluent-iterable)
 [![Total Downloads](https://poser.pugx.org/marvin255/fluent-iterable/downloads.png)](https://packagist.org/packages/marvin255/fluent-iterable)
 [![License](https://poser.pugx.org/marvin255/fluent-iterable/license.svg)](https://packagist.org/packages/marvin255/fluent-iterable)
-[![Build Status](https://github.com/marvin255/fluent-iterable/workflows/random_string_generator/badge.svg)](https://github.com/marvin255/fluent-iterable/actions?query=workflow%3A%22marvin255_fluent_iterable%22)
+[![Build Status](https://github.com/marvin255/fluent-iterable/workflows/marvin255_fluent_iterable/badge.svg)](https://github.com/marvin255/fluent-iterable/actions?query=workflow%3A%22marvin255_fluent_iterable%22)
 
 Interface which provides `map`, `filter` and other array related functions for any iterable instance (`array`, `Iterator`, `Generator`) in simple fluent style.
 
