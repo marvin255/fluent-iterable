@@ -6,6 +6,7 @@ namespace Marvin255\FluentIterable;
 
 use CallbackFilterIterator;
 use Iterator;
+use IteratorAggregate;
 use Marvin255\FluentIterable\Iterator\AnySourceIterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
 use Marvin255\FluentIterable\Iterator\MergedIteratorsIterator;
@@ -17,7 +18,7 @@ use Marvin255\Optional\Optional;
  *
  * @template TValue
  */
-final class FluentIterable
+final class FluentIterable implements IteratorAggregate
 {
     /**
      * @var Iterator<int, TValue>
@@ -218,7 +219,7 @@ final class FluentIterable
      *
      * @return Iterator<int, TValue>
      */
-    public function toIterator(): Iterator
+    public function getIterator(): Iterator
     {
         return $this->iterator;
     }

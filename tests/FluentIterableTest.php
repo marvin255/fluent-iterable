@@ -426,11 +426,11 @@ class FluentIterableTest extends BaseCase
     /**
      * @psalm-param iterable $input
      * @psalm-param array $reference
-     * @dataProvider provideToIteratorData
+     * @dataProvider provideGetIteratorData
      */
-    public function testToIterator(iterable $input, array $reference): void
+    public function testGetIterator(iterable $input, array $reference): void
     {
-        $iterator = FluentIterable::of($input)->toIterator();
+        $iterator = FluentIterable::of($input)->getIterator();
 
         $result = [];
         foreach ($iterator as $key => $item) {
@@ -440,7 +440,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideToIteratorData(): array
+    public function provideGetIteratorData(): array
     {
         return [
             'array' => [
