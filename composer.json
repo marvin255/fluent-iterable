@@ -2,7 +2,7 @@
   "name": "marvin255/fluent-iterable",
   "type": "library",
   "description": "Fluent interfcae for PHP iterable.",
-  "keywords": ["php", "iterator"],
+  "keywords": ["php", "iterator", "array", "fluent interface"],
   "license": "MIT",
   "require": {
     "php": ">=8.1",
