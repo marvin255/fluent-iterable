@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Iterator;
 
+use Countable;
 use InvalidArgumentException;
 use Iterator;
 
@@ -16,7 +17,7 @@ use Iterator;
  *
  * @implements Iterator<int, mixed>
  */
-class MergedIteratorsIterator implements Iterator
+class MergedIteratorsIterator implements Countable, Iterator
 {
     /**
      * @var Iterator[]
@@ -81,6 +82,16 @@ class MergedIteratorsIterator implements Iterator
         }
 
         return $isValid;
+    }
+
+    public function count(): int
+    {
+        $count = 0;
+        foreach ($this->iterators as $iterator) {
+            $count += $iterator instanceof Countable ? $iterator->count() : iterator_count($iterator);
+        }
+
+        return $count;
     }
 
     private function getCurrentIterator(): Iterator
