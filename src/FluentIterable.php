@@ -200,6 +200,27 @@ final class FluentIterable implements IteratorAggregate
     }
 
     /**
+     * Return maximal item using set comparator.
+     *
+     * @param callable $comparator
+     *
+     * @return Optional<TValue>
+     *
+     * @psalm-param callable(TValue, TValue): int $comparator
+     */
+    public function max(callable $comparator): Optional
+    {
+        $max = null;
+        foreach ($this->iterator as $item) {
+            if ($max === null || \call_user_func($comparator, $item, $max) > 0) {
+                $max = $item;
+            }
+        }
+
+        return Optional::ofNullable($max);
+    }
+
+    /**
      * Return the first item from an iterable.
      *
      * @return Optional<TValue>
