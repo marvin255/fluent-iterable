@@ -18,4 +18,9 @@ final class IteratorHelper
             ? $iterator->count()
             : iterator_count($iterator);
     }
+
+    public static function toArray(Iterator $iterator): array
+    {
+        return iterator_to_array($iterator, false);
+    }
 }
