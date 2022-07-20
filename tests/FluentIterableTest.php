@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Tests;
 
 use ArrayObject;
-use Countable;
-use Iterator;
 use Marvin255\FluentIterable\FluentIterable;
 
 /**
