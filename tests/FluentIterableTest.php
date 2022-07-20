@@ -459,38 +459,6 @@ class FluentIterableTest extends BaseCase
                 [],
                 0,
             ],
-            'countable iterator' => [
-                new class() implements Countable, Iterator {
-                    public function current(): mixed
-                    {
-                        return 1;
-                    }
-
-                    public function key(): int
-                    {
-                        return 1;
-                    }
-
-                    public function next(): void
-                    {
-                    }
-
-                    public function rewind(): void
-                    {
-                    }
-
-                    public function valid(): bool
-                    {
-                        return false;
-                    }
-
-                    public function count(): int
-                    {
-                        return 2;
-                    }
-                },
-                2,
-            ],
         ];
     }
 
