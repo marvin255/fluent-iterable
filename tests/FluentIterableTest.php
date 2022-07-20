@@ -427,8 +427,8 @@ class FluentIterableTest extends BaseCase
 
     /**
      * @psalm-param iterable<int> $input
-     * @psalm-param callable(mixed, int=): bool $filter
-     * @psalm-param mixed $orElse
+     * @psalm-param callable(int, int=): bool $filter
+     * @psalm-param int $orElse
      * @psalm-param mixed $reference
      * @dataProvider provideFindOneData
      */
@@ -476,6 +476,12 @@ class FluentIterableTest extends BaseCase
                 fn (int $item): bool => $item === 3,
                 123123,
                 123123,
+            ],
+            'if two items are equal then first should be returned' => [
+                [1, 2, 3, 4],
+                fn (int $item): bool => $item < 3,
+                0,
+                1,
             ],
         ];
     }
