@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use ArrayObject;
+use Countable;
 use Iterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
 use Marvin255\FluentIterable\Tests\BaseCase;
@@ -44,6 +45,64 @@ class CallbackMapIteratorTest extends BaseCase
                 (new ArrayObject(['q', 'w', 'e']))->getIterator(),
                 fn (string $letter): string => "{$letter}a",
                 ['qa', 'wa', 'ea'],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider provideCountData
+     */
+    public function testCount(Iterator $input, int $reference): void
+    {
+        $immutableIterator = new CallbackMapIterator($input, fn () => false);
+
+        $result = \count($immutableIterator);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideCountData(): array
+    {
+        return [
+            'iterator' => [
+                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                3,
+            ],
+            'generator' => [
+                (function () {yield 'q'; })(),
+                1,
+            ],
+            'countable only iterator' => [
+                new class() implements Countable, Iterator {
+                    public function current(): mixed
+                    {
+                        return 1;
+                    }
+
+                    public function key(): int
+                    {
+                        return 1;
+                    }
+
+                    public function next(): void
+                    {
+                    }
+
+                    public function rewind(): void
+                    {
+                    }
+
+                    public function valid(): bool
+                    {
+                        return false;
+                    }
+
+                    public function count(): int
+                    {
+                        return 2;
+                    }
+                },
+                2,
             ],
         ];
     }

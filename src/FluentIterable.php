@@ -7,6 +7,7 @@ namespace Marvin255\FluentIterable;
 use CallbackFilterIterator;
 use Iterator;
 use IteratorAggregate;
+use Marvin255\FluentIterable\Helper\IteratorHelper;
 use Marvin255\FluentIterable\Iterator\AnySourceIterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
 use Marvin255\FluentIterable\Iterator\MergedIteratorsIterator;
@@ -205,13 +206,23 @@ final class FluentIterable implements IteratorAggregate
     }
 
     /**
+     * Returns number of items in those iterable.
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return IteratorHelper::count($this->iterator);
+    }
+
+    /**
      * Convert the internal data to an array and return it.
      *
      * @return array<int, TValue>
      */
     public function toArray(): array
     {
-        return iterator_to_array($this->iterator, false);
+        return IteratorHelper::toArray($this->iterator);
     }
 
     /**

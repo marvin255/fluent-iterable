@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Tests;
 
 use ArrayObject;
+use Countable;
+use Iterator;
 use Marvin255\FluentIterable\FluentIterable;
 
 /**
@@ -419,6 +421,75 @@ class FluentIterableTest extends BaseCase
                 [],
                 123,
                 123,
+            ],
+        ];
+    }
+
+    /**
+     * @psalm-param iterable $input
+     * @psalm-param mixed $count
+     * @dataProvider provideCountData
+     */
+    public function testCount(iterable $input, int $count): void
+    {
+        $result = FluentIterable::of($input)->count();
+
+        $this->assertSame($count, $result);
+    }
+
+    public function provideCountData(): array
+    {
+        return [
+            'array' => [
+                [1, 2, 3, 4],
+                4,
+            ],
+            'iterator' => [
+                (new ArrayObject([1, 2, 3]))->getIterator(),
+                3,
+            ],
+            'generator' => [
+                (function () {
+                    yield 1;
+                    yield 4;
+                })(),
+                2,
+            ],
+            'empty input' => [
+                [],
+                0,
+            ],
+            'countable iterator' => [
+                new class() implements Countable, Iterator {
+                    public function current(): mixed
+                    {
+                        return 1;
+                    }
+
+                    public function key(): int
+                    {
+                        return 1;
+                    }
+
+                    public function next(): void
+                    {
+                    }
+
+                    public function rewind(): void
+                    {
+                    }
+
+                    public function valid(): bool
+                    {
+                        return false;
+                    }
+
+                    public function count(): int
+                    {
+                        return 10;
+                    }
+                },
+                10,
             ],
         ];
     }

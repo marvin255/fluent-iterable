@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use ArrayObject;
+use Countable;
 use InvalidArgumentException;
+use Iterator;
 use Marvin255\FluentIterable\Iterator\MergedIteratorsIterator;
 use Marvin255\FluentIterable\Tests\BaseCase;
 
@@ -65,5 +67,49 @@ class MergedIteratorsIteratorTest extends BaseCase
                 ['q', 'w', 'e', 1, 2, 3],
             ],
         ];
+    }
+
+    public function testCount(): void
+    {
+        $immutableIterator = new MergedIteratorsIterator(
+            [
+                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                (new ArrayObject([]))->getIterator(),
+                new class() implements Countable, Iterator {
+                    public function current(): mixed
+                    {
+                        return 1;
+                    }
+
+                    public function key(): int
+                    {
+                        return 1;
+                    }
+
+                    public function next(): void
+                    {
+                    }
+
+                    public function rewind(): void
+                    {
+                    }
+
+                    public function valid(): bool
+                    {
+                        return false;
+                    }
+
+                    public function count(): int
+                    {
+                        return 10;
+                    }
+                },
+                (function () {yield 'y'; })(),
+            ]
+        );
+
+        $result = \count($immutableIterator);
+
+        $this->assertSame(14, $result);
     }
 }
