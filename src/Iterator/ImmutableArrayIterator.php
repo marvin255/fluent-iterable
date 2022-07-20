@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Iterator;
 
+use Countable;
 use Iterator;
 
 /**
@@ -11,18 +12,21 @@ use Iterator;
  *
  * @implements Iterator<int, mixed>
  */
-class ImmutableArrayIterator implements Iterator
+class ImmutableArrayIterator implements Countable, Iterator
 {
     /**
      * @var array<int, mixed>
      */
     private readonly array $array;
 
+    private readonly int $arrayCount;
+
     private int $counter = 0;
 
     public function __construct(array $array)
     {
         $this->array = array_values($array);
+        $this->arrayCount = \count($array);
     }
 
     public function current(): mixed
@@ -47,6 +51,11 @@ class ImmutableArrayIterator implements Iterator
 
     public function valid(): bool
     {
-        return $this->counter < \count($this->array);
+        return $this->counter < $this->arrayCount;
+    }
+
+    public function count(): int
+    {
+        return $this->arrayCount;
     }
 }

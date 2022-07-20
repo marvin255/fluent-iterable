@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable;
 
 use CallbackFilterIterator;
+use Countable;
 use Iterator;
 use IteratorAggregate;
 use Marvin255\FluentIterable\Iterator\AnySourceIterator;
@@ -202,6 +203,25 @@ final class FluentIterable implements IteratorAggregate
         }
 
         return Optional::ofNullable($lastItem);
+    }
+
+    /**
+     * Returns number of items in those iterable.
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        if ($this->iterator instanceof Countable) {
+            return \count($this->iterator);
+        }
+
+        $count = 0;
+        foreach ($this->iterator as $item) {
+            ++$count;
+        }
+
+        return $count;
     }
 
     /**

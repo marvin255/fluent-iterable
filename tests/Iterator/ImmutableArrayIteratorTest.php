@@ -67,4 +67,13 @@ class ImmutableArrayIteratorTest extends BaseCase
 
         $this->assertSame($reference, $result);
     }
+
+    public function testCount(): void
+    {
+        $immutableIterator = new ImmutableArrayIterator([1, 2, 3]);
+
+        $result = \count($immutableIterator);
+
+        $this->assertSame(3, $result);
+    }
 }

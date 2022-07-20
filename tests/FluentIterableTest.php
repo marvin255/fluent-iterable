@@ -425,6 +425,43 @@ class FluentIterableTest extends BaseCase
 
     /**
      * @psalm-param iterable $input
+     * @psalm-param mixed $count
+     * @dataProvider provideCountData
+     */
+    public function testCount(iterable $input, int $count): void
+    {
+        $result = FluentIterable::of($input)->count();
+
+        $this->assertSame($count, $result);
+    }
+
+    public function provideCountData(): array
+    {
+        return [
+            'array' => [
+                [1, 2, 3, 4],
+                4,
+            ],
+            'iterator' => [
+                (new ArrayObject([1, 2, 3]))->getIterator(),
+                3,
+            ],
+            'generator' => [
+                (function () {
+                    yield 1;
+                    yield 4;
+                })(),
+                2,
+            ],
+            'empty input' => [
+                [],
+                0,
+            ],
+        ];
+    }
+
+    /**
+     * @psalm-param iterable $input
      * @psalm-param array $reference
      * @dataProvider provideGetIteratorData
      */
