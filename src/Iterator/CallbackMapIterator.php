@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Iterator;
 
+use Countable;
 use Iterator;
+use Marvin255\FluentIterable\Helper\IteratorHelper;
 
 /**
  * Iterator that converts every item using callback function.
@@ -14,7 +16,7 @@ use Iterator;
  * @psalm-template TConverted
  * @implements Iterator<int, TConverted>
  */
-class CallbackMapIterator implements Iterator
+class CallbackMapIterator implements Countable, Iterator
 {
     /**
      * @psalm-var Iterator<mixed, TValue>
@@ -69,5 +71,10 @@ class CallbackMapIterator implements Iterator
     public function valid(): bool
     {
         return $this->iterator->valid();
+    }
+
+    public function count(): int
+    {
+        return IteratorHelper::count($this->iterator);
     }
 }

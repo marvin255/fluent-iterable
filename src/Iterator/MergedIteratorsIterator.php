@@ -29,7 +29,7 @@ final class MergedIteratorsIterator implements Countable, Iterator
 
     private int $iteratorCounter = 0;
 
-    private function __construct(iterable $iterators)
+    public function __construct(iterable $iterators)
     {
         $checkedIterators = [];
         foreach ($iterators as $iterator) {
