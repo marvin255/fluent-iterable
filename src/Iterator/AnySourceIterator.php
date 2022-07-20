@@ -7,6 +7,7 @@ namespace Marvin255\FluentIterable\Iterator;
 use Countable;
 use Iterator;
 use IteratorIterator;
+use Marvin255\FluentIterable\Helper\IteratorHelper;
 
 /**
  * Iterator that can convert any iterable entity to the Iterator.
@@ -94,8 +95,6 @@ final class AnySourceIterator implements Countable, Iterator
 
     public function count(): int
     {
-        return $this->iterator instanceof Countable
-            ? $this->iterator->count()
-            : iterator_count($this->iterator);
+        return IteratorHelper::count($this->iterator);
     }
 }

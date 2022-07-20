@@ -7,6 +7,7 @@ namespace Marvin255\FluentIterable\Iterator;
 use Countable;
 use InvalidArgumentException;
 use Iterator;
+use Marvin255\FluentIterable\Helper\IteratorHelper;
 
 /**
  * Iterator that can iterates over multiple nested iterators.
@@ -17,7 +18,7 @@ use Iterator;
  *
  * @implements Iterator<int, mixed>
  */
-class MergedIteratorsIterator implements Countable, Iterator
+final class MergedIteratorsIterator implements Countable, Iterator
 {
     /**
      * @var Iterator[]
@@ -28,7 +29,7 @@ class MergedIteratorsIterator implements Countable, Iterator
 
     private int $iteratorCounter = 0;
 
-    public function __construct(iterable $iterators)
+    private function __construct(iterable $iterators)
     {
         $checkedIterators = [];
         foreach ($iterators as $iterator) {
@@ -88,7 +89,7 @@ class MergedIteratorsIterator implements Countable, Iterator
     {
         $count = 0;
         foreach ($this->iterators as $iterator) {
-            $count += $iterator instanceof Countable ? $iterator->count() : iterator_count($iterator);
+            $count += IteratorHelper::count($iterator);
         }
 
         return $count;
