@@ -74,21 +74,21 @@ final class FluentIterable implements IteratorAggregate
     }
 
     /**
-     * Filter elements of an iterable using a callback function.
+     * Filter elements of an iterable using a filter function.
      *
-     * @param callable $callback
+     * @param callable $filter
      *
      * @return self<TValue>
      *
-     * @psalm-param callable(TValue, int=): bool $callback
+     * @psalm-param callable(TValue, int=): bool $filter
      */
-    public function filter(callable $callback): self
+    public function filter(callable $filter): self
     {
-        $filterCallback = function (mixed $current, int $key, Iterator $iterator) use ($callback): bool {
+        $filterCallback = function (mixed $current, int $key, Iterator $iterator) use ($filter): bool {
             /** @psalm-var TValue */
             $item = $current;
 
-            return \call_user_func($callback, $item, $key);
+            return \call_user_func($filter, $item, $key);
         };
 
         $iterator = new CallbackFilterIterator($this->iterator, $filterCallback);
@@ -218,6 +218,28 @@ final class FluentIterable implements IteratorAggregate
         }
 
         return Optional::ofNullable($max);
+    }
+
+    /**
+     * Return the first item that fits the filter and breaks the loop.
+     *
+     * @param callable $filter
+     *
+     * @return Optional<TValue>
+     *
+     * @psalm-param callable(TValue, int=): bool $filter
+     */
+    public function findOne(callable $filter): Optional
+    {
+        $found = null;
+        foreach ($this->iterator as $key => $item) {
+            if (\call_user_func($filter, $item, $key)) {
+                $found = $item;
+                break;
+            }
+        }
+
+        return Optional::ofNullable($found);
     }
 
     /**

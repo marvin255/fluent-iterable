@@ -427,6 +427,67 @@ class FluentIterableTest extends BaseCase
 
     /**
      * @psalm-param iterable<int> $input
+     * @psalm-param callable(int, int=): bool $filter
+     * @psalm-param int $orElse
+     * @psalm-param mixed $reference
+     * @dataProvider provideFindOneData
+     */
+    public function testFindOne(iterable $input, callable $filter, int $orElse, mixed $reference): void
+    {
+        $result = FluentIterable::of($input)->findOne($filter)->orElse($orElse);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideFindOneData(): array
+    {
+        return [
+            'array' => [
+                [1, 2, 3, 4],
+                fn (int $item): bool => $item === 3,
+                0,
+                3,
+            ],
+            'iterator' => [
+                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                fn (int $item): bool => $item === 3,
+                0,
+                3,
+            ],
+            'generator' => [
+                (function () {
+                    yield 1;
+                    yield 2;
+                    yield 3;
+                    yield 4;
+                })(),
+                fn (int $item): bool => $item === 3,
+                0,
+                3,
+            ],
+            'nothing found' => [
+                [1, 2, 3, 4],
+                fn (int $item): bool => $item === 12,
+                123123,
+                123123,
+            ],
+            'empty array' => [
+                [],
+                fn (int $item): bool => $item === 3,
+                123123,
+                123123,
+            ],
+            'if two items are equal then first should be returned' => [
+                [1, 2, 3, 4],
+                fn (int $item): bool => $item < 3,
+                0,
+                1,
+            ],
+        ];
+    }
+
+    /**
+     * @psalm-param iterable<int> $input
      * @psalm-param int $orElse
      * @psalm-param mixed $reference
      * @dataProvider provideFindFirstData
