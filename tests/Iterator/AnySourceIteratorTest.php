@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use ArrayObject;
+use Countable;
 use Generator;
+use Iterator;
 use Marvin255\FluentIterable\Iterator\AnySourceIterator;
 use Marvin255\FluentIterable\Tests\BaseCase;
 
@@ -89,6 +91,76 @@ class AnySourceIteratorTest extends BaseCase
                     yield 'e';
                 })(),
                 ['q', 'w', 'e'],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider provideCountData
+     */
+    public function testCount(iterable $input, int $reference): void
+    {
+        $immutableIterator = AnySourceIterator::of($input);
+
+        $result = \count($immutableIterator);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideCountData(): array
+    {
+        return [
+            'array' => [
+                ['q', 'w', 'e'],
+                3,
+            ],
+            'empty array' => [
+                [],
+                0,
+            ],
+            'iterator' => [
+                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                3,
+            ],
+            'iterator aggregate' => [
+                new ArrayObject(['q', 'w', 'e']),
+                3,
+            ],
+            'generator' => [
+                (function () {yield 'q'; })(),
+                1,
+            ],
+            'countable only iterator' => [
+                new class() implements Countable, Iterator {
+                    public function current(): mixed
+                    {
+                        return 1;
+                    }
+
+                    public function key(): int
+                    {
+                        return 1;
+                    }
+
+                    public function next(): void
+                    {
+                    }
+
+                    public function rewind(): void
+                    {
+                    }
+
+                    public function valid(): bool
+                    {
+                        return false;
+                    }
+
+                    public function count(): int
+                    {
+                        return 2;
+                    }
+                },
+                2,
             ],
         ];
     }

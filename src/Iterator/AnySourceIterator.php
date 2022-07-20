@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Iterator;
 
+use Countable;
 use Iterator;
 use IteratorIterator;
 
@@ -14,7 +15,7 @@ use IteratorIterator;
  * @template TValue
  * @implements Iterator<int, TValue>
  */
-final class AnySourceIterator implements Iterator
+final class AnySourceIterator implements Countable, Iterator
 {
     /**
      * @var Iterator<mixed, TValue>
@@ -89,5 +90,12 @@ final class AnySourceIterator implements Iterator
     public function valid(): bool
     {
         return $this->iterator->valid();
+    }
+
+    public function count(): int
+    {
+        return $this->iterator instanceof Countable
+            ? $this->iterator->count()
+            : iterator_count($this->iterator);
     }
 }
