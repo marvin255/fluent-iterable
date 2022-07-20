@@ -338,6 +338,50 @@ class FluentIterableTest extends BaseCase
     }
 
     /**
+     * @psalm-param iterable $input
+     * @psalm-param callable(mixed, mixed, int=): int $comparator
+     * @psalm-param mixed $reference
+     * @dataProvider provideMinData
+     */
+    public function testMin(iterable $input, callable $comparator, mixed $reference): void
+    {
+        $result = FluentIterable::of($input)->min($comparator)->get();
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideMinData(): array
+    {
+        return [
+            'array' => [
+                [4, 3, 2, 1, 7, 19],
+                fn (int $o1, int $o2): int => $o1 <=> $o2,
+                1,
+            ],
+            'if two items are equal then first should be returned' => [
+                [[1, 1, 1], [2, 2, 2], [3, 3, 3, 3]],
+                fn (array $o1, array $o2): int => \count($o1) <=> \count($o2),
+                [1, 1, 1],
+            ],
+            'iterator' => [
+                (new ArrayObject([4, 3, 2, 1, 7, 19]))->getIterator(),
+                fn (int $o1, int $o2): int => $o1 <=> $o2,
+                1,
+            ],
+            'generator' => [
+                (function () {
+                    yield 1;
+                    yield 2;
+                    yield 3;
+                    yield 4;
+                })(),
+                fn (int $o1, int $o2): int => $o1 <=> $o2,
+                1,
+            ],
+        ];
+    }
+
+    /**
      * @psalm-param iterable<int> $input
      * @psalm-param int $orElse
      * @psalm-param mixed $reference
