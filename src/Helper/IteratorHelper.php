@@ -19,6 +19,13 @@ final class IteratorHelper
             : iterator_count($iterator);
     }
 
+    /**
+     * @template T
+     *
+     * @param Iterator<mixed, T> $iterator
+     *
+     * @return array<int, T>
+     */
     public static function toArray(Iterator $iterator): array
     {
         return iterator_to_array($iterator, false);

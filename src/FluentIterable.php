@@ -179,6 +179,27 @@ final class FluentIterable implements IteratorAggregate
     }
 
     /**
+     * Return minimal item using set comparator.
+     *
+     * @param callable $comparator
+     *
+     * @return Optional<TValue>
+     *
+     * @psalm-param callable(TValue, TValue): int $comparator
+     */
+    public function min(callable $comparator): Optional
+    {
+        $min = null;
+        foreach ($this->iterator as $item) {
+            if ($min === null || \call_user_func($comparator, $item, $min) < 0) {
+                $min = $item;
+            }
+        }
+
+        return Optional::ofNullable($min);
+    }
+
+    /**
      * Return the first item from an iterable.
      *
      * @return Optional<TValue>
