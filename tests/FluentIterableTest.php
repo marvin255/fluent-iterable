@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Tests;
 
 use ArrayObject;
+use Countable;
+use Iterator;
 use Marvin255\FluentIterable\FluentIterable;
 
 /**
@@ -456,6 +458,38 @@ class FluentIterableTest extends BaseCase
             'empty input' => [
                 [],
                 0,
+            ],
+            'countable iterator' => [
+                new class() implements Countable, Iterator {
+                    public function current(): mixed
+                    {
+                        return 1;
+                    }
+
+                    public function key(): int
+                    {
+                        return 1;
+                    }
+
+                    public function next(): void
+                    {
+                    }
+
+                    public function rewind(): void
+                    {
+                    }
+
+                    public function valid(): bool
+                    {
+                        return false;
+                    }
+
+                    public function count(): int
+                    {
+                        return 2;
+                    }
+                },
+                2,
             ],
         ];
     }

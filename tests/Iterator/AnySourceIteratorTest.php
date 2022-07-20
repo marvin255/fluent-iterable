@@ -34,7 +34,7 @@ class AnySourceIteratorTest extends BaseCase
      */
     public function testIterator(iterable $input, array $reference): void
     {
-        $immutableIterator = new AnySourceIterator($input);
+        $immutableIterator = AnySourceIterator::of($input);
 
         $result = [];
         foreach ($immutableIterator as $key => $item) {
