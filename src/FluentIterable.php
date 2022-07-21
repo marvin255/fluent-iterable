@@ -129,16 +129,15 @@ final class FluentIterable implements IteratorAggregate
     }
 
     /**
-     * Return just a slice from offset with set length.
+     * Set maximal number of items in response.
      *
-     * @param ?int $offset
-     * @param ?int $length
+     * @param int $limit
      *
      * @return self<TValue>
      */
-    public function slice(?int $offset = null, ?int $length = null): self
+    public function limit(int $limit): self
     {
-        $iterator = new SliceIterator($this->iterator, $offset, $length);
+        $iterator = new SliceIterator($this->iterator, 0, $limit);
 
         return new self($iterator);
     }
