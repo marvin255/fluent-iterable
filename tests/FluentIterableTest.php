@@ -196,14 +196,13 @@ class FluentIterableTest extends BaseCase
 
     /**
      * @psalm-param iterable $input
-     * @psalm-param ?int $offset
-     * @psalm-param ?int $length
+     * @psalm-param int $limit
      * @psalm-param array<int, mixed> $reference
      * @dataProvider provideSliceData
      */
-    public function testSlice(iterable $input, ?int $offset, ?int $length, array $reference): void
+    public function testLimit(iterable $input, int $limit, array $reference): void
     {
-        $result = FluentIterable::of($input)->slice($offset, $length)->toArray();
+        $result = FluentIterable::of($input)->limit($limit)->toArray();
 
         $this->assertSame($reference, $result);
     }
@@ -214,14 +213,12 @@ class FluentIterableTest extends BaseCase
             'array' => [
                 [1, 2, 3, 4],
                 2,
-                1,
-                [3],
+                [1, 2],
             ],
             'iterator' => [
                 (new ArrayObject([1, 2, 3, 4]))->getIterator(),
                 2,
-                1,
-                [3],
+                [1, 2],
             ],
             'generator' => [
                 (function () {
@@ -231,8 +228,12 @@ class FluentIterableTest extends BaseCase
                     yield 4;
                 })(),
                 2,
-                1,
-                [3],
+                [1, 2],
+            ],
+            'limit is more then length' => [
+                [1, 2, 3, 4],
+                10,
+                [1, 2, 3, 4],
             ],
         ];
     }
@@ -703,11 +704,11 @@ class FluentIterableTest extends BaseCase
             ->skip(3)
             ->filter(fn (int $item): bool => $item > 2)
             ->filter(fn (int $item): bool => $item < 7)
-            ->slice(1, 2)
+            ->limit(2)
             ->map(fn (int $item): int => $item + 1)
             ->map(fn (int $item): int => $item + 1)
             ->toArray();
 
-        $this->assertSame([7, 8], $result);
+        $this->assertSame([6, 7], $result);
     }
 }

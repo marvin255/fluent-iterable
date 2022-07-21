@@ -39,7 +39,7 @@ Initiate item using factory (any `iterable` instance is allowed)
 $fluent = \Marvin255\FluentIterable\FluentIterable::of($input);
 ```
 
-Apply any number of intermediate methods (`merge`, `filter`, `map`, `skip`, `slice`)
+Apply any number of intermediate methods (`merge`, `filter`, `map`, `skip`, `limit`)
 
 ```php
 $fluent = $fluent->map(fn (int $item): int => $item + 1)
@@ -47,7 +47,7 @@ $fluent = $fluent->map(fn (int $item): int => $item + 1)
     ->skip(1);
 ```
 
-Get result using one of finalizing methods (`walk`, `reduce`, `findFirst`, `findLast`, `toArray`, `getIterator`, `count`, `min`, `max`)
+Get result using one of finalizing methods (`walk`, `reduce`, `findOne`, `findFirst`, `findLast`, `toArray`, `getIterator`, `count`, `min`, `max`)
 
 ```php
 $result = $fluent->toArray();
