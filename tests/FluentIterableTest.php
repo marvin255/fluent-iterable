@@ -8,6 +8,7 @@ use ArrayObject;
 use Countable;
 use Iterator;
 use Marvin255\FluentIterable\FluentIterable;
+use RuntimeException;
 
 /**
  * @internal
@@ -481,6 +482,92 @@ class FluentIterableTest extends BaseCase
             'if two items are equal then first should be returned' => [
                 [1, 2, 3, 4],
                 fn (int $item): bool => $item < 3,
+                0,
+                1,
+            ],
+        ];
+    }
+
+    /**
+     * @psalm-param iterable<int> $input
+     * @psalm-param int $index
+     * @psalm-param int $orElse
+     * @psalm-param mixed $reference
+     * @dataProvider provideFindByIndexData
+     */
+    public function testFindByIndex(iterable $input, int $index, int $orElse, mixed $reference): void
+    {
+        $result = FluentIterable::of($input)->findByIndex($index)->orElse($orElse);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideFindByIndexData(): array
+    {
+        return [
+            'array' => [
+                [1, 2, 3, 4],
+                3,
+                0,
+                4,
+            ],
+            'iterator' => [
+                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                2,
+                0,
+                3,
+            ],
+            'generator' => [
+                (function () {
+                    yield 1;
+                    yield 2;
+                    yield 3;
+                    yield 4;
+                })(),
+                1,
+                0,
+                2,
+            ],
+            'empty input' => [
+                [],
+                0,
+                123,
+                123,
+            ],
+            'check break in the loop' => [
+                new class() implements Iterator {
+                    private int $counter = 0;
+
+                    public function current(): mixed
+                    {
+                        return $this->counter;
+                    }
+
+                    public function key(): int
+                    {
+                        return $this->counter;
+                    }
+
+                    public function next(): void
+                    {
+                        ++$this->counter;
+                    }
+
+                    public function rewind(): void
+                    {
+                        $this->counter = 0;
+                    }
+
+                    public function valid(): bool
+                    {
+                        if ($this->counter > 1) {
+                            throw new RuntimeException("Can't iterate over 3");
+                        }
+
+                        return true;
+                    }
+                },
+                1,
                 0,
                 1,
             ],
