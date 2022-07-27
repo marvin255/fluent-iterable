@@ -242,15 +242,31 @@ final class FluentIterable implements IteratorAggregate
     }
 
     /**
+     * Return item by set index.
+     *
+     * @return Optional<TValue>
+     */
+    public function findByIndex(int $index): Optional
+    {
+        $itemByIndex = null;
+        foreach ($this->iterator as $key => $item) {
+            if ($key === $index) {
+                $itemByIndex = $item;
+                break;
+            }
+        }
+
+        return Optional::ofNullable($itemByIndex);
+    }
+
+    /**
      * Return the first item from an iterable.
      *
      * @return Optional<TValue>
      */
     public function findFirst(): Optional
     {
-        return $this->iterator->valid()
-            ? Optional::of($this->iterator->current())
-            : Optional::empty();
+        return $this->findByIndex(0);
     }
 
     /**
@@ -260,6 +276,7 @@ final class FluentIterable implements IteratorAggregate
      */
     public function findLast(): Optional
     {
+        // this approach is much faster then findByIndex + count
         $lastItem = null;
         foreach ($this->iterator as $item) {
             $lastItem = $item;
