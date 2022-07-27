@@ -41,7 +41,7 @@
         "vendor/bin/psalm --show-info=true --php-version=$(php -r \"echo phpversion();\")"
     ],
     "infection": [
-      "vendor/bin/infection"
+      "vendor/bin/infection --min-msi=100 --min-covered-msi=100 --threads=4"
     ]
   },
   "config": {
