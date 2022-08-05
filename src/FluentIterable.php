@@ -171,12 +171,12 @@ final class FluentIterable implements IteratorAggregate
      *
      * @template TConverted
      *
-     * @param callable   $callback
-     * @param TConverted $initial
+     * @param callable        $callback
+     * @param TConverted|null $initial
      *
      * @return Optional<TConverted>
      *
-     * @psalm-param callable(TConverted, TValue, int=): TConverted $callback
+     * @psalm-param callable(TConverted|null, TValue, int=): TConverted $callback
      */
     public function reduce(callable $callback, mixed $initial = null): Optional
     {
