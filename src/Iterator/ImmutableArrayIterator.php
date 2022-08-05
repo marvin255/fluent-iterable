@@ -12,7 +12,7 @@ use Iterator;
  *
  * @implements Iterator<int, mixed>
  */
-class ImmutableArrayIterator implements Countable, Iterator
+final class ImmutableArrayIterator implements Countable, Iterator
 {
     /**
      * @var array<int, mixed>

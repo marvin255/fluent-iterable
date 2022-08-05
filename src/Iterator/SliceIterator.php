@@ -14,7 +14,7 @@ use Iterator;
  * @template TValue
  * @implements Iterator<int, TValue>
  */
-class SliceIterator implements Iterator
+final class SliceIterator implements Iterator
 {
     /**
      * @var Iterator<mixed, TValue>

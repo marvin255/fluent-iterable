@@ -16,7 +16,7 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  * @psalm-template TConverted
  * @implements Iterator<int, TConverted>
  */
-class CallbackMapIterator implements Countable, Iterator
+final class CallbackMapIterator implements Countable, Iterator
 {
     /**
      * @psalm-var Iterator<mixed, TValue>

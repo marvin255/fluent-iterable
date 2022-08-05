@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable;
 
-use CallbackFilterIterator;
 use Iterator;
 use IteratorAggregate;
 use Marvin255\FluentIterable\Helper\IteratorHelper;
 use Marvin255\FluentIterable\Iterator\AnySourceIterator;
+use Marvin255\FluentIterable\Iterator\CallbackFilterIterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
 use Marvin255\FluentIterable\Iterator\MergedIteratorsIterator;
 use Marvin255\FluentIterable\Iterator\SliceIterator;
@@ -84,14 +84,7 @@ final class FluentIterable implements IteratorAggregate
      */
     public function filter(callable $filter): self
     {
-        $filterCallback = function (mixed $current, int $key, Iterator $iterator) use ($filter): bool {
-            /** @psalm-var TValue */
-            $item = $current;
-
-            return \call_user_func($filter, $item, $key);
-        };
-
-        $iterator = new CallbackFilterIterator($this->iterator, $filterCallback);
+        $iterator = new CallbackFilterIterator($this->iterator, $filter);
 
         return new self($iterator);
     }
