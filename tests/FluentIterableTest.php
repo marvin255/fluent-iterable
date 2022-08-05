@@ -240,6 +240,50 @@ class FluentIterableTest extends BaseCase
     }
 
     /**
+     * @psalm-param iterable $input
+     * @psalm-param callable(mixed, mixed): int $callback
+     * @psalm-param array<int, mixed> $reference
+     * @dataProvider provideSorted
+     */
+    public function testSorted(iterable $input, callable $callback, array $reference): void
+    {
+        $result = FluentIterable::of($input)->sorted($callback)->toArray();
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideSorted(): array
+    {
+        return [
+            'array' => [
+                [3, 1, 4, 2],
+                fn (int $a, int $b): int => $a <=> $b,
+                [1, 2, 3, 4],
+            ],
+            'empty array' => [
+                [],
+                fn (int $a, int $b): int => $a <=> $b,
+                [],
+            ],
+            'iterator' => [
+                (new ArrayObject([4, 3, 2, 1]))->getIterator(),
+                fn (int $a, int $b): int => $a <=> $b,
+                [1, 2, 3, 4],
+            ],
+            'generator' => [
+                (function () {
+                    yield 3;
+                    yield 1;
+                    yield 2;
+                    yield 4;
+                })(),
+                fn (int $a, int $b): int => $a <=> $b,
+                [1, 2, 3, 4],
+            ],
+        ];
+    }
+
+    /**
      * @psalm-param iterable<int, int> $input
      * @psalm-param array<int, int> $reference
      * @psalm-suppress MixedArrayAssignment
