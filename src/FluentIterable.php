@@ -12,6 +12,7 @@ use Marvin255\FluentIterable\Iterator\CallbackFilterIterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
 use Marvin255\FluentIterable\Iterator\MergedIteratorsIterator;
 use Marvin255\FluentIterable\Iterator\SliceIterator;
+use Marvin255\FluentIterable\Iterator\SortedIterator;
 use Marvin255\Optional\Optional;
 
 /**
@@ -131,6 +132,22 @@ final class FluentIterable implements IteratorAggregate
     public function limit(int $limit): self
     {
         $iterator = new SliceIterator($this->iterator, 0, $limit);
+
+        return new self($iterator);
+    }
+
+    /**
+     * Set sorting for current iterating data.
+     *
+     * @param callable $callback
+     *
+     * @return self<TValue>
+     *
+     * @psalm-param callable(TValue, TValue): int $callback
+     */
+    public function sorted(callable $callback): self
+    {
+        $iterator = new SortedIterator($this->iterator, $callback);
 
         return new self($iterator);
     }
