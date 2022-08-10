@@ -15,7 +15,7 @@ $result = \Marvin255\FluentIterable\FluentIterable::of($input)
     ->skip(1)
     ->filter(fn (int $item): bool => $item < 4)
     ->map(fn (int $item): int => $item + 1)
-    ->reduce(fn (int $carry, int $item): int => $carry + $item)
+    ->reduce(fn (int $carry, int $item): int => $carry + $item, 0)
     ->get();
 ``` 
 
@@ -39,7 +39,7 @@ Initiate item using factory (any `iterable` instance is allowed)
 $fluent = \Marvin255\FluentIterable\FluentIterable::of($input);
 ```
 
-Apply any number of intermediate methods (`merge`, `filter`, `map`, `skip`, `limit`, `sorted`)
+Apply any number of intermediate methods (`merge`, `filter`, `map`, `skip`, `limit`, `sorted`, `peek`)
 
 ```php
 $fluent = $fluent->map(fn (int $item): int => $item + 1)
@@ -54,3 +54,29 @@ $result = $fluent->toArray();
 ```
 
 Methods that convert list to single item (`reduce`, `findOne`, `findByIndex`, `findFirst`, `findLast`, `min`, `max`) return an [`Optional`](https://github.com/marvin255/optional) instance.
+
+
+
+## Debugging
+
+You can use `peek` method to show intermediate data. E.g. 
+
+```php
+$input = new \ArrayObject([1, 2, 3, 4]);
+$result = \Marvin255\FluentIterable\FluentIterable::of($input)
+    ->filter(fn (int $item): bool => $item < 3)
+    ->peek(
+        function (mixed $item): void {
+            var_dump($item);
+        }
+    )
+    ->reduce(fn (int $carry, int $item): int => $carry + $item, 0)
+    ->get();
+```
+
+Will print something like
+
+```
+int(1)
+int(2)
+```
