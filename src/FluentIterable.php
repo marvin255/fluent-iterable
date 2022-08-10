@@ -11,6 +11,7 @@ use Marvin255\FluentIterable\Iterator\AnySourceIterator;
 use Marvin255\FluentIterable\Iterator\CallbackFilterIterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
 use Marvin255\FluentIterable\Iterator\MergedIteratorsIterator;
+use Marvin255\FluentIterable\Iterator\PeekIterator;
 use Marvin255\FluentIterable\Iterator\SliceIterator;
 use Marvin255\FluentIterable\Iterator\SortedIterator;
 use Marvin255\Optional\Optional;
@@ -148,6 +149,23 @@ final class FluentIterable implements IteratorAggregate
     public function sorted(callable $callback): self
     {
         $iterator = new SortedIterator($this->iterator, $callback);
+
+        return new self($iterator);
+    }
+
+    /**
+     * Returns an iterator consisting of the elements of this iterator,
+     * additionally performing the provided action on each element as elements are consumed from the resulting iterator.
+     *
+     * @param callable $callback
+     *
+     * @return self<TValue>
+     *
+     * @psalm-param callable(TValue, int=): void $callback
+     */
+    public function peek(callable $callback): self
+    {
+        $iterator = new PeekIterator($this->iterator, $callback);
 
         return new self($iterator);
     }

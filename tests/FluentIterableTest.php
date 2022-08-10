@@ -241,6 +241,52 @@ class FluentIterableTest extends BaseCase
 
     /**
      * @psalm-param iterable $input
+     * @psalm-param array<int, mixed> $reference
+     * @dataProvider providePeek
+     * @psalm-suppress MixedArrayAssignment
+     */
+    public function testPeek(iterable $input, array $reference): void
+    {
+        $result = [];
+        FluentIterable::of($input)
+            ->peek(
+                function (mixed $item, int $key) use (&$result): void {
+                    $result[$key] = $item;
+                }
+            )
+            ->toArray();
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function providePeek(): array
+    {
+        return [
+            'array' => [
+                ['q', 'w', 'e'],
+                ['q', 'w', 'e'],
+            ],
+            'empty array' => [
+                [],
+                [],
+            ],
+            'iterator' => [
+                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                ['q', 'w', 'e'],
+            ],
+            'generator' => [
+                (function () {
+                    yield 'q';
+                    yield 'w';
+                    yield 'e';
+                })(),
+                ['q', 'w', 'e'],
+            ],
+        ];
+    }
+
+    /**
+     * @psalm-param iterable $input
      * @psalm-param callable(mixed, mixed): int $callback
      * @psalm-param array<int, mixed> $reference
      * @dataProvider provideSorted
