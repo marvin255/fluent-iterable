@@ -31,6 +31,11 @@ abstract class BaseCase extends TestCase
         return (new ArrayObject($data))->getIterator();
     }
 
+    protected function createEmptyIterator(): Iterator
+    {
+        return (new ArrayObject([]))->getIterator();
+    }
+
     protected function createOneItemAndExceptionIterator(): Iterator
     {
         return new class() implements Iterator {
@@ -65,11 +70,6 @@ abstract class BaseCase extends TestCase
                 return true;
             }
         };
-    }
-
-    protected function createEmptyIterator(): Iterator
-    {
-        return (new ArrayObject([]))->getIterator();
     }
 
     protected function createGenerator(mixed ...$data): Generator
