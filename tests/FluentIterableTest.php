@@ -7,7 +7,6 @@ namespace Marvin255\FluentIterable\Tests;
 use Countable;
 use Iterator;
 use Marvin255\FluentIterable\FluentIterable;
-use Marvin255\FluentIterable\Tests\Mocks\OneItemAndExceptionIterator;
 
 /**
  * @internal
@@ -561,7 +560,7 @@ class FluentIterableTest extends BaseCase
                 123,
             ],
             'check break in the loop' => [
-                new OneItemAndExceptionIterator(),
+                $this->createOneItemAndExceptionIterator(),
                 1,
                 0,
                 1,
@@ -684,7 +683,7 @@ class FluentIterableTest extends BaseCase
                 true,
             ],
             'check break in the loop' => [
-                new OneItemAndExceptionIterator(),
+                $this->createOneItemAndExceptionIterator(),
                 fn (int $val): bool => $val > 10,
                 false,
             ],
@@ -728,7 +727,7 @@ class FluentIterableTest extends BaseCase
                 true,
             ],
             'check break in the loop' => [
-                new OneItemAndExceptionIterator(),
+                $this->createOneItemAndExceptionIterator(),
                 fn (int $val): bool => $val < 10,
                 true,
             ],
