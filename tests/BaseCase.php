@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Tests;
 
 use ArrayObject;
+use Countable;
 use Generator;
 use Iterator;
 use IteratorAggregate;
@@ -68,6 +69,46 @@ abstract class BaseCase extends TestCase
                 }
 
                 return true;
+            }
+        };
+    }
+
+    protected function createCountableIterator(int $count): Iterator
+    {
+        return new class($count) implements Countable, Iterator {
+            private int $count;
+
+            public function __construct(int $count)
+            {
+                $this->count = $count;
+            }
+
+            public function current(): mixed
+            {
+                return 1;
+            }
+
+            public function key(): int
+            {
+                return 1;
+            }
+
+            public function next(): void
+            {
+            }
+
+            public function rewind(): void
+            {
+            }
+
+            public function valid(): bool
+            {
+                return false;
+            }
+
+            public function count(): int
+            {
+                return $this->count;
             }
         };
     }

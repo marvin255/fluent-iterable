@@ -40,6 +40,10 @@ class IteratorHelperTest extends BaseCase
                 $this->createGenerator('q', 'w', 'e'),
                 3,
             ],
+            'countable iterator' => [
+                $this->createCountableIterator(11),
+                11,
+            ],
         ];
     }
 

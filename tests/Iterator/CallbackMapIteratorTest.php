@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use Countable;
 use Iterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
 use Marvin255\FluentIterable\Tests\BaseCase;
@@ -72,35 +71,7 @@ class CallbackMapIteratorTest extends BaseCase
                 1,
             ],
             'countable only iterator' => [
-                new class() implements Countable, Iterator {
-                    public function current(): mixed
-                    {
-                        return 1;
-                    }
-
-                    public function key(): int
-                    {
-                        return 1;
-                    }
-
-                    public function next(): void
-                    {
-                    }
-
-                    public function rewind(): void
-                    {
-                    }
-
-                    public function valid(): bool
-                    {
-                        return false;
-                    }
-
-                    public function count(): int
-                    {
-                        return 2;
-                    }
-                },
+                $this->createCountableIterator(2),
                 2,
             ],
         ];
