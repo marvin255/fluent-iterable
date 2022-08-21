@@ -12,18 +12,19 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  * Iterator that converts every item using callback function.
  * All keys will be converted to ints.
  *
- * @psalm-template TValue
- * @psalm-template TConverted
+ * @template TValue
+ * @template TConverted
  * @implements Iterator<int, TConverted>
  */
 final class CallbackMapIterator implements Countable, Iterator
 {
     /**
-     * @psalm-var Iterator<mixed, TValue>
+     * @var Iterator<mixed, TValue>
      */
     private readonly Iterator $iterator;
 
     /**
+     * @var callable
      * @psalm-var callable(TValue, int=): mixed
      */
     private readonly mixed $callback;
@@ -31,7 +32,8 @@ final class CallbackMapIterator implements Countable, Iterator
     private int $count = 0;
 
     /**
-     * @psalm-param Iterator<mixed, TValue> $iterator
+     * @param Iterator<mixed, TValue> $iterator
+     * @param callable                $callback
      * @psalm-param callable(TValue, int=): TConverted $callback
      */
     public function __construct(Iterator $iterator, callable $callback)
@@ -41,7 +43,7 @@ final class CallbackMapIterator implements Countable, Iterator
     }
 
     /**
-     * @psalm-return TConverted
+     * @return TConverted
      */
     public function current(): mixed
     {
