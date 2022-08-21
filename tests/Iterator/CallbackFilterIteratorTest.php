@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use ArrayObject;
 use Iterator;
 use Marvin255\FluentIterable\Iterator\CallbackFilterIterator;
 use Marvin255\FluentIterable\Tests\BaseCase;
@@ -36,21 +35,17 @@ class CallbackFilterIteratorTest extends BaseCase
     {
         return [
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 fn (string $letter): bool => $letter !== 'w',
                 ['q', 'e'],
             ],
             'empty iterator' => [
-                (new ArrayObject([]))->getIterator(),
+                $this->createEmptyIterator(),
                 fn (string $letter): bool => $letter !== 'w',
                 [],
             ],
             'generator' => [
-                (function () {
-                    yield 'q';
-                    yield 'w';
-                    yield 'e';
-                })(),
+                $this->createGenerator('q', 'w', 'e'),
                 fn (string $letter): bool => $letter !== 'w',
                 ['q', 'e'],
             ],
@@ -74,13 +69,11 @@ class CallbackFilterIteratorTest extends BaseCase
     {
         return [
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 3,
             ],
             'generator' => [
-                (function () {
-                    yield 'q';
-                })(),
+                $this->createGenerator('q'),
                 1,
             ],
         ];

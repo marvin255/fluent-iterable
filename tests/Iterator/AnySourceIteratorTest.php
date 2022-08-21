@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use ArrayObject;
-use Countable;
 use Generator;
-use Iterator;
 use Marvin255\FluentIterable\Iterator\AnySourceIterator;
 use Marvin255\FluentIterable\Tests\BaseCase;
 
@@ -73,23 +70,19 @@ class AnySourceIteratorTest extends BaseCase
                 [],
             ],
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
             'iterator aggregate' => [
-                new ArrayObject(['q', 'w', 'e']),
+                $this->createIteratorAggregate('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
             'empty iterator' => [
-                (new ArrayObject([]))->getIterator(),
+                $this->createEmptyIterator(),
                 [],
             ],
             'generator' => [
-                (function () {
-                    yield 'q';
-                    yield 'w';
-                    yield 'e';
-                })(),
+                $this->createGenerator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
         ];
@@ -119,47 +112,19 @@ class AnySourceIteratorTest extends BaseCase
                 0,
             ],
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 3,
             ],
             'iterator aggregate' => [
-                new ArrayObject(['q', 'w', 'e']),
+                $this->createIteratorAggregate('q', 'w', 'e'),
                 3,
             ],
             'generator' => [
-                (function () {yield 'q'; })(),
+                $this->createGenerator('q'),
                 1,
             ],
             'countable only iterator' => [
-                new class() implements Countable, Iterator {
-                    public function current(): mixed
-                    {
-                        return 1;
-                    }
-
-                    public function key(): int
-                    {
-                        return 1;
-                    }
-
-                    public function next(): void
-                    {
-                    }
-
-                    public function rewind(): void
-                    {
-                    }
-
-                    public function valid(): bool
-                    {
-                        return false;
-                    }
-
-                    public function count(): int
-                    {
-                        return 2;
-                    }
-                },
+                $this->createCountableIterator(2),
                 2,
             ],
         ];

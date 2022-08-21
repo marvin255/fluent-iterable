@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use ArrayObject;
 use Iterator;
 use Marvin255\FluentIterable\Iterator\SortedIterator;
 use Marvin255\FluentIterable\Tests\BaseCase;
@@ -36,22 +35,17 @@ class SortedIteratorTest extends BaseCase
     {
         return [
             'iterator' => [
-                (new ArrayObject([5, 3, 1, 2, 4]))->getIterator(),
+                $this->createIterator(5, 3, 1, 2, 4),
                 fn (int $a, int $b): int => $a <=> $b,
                 [1, 2, 3, 4, 5],
             ],
             'empty iterator' => [
-                (new ArrayObject([]))->getIterator(),
+                $this->createEmptyIterator(),
                 fn (int $a, int $b): int => $a <=> $b,
                 [],
             ],
             'generator' => [
-                (function () {
-                    yield 3;
-                    yield 1;
-                    yield 2;
-                    yield 4;
-                })(),
+                $this->createGenerator(3, 1, 2, 4),
                 fn (int $a, int $b): int => $a <=> $b,
                 [1, 2, 3, 4],
             ],
@@ -60,7 +54,7 @@ class SortedIteratorTest extends BaseCase
 
     public function testCurrentInitializeArray(): void
     {
-        $input = (new ArrayObject([5, 3, 1, 2, 4]))->getIterator();
+        $input = $this->createIterator(5, 3, 1, 2, 4);
         $iterator = new SortedIterator($input, fn (int $a, int $b): int => $a <=> $b);
 
         $result = $iterator->current();

@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests;
 
-use ArrayObject;
-use Countable;
-use Iterator;
 use Marvin255\FluentIterable\FluentIterable;
-use RuntimeException;
 
 /**
  * @internal
@@ -38,16 +34,12 @@ class FluentIterableTest extends BaseCase
             ],
             'array with iterator' => [
                 [1, 2, 3, 4],
-                (new ArrayObject([5, 6, 7]))->getIterator(),
+                $this->createIterator(5, 6, 7),
                 [1, 2, 3, 4, 5, 6, 7],
             ],
             'array with generator' => [
                 [1, 2, 3, 4],
-                (function () {
-                    yield 5;
-                    yield 6;
-                    yield 7;
-                })(),
+                $this->createGenerator(5, 6, 7),
                 [1, 2, 3, 4, 5, 6, 7],
             ],
             'empty' => [
@@ -80,17 +72,12 @@ class FluentIterableTest extends BaseCase
                 [3, 4],
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 fn (int $item): bool => $item >= 3,
                 [3, 4],
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 2;
-                    yield 3;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 fn (int $item): bool => $item >= 3,
                 [3, 4],
             ],
@@ -129,17 +116,12 @@ class FluentIterableTest extends BaseCase
                 [2, 3, 4, 5],
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 fn (int $item): int => $item + 1,
                 [2, 3, 4, 5],
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 2;
-                    yield 3;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 fn (int $item): int => $item + 1,
                 [2, 3, 4, 5],
             ],
@@ -178,17 +160,12 @@ class FluentIterableTest extends BaseCase
                 [3, 4],
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 2,
                 [3, 4],
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 2;
-                    yield 3;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 2,
                 [3, 4],
             ],
@@ -217,17 +194,12 @@ class FluentIterableTest extends BaseCase
                 [1, 2],
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 2,
                 [1, 2],
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 2;
-                    yield 3;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 2,
                 [1, 2],
             ],
@@ -271,15 +243,11 @@ class FluentIterableTest extends BaseCase
                 [],
             ],
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
             'generator' => [
-                (function () {
-                    yield 'q';
-                    yield 'w';
-                    yield 'e';
-                })(),
+                $this->createGenerator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
         ];
@@ -312,17 +280,12 @@ class FluentIterableTest extends BaseCase
                 [],
             ],
             'iterator' => [
-                (new ArrayObject([4, 3, 2, 1]))->getIterator(),
+                $this->createIterator(4, 3, 2, 1),
                 fn (int $a, int $b): int => $a <=> $b,
                 [1, 2, 3, 4],
             ],
             'generator' => [
-                (function () {
-                    yield 3;
-                    yield 1;
-                    yield 2;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 fn (int $a, int $b): int => $a <=> $b,
                 [1, 2, 3, 4],
             ],
@@ -355,16 +318,11 @@ class FluentIterableTest extends BaseCase
                 [1, 2, 3, 4],
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 [1, 2, 3, 4],
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 2;
-                    yield 3;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 [1, 2, 3, 4],
             ],
             'empty input' => [
@@ -398,18 +356,13 @@ class FluentIterableTest extends BaseCase
                 10,
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 fn (int $carry, int $item): int => $carry + $item,
                 0,
                 10,
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 2;
-                    yield 3;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 fn (int $carry, int $item): int => $carry + $item,
                 0,
                 10,
@@ -456,17 +409,12 @@ class FluentIterableTest extends BaseCase
                 [1, 1, 1],
             ],
             'iterator' => [
-                (new ArrayObject([4, 3, 2, 1, 7, 19]))->getIterator(),
+                $this->createIterator(4, 3, 2, 1, 7, 19),
                 fn (int $o1, int $o2): int => $o1 <=> $o2,
                 1,
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 2;
-                    yield 3;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 fn (int $o1, int $o2): int => $o1 <=> $o2,
                 1,
             ],
@@ -500,17 +448,12 @@ class FluentIterableTest extends BaseCase
                 [1, 1, 1],
             ],
             'iterator' => [
-                (new ArrayObject([4, 3, 22, 1, 7, 19]))->getIterator(),
+                $this->createIterator(4, 3, 22, 1, 7, 19),
                 fn (int $o1, int $o2): int => $o1 <=> $o2,
                 22,
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 2;
-                    yield 3;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 fn (int $o1, int $o2): int => $o1 <=> $o2,
                 4,
             ],
@@ -541,18 +484,13 @@ class FluentIterableTest extends BaseCase
                 3,
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 fn (int $item): bool => $item === 3,
                 0,
                 3,
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 2;
-                    yield 3;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 fn (int $item): bool => $item === 3,
                 0,
                 3,
@@ -602,18 +540,13 @@ class FluentIterableTest extends BaseCase
                 4,
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 2,
                 0,
                 3,
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 2;
-                    yield 3;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 1,
                 0,
                 2,
@@ -625,38 +558,7 @@ class FluentIterableTest extends BaseCase
                 123,
             ],
             'check break in the loop' => [
-                new class() implements Iterator {
-                    private int $counter = 0;
-
-                    public function current(): mixed
-                    {
-                        return $this->counter;
-                    }
-
-                    public function key(): int
-                    {
-                        return $this->counter;
-                    }
-
-                    public function next(): void
-                    {
-                        ++$this->counter;
-                    }
-
-                    public function rewind(): void
-                    {
-                        $this->counter = 0;
-                    }
-
-                    public function valid(): bool
-                    {
-                        if ($this->counter > 1) {
-                            throw new RuntimeException("Can't iterate over 3");
-                        }
-
-                        return true;
-                    }
-                },
+                $this->createOneItemAndExceptionIterator(),
                 1,
                 0,
                 1,
@@ -686,17 +588,12 @@ class FluentIterableTest extends BaseCase
                 1,
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 0,
                 1,
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 2;
-                    yield 3;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 0,
                 1,
             ],
@@ -730,17 +627,12 @@ class FluentIterableTest extends BaseCase
                 4,
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 0,
                 4,
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 2;
-                    yield 3;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 0,
                 4,
             ],
@@ -748,6 +640,133 @@ class FluentIterableTest extends BaseCase
                 [],
                 123,
                 123,
+            ],
+        ];
+    }
+
+    /**
+     * @psalm-param iterable<int> $input
+     * @psalm-param callable(int, int=): bool $callback
+     * @psalm-param bool $reference
+     * @dataProvider provideMatchAll
+     */
+    public function testMatchAll(iterable $input, callable $callback, bool $reference): void
+    {
+        $result = FluentIterable::of($input)->matchAll($callback);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideMatchAll(): array
+    {
+        return [
+            'match all' => [
+                [1, 2, 3, 4],
+                fn (int $val): bool => $val < 5,
+                true,
+            ],
+            'not all match' => [
+                [1, 2, 3, 4],
+                fn (int $val): bool => $val > 2,
+                false,
+            ],
+            'empty' => [
+                [],
+                fn (int $val): bool => $val > 2,
+                true,
+            ],
+            'match all with index' => [
+                [0, 1, 2, 3],
+                fn (int $val, int $index): bool => $val === $index,
+                true,
+            ],
+            'check break in the loop' => [
+                $this->createOneItemAndExceptionIterator(),
+                fn (int $val): bool => $val > 10,
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @psalm-param iterable<int> $input
+     * @psalm-param callable(int, int=): bool $callback
+     * @psalm-param bool $reference
+     * @dataProvider provideMatchAny
+     */
+    public function testMatchAny(iterable $input, callable $callback, bool $reference): void
+    {
+        $result = FluentIterable::of($input)->matchAny($callback);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideMatchAny(): array
+    {
+        return [
+            'match any' => [
+                [1, 2, 3, 4],
+                fn (int $val): bool => $val < 2,
+                true,
+            ],
+            'nothing match' => [
+                [1, 2, 3, 4],
+                fn (int $val): bool => $val > 10,
+                false,
+            ],
+            'empty' => [
+                [],
+                fn (int $val): bool => $val > 2,
+                false,
+            ],
+            'match any with index' => [
+                [0, 1, 2, 3],
+                fn (int $val, int $index): bool => $val === $index,
+                true,
+            ],
+            'check break in the loop' => [
+                $this->createOneItemAndExceptionIterator(),
+                fn (int $val): bool => $val < 10,
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @psalm-param iterable<int> $input
+     * @psalm-param callable(int, int=): bool $callback
+     * @psalm-param bool $reference
+     * @dataProvider provideMatchNone
+     */
+    public function testMatchNone(iterable $input, callable $callback, bool $reference): void
+    {
+        $result = FluentIterable::of($input)->matchNone($callback);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideMatchNone(): array
+    {
+        return [
+            'match none' => [
+                [1, 2, 3, 4],
+                fn (int $val): bool => $val > 10,
+                true,
+            ],
+            'match any' => [
+                [1, 2, 3, 4],
+                fn (int $val): bool => $val < 2,
+                false,
+            ],
+            'empty' => [
+                [],
+                fn (int $val): bool => $val > 2,
+                true,
+            ],
+            'match any with index' => [
+                [0, 1, 2, 3],
+                fn (int $val, int $index): bool => $val === $index,
+                false,
             ],
         ];
     }
@@ -772,14 +791,11 @@ class FluentIterableTest extends BaseCase
                 4,
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3]))->getIterator(),
+                $this->createIterator(1, 2, 3),
                 3,
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 4),
                 2,
             ],
             'empty input' => [
@@ -787,35 +803,7 @@ class FluentIterableTest extends BaseCase
                 0,
             ],
             'countable iterator' => [
-                new class() implements Countable, Iterator {
-                    public function current(): mixed
-                    {
-                        return 1;
-                    }
-
-                    public function key(): int
-                    {
-                        return 1;
-                    }
-
-                    public function next(): void
-                    {
-                    }
-
-                    public function rewind(): void
-                    {
-                    }
-
-                    public function valid(): bool
-                    {
-                        return false;
-                    }
-
-                    public function count(): int
-                    {
-                        return 10;
-                    }
-                },
+                $this->createCountableIterator(10),
                 10,
             ],
         ];
@@ -846,16 +834,11 @@ class FluentIterableTest extends BaseCase
                 [1, 2, 3, 4],
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 [1, 2, 3, 4],
             ],
             'generator' => [
-                (function () {
-                    yield 1;
-                    yield 2;
-                    yield 3;
-                    yield 4;
-                })(),
+                $this->createGenerator(1, 2, 3, 4),
                 [1, 2, 3, 4],
             ],
             'empty input' => [
@@ -867,15 +850,7 @@ class FluentIterableTest extends BaseCase
 
     public function testFluent(): void
     {
-        $input = (function () {
-            yield 1;
-            yield 2;
-            yield 3;
-            yield 4;
-            yield 5;
-            yield 6;
-            yield 7;
-        })();
+        $input = $this->createGenerator(1, 2, 3, 4, 5, 6, 7);
 
         $result = FluentIterable::of($input)
             ->skip(3)

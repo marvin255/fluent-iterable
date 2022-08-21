@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use ArrayObject;
 use Generator;
 use InvalidArgumentException;
 use Iterator;
@@ -20,7 +19,7 @@ class SliceIteratorTest extends BaseCase
     {
         $this->expectException(InvalidArgumentException::class);
         new SliceIterator(
-            (new ArrayObject([]))->getIterator(),
+            $this->createEmptyIterator(),
             -1,
             10
         );
@@ -30,7 +29,7 @@ class SliceIteratorTest extends BaseCase
     {
         $this->expectException(InvalidArgumentException::class);
         new SliceIterator(
-            (new ArrayObject([]))->getIterator(),
+            $this->createEmptyIterator(),
             null,
             -10
         );
@@ -40,7 +39,7 @@ class SliceIteratorTest extends BaseCase
     {
         $this->expectException(InvalidArgumentException::class);
         new SliceIterator(
-            (new ArrayObject([]))->getIterator(),
+            $this->createEmptyIterator(),
             10,
             0
         );
@@ -76,54 +75,49 @@ class SliceIteratorTest extends BaseCase
     {
         return [
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e', 'r']))->getIterator(),
+                $this->createIterator('q', 'w', 'e', 'r'),
                 1,
                 2,
                 ['w', 'e'],
             ],
             'iterator null offset' => [
-                (new ArrayObject(['q', 'w', 'e', 'r']))->getIterator(),
+                $this->createIterator('q', 'w', 'e', 'r'),
                 null,
                 2,
                 ['q', 'w'],
             ],
             'iterator null length' => [
-                (new ArrayObject(['q', 'w', 'e', 'r']))->getIterator(),
+                $this->createIterator('q', 'w', 'e', 'r'),
                 2,
                 null,
                 ['e', 'r'],
             ],
             'iterator offset greater than length' => [
-                (new ArrayObject(['q', 'w', 'e', 'r']))->getIterator(),
+                $this->createIterator('q', 'w', 'e', 'r'),
                 10,
                 15,
                 [],
             ],
             'iterator get one element' => [
-                (new ArrayObject(['q', 'w', 'e', 'r']))->getIterator(),
+                $this->createIterator('q', 'w', 'e', 'r'),
                 2,
                 1,
                 ['e'],
             ],
             'iterator get first element' => [
-                (new ArrayObject(['q', 'w', 'e', 'r']))->getIterator(),
+                $this->createIterator('q', 'w', 'e', 'r'),
                 0,
                 1,
                 ['q'],
             ],
             'iterator length more that real' => [
-                (new ArrayObject(['q', 'w', 'e', 'r']))->getIterator(),
+                $this->createIterator('q', 'w', 'e', 'r'),
                 2,
                 1000,
                 ['e', 'r'],
             ],
             'generator' => [
-                (function () {
-                    yield 'q';
-                    yield 'w';
-                    yield 'e';
-                    yield 'r';
-                })(),
+                $this->createGenerator('q', 'w', 'e', 'r'),
                 1,
                 2,
                 ['w', 'e'],

@@ -314,6 +314,64 @@ final class FluentIterable implements IteratorAggregate
     }
 
     /**
+     * Return true if all elements of iterator match callback.
+     *
+     * @param callable $callback
+     *
+     * @return bool
+     *
+     * @psalm-param callable(TValue, int=): bool $callback
+     */
+    public function matchAll(callable $callback): bool
+    {
+        $res = true;
+        foreach ($this->iterator as $key => $item) {
+            if (!\call_user_func($callback, $item, $key)) {
+                $res = false;
+                break;
+            }
+        }
+
+        return $res;
+    }
+
+    /**
+     * Return true if at least one element of iterator matches callback.
+     *
+     * @param callable $callback
+     *
+     * @return bool
+     *
+     * @psalm-param callable(TValue, int=): bool $callback
+     */
+    public function matchAny(callable $callback): bool
+    {
+        $res = false;
+        foreach ($this->iterator as $key => $item) {
+            if (\call_user_func($callback, $item, $key)) {
+                $res = true;
+                break;
+            }
+        }
+
+        return $res;
+    }
+
+    /**
+     * Return true if no element of iterator matches callback.
+     *
+     * @param callable $callback
+     *
+     * @return bool
+     *
+     * @psalm-param callable(TValue, int=): bool $callback
+     */
+    public function matchNone(callable $callback): bool
+    {
+        return !$this->matchAny($callback);
+    }
+
+    /**
      * Returns number of items in those iterable.
      *
      * @return int
