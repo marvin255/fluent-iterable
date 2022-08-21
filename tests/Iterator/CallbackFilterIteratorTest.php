@@ -45,11 +45,7 @@ class CallbackFilterIteratorTest extends BaseCase
                 [],
             ],
             'generator' => [
-                (function () {
-                    yield 'q';
-                    yield 'w';
-                    yield 'e';
-                })(),
+                $this->createGenerator('q', 'w', 'e'),
                 fn (string $letter): bool => $letter !== 'w',
                 ['q', 'e'],
             ],
@@ -77,9 +73,7 @@ class CallbackFilterIteratorTest extends BaseCase
                 3,
             ],
             'generator' => [
-                (function () {
-                    yield 'q';
-                })(),
+                $this->createGenerator('q'),
                 1,
             ],
         ];

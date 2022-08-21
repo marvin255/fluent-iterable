@@ -84,11 +84,7 @@ class AnySourceIteratorTest extends BaseCase
                 [],
             ],
             'generator' => [
-                (function () {
-                    yield 'q';
-                    yield 'w';
-                    yield 'e';
-                })(),
+                $this->createGenerator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
         ];
@@ -126,7 +122,7 @@ class AnySourceIteratorTest extends BaseCase
                 3,
             ],
             'generator' => [
-                (function () {yield 'q'; })(),
+                $this->createGenerator('q'),
                 1,
             ],
             'countable only iterator' => [

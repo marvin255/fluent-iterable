@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Tests;
 
 use ArrayObject;
+use Generator;
 use Iterator;
 use IteratorAggregate;
 use PHPUnit\Framework\TestCase;
@@ -32,5 +33,14 @@ abstract class BaseCase extends TestCase
     protected function createEmptyIterator(): Iterator
     {
         return (new ArrayObject([]))->getIterator();
+    }
+
+    protected function createGenerator(mixed ...$data): Generator
+    {
+        return (function () use ($data) {
+            foreach ($data as $item) {
+                yield $item;
+            }
+        })();
     }
 }

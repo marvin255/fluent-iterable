@@ -45,12 +45,7 @@ class SortedIteratorTest extends BaseCase
                 [],
             ],
             'generator' => [
-                (function () {
-                    yield 3;
-                    yield 1;
-                    yield 2;
-                    yield 4;
-                })(),
+                $this->createGenerator(3, 1, 2, 4),
                 fn (int $a, int $b): int => $a <=> $b,
                 [1, 2, 3, 4],
             ],

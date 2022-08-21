@@ -37,11 +37,7 @@ class IteratorHelperTest extends BaseCase
                 0,
             ],
             'generator' => [
-                (function () {
-                    yield 'q';
-                    yield 'w';
-                    yield 'e';
-                })(),
+                $this->createGenerator('q', 'w', 'e'),
                 3,
             ],
         ];
@@ -75,11 +71,7 @@ class IteratorHelperTest extends BaseCase
                 ['q', 'w', 'e'],
             ],
             'generator' => [
-                (function () {
-                    yield 'q';
-                    yield 'w';
-                    yield 'e';
-                })(),
+                $this->createGenerator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
         ];

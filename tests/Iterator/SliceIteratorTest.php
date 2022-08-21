@@ -117,12 +117,7 @@ class SliceIteratorTest extends BaseCase
                 ['e', 'r'],
             ],
             'generator' => [
-                (function () {
-                    yield 'q';
-                    yield 'w';
-                    yield 'e';
-                    yield 'r';
-                })(),
+                $this->createGenerator('q', 'w', 'e', 'r'),
                 1,
                 2,
                 ['w', 'e'],

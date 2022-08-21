@@ -103,7 +103,7 @@ class MergedIteratorsIteratorTest extends BaseCase
                         return 10;
                     }
                 },
-                (function () {yield 'y'; })(),
+                $this->createGenerator('y'),
             ]
         );
 

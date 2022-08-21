@@ -80,7 +80,7 @@ class PeekIteratorTest extends BaseCase
                 3,
             ],
             'generator' => [
-                (function () {yield 'q'; })(),
+                $this->createGenerator('q'),
                 1,
             ],
         ];
