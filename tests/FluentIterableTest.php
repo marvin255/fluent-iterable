@@ -753,6 +753,123 @@ class FluentIterableTest extends BaseCase
     }
 
     /**
+     * @psalm-param iterable<int> $input
+     * @psalm-param callable(int, int=): bool $callback
+     * @psalm-param bool $reference
+     * @dataProvider provideMatchAll
+     */
+    public function testMatchAll(iterable $input, callable $callback, bool $reference): void
+    {
+        $result = FluentIterable::of($input)->matchAll($callback);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideMatchAll(): array
+    {
+        return [
+            'match all' => [
+                [1, 2, 3, 4],
+                fn (int $val): bool => $val < 5,
+                true,
+            ],
+            'not all match' => [
+                [1, 2, 3, 4],
+                fn (int $val): bool => $val > 2,
+                false,
+            ],
+            'empty' => [
+                [],
+                fn (int $val): bool => $val > 2,
+                true,
+            ],
+            'match all with index' => [
+                [0, 1, 2, 3],
+                fn (int $val, int $index): bool => $val === $index,
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @psalm-param iterable<int> $input
+     * @psalm-param callable(int, int=): bool $callback
+     * @psalm-param bool $reference
+     * @dataProvider provideMatchAny
+     */
+    public function testMatchAny(iterable $input, callable $callback, bool $reference): void
+    {
+        $result = FluentIterable::of($input)->matchAny($callback);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideMatchAny(): array
+    {
+        return [
+            'match any' => [
+                [1, 2, 3, 4],
+                fn (int $val): bool => $val < 2,
+                true,
+            ],
+            'nothing match' => [
+                [1, 2, 3, 4],
+                fn (int $val): bool => $val > 10,
+                false,
+            ],
+            'empty' => [
+                [],
+                fn (int $val): bool => $val > 2,
+                false,
+            ],
+            'match any with index' => [
+                [0, 1, 2, 3],
+                fn (int $val, int $index): bool => $val === $index,
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @psalm-param iterable<int> $input
+     * @psalm-param callable(int, int=): bool $callback
+     * @psalm-param bool $reference
+     * @dataProvider provideMatchNone
+     */
+    public function testMatchNone(iterable $input, callable $callback, bool $reference): void
+    {
+        $result = FluentIterable::of($input)->matchNone($callback);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideMatchNone(): array
+    {
+        return [
+            'match none' => [
+                [1, 2, 3, 4],
+                fn (int $val): bool => $val > 10,
+                true,
+            ],
+            'match any' => [
+                [1, 2, 3, 4],
+                fn (int $val): bool => $val < 2,
+                false,
+            ],
+            'empty' => [
+                [],
+                fn (int $val): bool => $val > 2,
+                true,
+            ],
+            'match any with index' => [
+                [0, 1, 2, 3],
+                fn (int $val, int $index): bool => $val === $index,
+                false,
+            ],
+        ];
+    }
+
+    /**
      * @psalm-param iterable $input
      * @psalm-param mixed $count
      * @dataProvider provideCountData

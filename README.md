@@ -47,7 +47,7 @@ $fluent = $fluent->map(fn (int $item): int => $item + 1)
     ->skip(1);
 ```
 
-Get result using one of finalizing methods (`walk`, `reduce`, `findByIndex`, `findOne`, `findFirst`, `findLast`, `toArray`, `getIterator`, `count`, `min`, `max`)
+Get result using one of finalizing methods (`walk`, `reduce`, `findByIndex`, `findOne`, `findFirst`, `findLast`, `toArray`, `getIterator`, `count`, `min`, `max`, `matchAll`, `matchNone`, `matchAny`)
 
 ```php
 $result = $fluent->toArray();
