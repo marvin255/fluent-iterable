@@ -11,7 +11,7 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
 /**
  * Type defined library wrapper for CallbackFilterIterator.
  *
- * @psalm-template TValue
+ * @template TValue
  * @implements Iterator<int, TValue>
  */
 final class CallbackFilterIterator implements Countable, Iterator
@@ -21,7 +21,8 @@ final class CallbackFilterIterator implements Countable, Iterator
     private int $count = 0;
 
     /**
-     * @psalm-param Iterator<int, TValue> $iterator
+     * @param Iterator<int, TValue> $iterator
+     * @param callable              $callback
      * @psalm-param callable(TValue, int=): bool $callback
      */
     public function __construct(Iterator $iterator, callable $callback)
@@ -37,7 +38,7 @@ final class CallbackFilterIterator implements Countable, Iterator
     }
 
     /**
-     * @psalm-return TValue
+     * @return TValue
      */
     public function current(): mixed
     {

@@ -12,17 +12,18 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  * Additionally performing the provided action on each element as elements are consumed from the resulting iterator.
  * It's useful for debugging.
  *
- * @psalm-template TValue
+ * @template TValue
  * @implements Iterator<int, TValue>
  */
 final class PeekIterator implements Countable, Iterator
 {
     /**
-     * @psalm-var Iterator<mixed, TValue>
+     * @var Iterator<mixed, TValue>
      */
     private readonly Iterator $iterator;
 
     /**
+     * @var callable
      * @psalm-var callable(TValue, int=): void
      */
     private readonly mixed $callback;
@@ -30,7 +31,8 @@ final class PeekIterator implements Countable, Iterator
     private int $count = 0;
 
     /**
-     * @psalm-param Iterator<mixed, TValue> $iterator
+     * @param Iterator<mixed, TValue> $iterator
+     * @param callable                $callback
      * @psalm-param callable(TValue, int=): void $callback
      */
     public function __construct(Iterator $iterator, callable $callback)
@@ -40,7 +42,7 @@ final class PeekIterator implements Countable, Iterator
     }
 
     /**
-     * @psalm-return TValue
+     * @return TValue
      */
     public function current(): mixed
     {
