@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use ArrayObject;
 use Countable;
 use Iterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
@@ -42,7 +41,7 @@ class CallbackMapIteratorTest extends BaseCase
     {
         return [
             'simple iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 fn (string $letter): string => "{$letter}a",
                 ['qa', 'wa', 'ea'],
             ],
@@ -65,7 +64,7 @@ class CallbackMapIteratorTest extends BaseCase
     {
         return [
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 3,
             ],
             'generator' => [

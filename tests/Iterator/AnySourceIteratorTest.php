@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use ArrayObject;
 use Countable;
 use Generator;
 use Iterator;
@@ -73,15 +72,15 @@ class AnySourceIteratorTest extends BaseCase
                 [],
             ],
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
             'iterator aggregate' => [
-                new ArrayObject(['q', 'w', 'e']),
+                $this->createIteratorAggregate('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
             'empty iterator' => [
-                (new ArrayObject([]))->getIterator(),
+                $this->createEmptyIterator(),
                 [],
             ],
             'generator' => [
@@ -119,11 +118,11 @@ class AnySourceIteratorTest extends BaseCase
                 0,
             ],
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 3,
             ],
             'iterator aggregate' => [
-                new ArrayObject(['q', 'w', 'e']),
+                $this->createIteratorAggregate('q', 'w', 'e'),
                 3,
             ],
             'generator' => [

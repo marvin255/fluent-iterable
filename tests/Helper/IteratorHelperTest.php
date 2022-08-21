@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Helper;
 
-use ArrayObject;
 use Iterator;
 use Marvin255\FluentIterable\Helper\IteratorHelper;
 use Marvin255\FluentIterable\Tests\BaseCase;
@@ -30,11 +29,11 @@ class IteratorHelperTest extends BaseCase
     {
         return [
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 3,
             ],
             'empty iterator' => [
-                (new ArrayObject([]))->getIterator(),
+                $this->createEmptyIterator(),
                 0,
             ],
             'generator' => [
@@ -64,15 +63,15 @@ class IteratorHelperTest extends BaseCase
     {
         return [
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
             'empty iterator' => [
-                (new ArrayObject([]))->getIterator(),
+                $this->createEmptyIterator(),
                 [],
             ],
             'string keys iterator' => [
-                (new ArrayObject(['q' => 'q', 'w' => 'w', 'e' => 'e']))->getIterator(),
+                $this->createIteratorFromArray(['q' => 'q', 'w' => 'w', 'e' => 'e']),
                 ['q', 'w', 'e'],
             ],
             'generator' => [

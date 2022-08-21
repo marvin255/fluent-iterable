@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use ArrayObject;
 use Iterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
 use Marvin255\FluentIterable\Iterator\PeekIterator;
@@ -49,12 +48,12 @@ class PeekIteratorTest extends BaseCase
     {
         return [
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
                 ['q', 'w', 'e'],
             ],
             'empty iterator' => [
-                (new ArrayObject([]))->getIterator(),
+                $this->createEmptyIterator(),
                 [],
                 [],
             ],
@@ -77,7 +76,7 @@ class PeekIteratorTest extends BaseCase
     {
         return [
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 3,
             ],
             'generator' => [

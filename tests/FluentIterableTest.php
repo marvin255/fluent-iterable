@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests;
 
-use ArrayObject;
 use Countable;
 use Iterator;
 use Marvin255\FluentIterable\FluentIterable;
-use RuntimeException;
+use Marvin255\FluentIterable\Tests\Mocks\OneItemAndExceptionIterator;
 
 /**
  * @internal
@@ -38,7 +37,7 @@ class FluentIterableTest extends BaseCase
             ],
             'array with iterator' => [
                 [1, 2, 3, 4],
-                (new ArrayObject([5, 6, 7]))->getIterator(),
+                $this->createIterator(5, 6, 7),
                 [1, 2, 3, 4, 5, 6, 7],
             ],
             'array with generator' => [
@@ -80,7 +79,7 @@ class FluentIterableTest extends BaseCase
                 [3, 4],
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 fn (int $item): bool => $item >= 3,
                 [3, 4],
             ],
@@ -129,7 +128,7 @@ class FluentIterableTest extends BaseCase
                 [2, 3, 4, 5],
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 fn (int $item): int => $item + 1,
                 [2, 3, 4, 5],
             ],
@@ -178,7 +177,7 @@ class FluentIterableTest extends BaseCase
                 [3, 4],
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 2,
                 [3, 4],
             ],
@@ -217,7 +216,7 @@ class FluentIterableTest extends BaseCase
                 [1, 2],
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 2,
                 [1, 2],
             ],
@@ -271,7 +270,7 @@ class FluentIterableTest extends BaseCase
                 [],
             ],
             'iterator' => [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
             'generator' => [
@@ -312,7 +311,7 @@ class FluentIterableTest extends BaseCase
                 [],
             ],
             'iterator' => [
-                (new ArrayObject([4, 3, 2, 1]))->getIterator(),
+                $this->createIterator(4, 3, 2, 1),
                 fn (int $a, int $b): int => $a <=> $b,
                 [1, 2, 3, 4],
             ],
@@ -355,7 +354,7 @@ class FluentIterableTest extends BaseCase
                 [1, 2, 3, 4],
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 [1, 2, 3, 4],
             ],
             'generator' => [
@@ -398,7 +397,7 @@ class FluentIterableTest extends BaseCase
                 10,
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 fn (int $carry, int $item): int => $carry + $item,
                 0,
                 10,
@@ -456,7 +455,7 @@ class FluentIterableTest extends BaseCase
                 [1, 1, 1],
             ],
             'iterator' => [
-                (new ArrayObject([4, 3, 2, 1, 7, 19]))->getIterator(),
+                $this->createIterator(4, 3, 2, 1, 7, 19),
                 fn (int $o1, int $o2): int => $o1 <=> $o2,
                 1,
             ],
@@ -500,7 +499,7 @@ class FluentIterableTest extends BaseCase
                 [1, 1, 1],
             ],
             'iterator' => [
-                (new ArrayObject([4, 3, 22, 1, 7, 19]))->getIterator(),
+                $this->createIterator(4, 3, 22, 1, 7, 19),
                 fn (int $o1, int $o2): int => $o1 <=> $o2,
                 22,
             ],
@@ -541,7 +540,7 @@ class FluentIterableTest extends BaseCase
                 3,
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 fn (int $item): bool => $item === 3,
                 0,
                 3,
@@ -602,7 +601,7 @@ class FluentIterableTest extends BaseCase
                 4,
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 2,
                 0,
                 3,
@@ -625,38 +624,7 @@ class FluentIterableTest extends BaseCase
                 123,
             ],
             'check break in the loop' => [
-                new class() implements Iterator {
-                    private int $counter = 0;
-
-                    public function current(): mixed
-                    {
-                        return $this->counter;
-                    }
-
-                    public function key(): int
-                    {
-                        return $this->counter;
-                    }
-
-                    public function next(): void
-                    {
-                        ++$this->counter;
-                    }
-
-                    public function rewind(): void
-                    {
-                        $this->counter = 0;
-                    }
-
-                    public function valid(): bool
-                    {
-                        if ($this->counter > 1) {
-                            throw new RuntimeException("Can't iterate over 3");
-                        }
-
-                        return true;
-                    }
-                },
+                new OneItemAndExceptionIterator(),
                 1,
                 0,
                 1,
@@ -686,7 +654,7 @@ class FluentIterableTest extends BaseCase
                 1,
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 0,
                 1,
             ],
@@ -730,7 +698,7 @@ class FluentIterableTest extends BaseCase
                 4,
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 0,
                 4,
             ],
@@ -788,6 +756,11 @@ class FluentIterableTest extends BaseCase
                 fn (int $val, int $index): bool => $val === $index,
                 true,
             ],
+            'check break in the loop' => [
+                new OneItemAndExceptionIterator(),
+                fn (int $val): bool => $val > 10,
+                false,
+            ],
         ];
     }
 
@@ -825,6 +798,11 @@ class FluentIterableTest extends BaseCase
             'match any with index' => [
                 [0, 1, 2, 3],
                 fn (int $val, int $index): bool => $val === $index,
+                true,
+            ],
+            'check break in the loop' => [
+                new OneItemAndExceptionIterator(),
+                fn (int $val): bool => $val < 10,
                 true,
             ],
         ];
@@ -889,7 +867,7 @@ class FluentIterableTest extends BaseCase
                 4,
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3]))->getIterator(),
+                $this->createIterator(1, 2, 3),
                 3,
             ],
             'generator' => [
@@ -963,7 +941,7 @@ class FluentIterableTest extends BaseCase
                 [1, 2, 3, 4],
             ],
             'iterator' => [
-                (new ArrayObject([1, 2, 3, 4]))->getIterator(),
+                $this->createIterator(1, 2, 3, 4),
                 [1, 2, 3, 4],
             ],
             'generator' => [

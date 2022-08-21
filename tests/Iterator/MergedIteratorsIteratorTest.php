@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use ArrayObject;
 use Countable;
 use InvalidArgumentException;
 use Iterator;
@@ -51,18 +50,18 @@ class MergedIteratorsIteratorTest extends BaseCase
             ],
             'iterators' => [
                 [
-                    (new ArrayObject(['q', 'w', 'e']))->getIterator(),
-                    (new ArrayObject([1, 2, 3]))->getIterator(),
+                    $this->createIterator('q', 'w', 'e'),
+                    $this->createIterator(1, 2, 3),
                 ],
                 ['q', 'w', 'e', 1, 2, 3],
             ],
             'mixed' => [
                 [
-                    (new ArrayObject([]))->getIterator(),
-                    (new ArrayObject(['q', 'w', 'e']))->getIterator(),
-                    (new ArrayObject([]))->getIterator(),
-                    (new ArrayObject([1, 2, 3]))->getIterator(),
-                    (new ArrayObject([]))->getIterator(),
+                    $this->createEmptyIterator(),
+                    $this->createIterator('q', 'w', 'e'),
+                    $this->createEmptyIterator(),
+                    $this->createIterator(1, 2, 3),
+                    $this->createEmptyIterator(),
                 ],
                 ['q', 'w', 'e', 1, 2, 3],
             ],
@@ -73,8 +72,8 @@ class MergedIteratorsIteratorTest extends BaseCase
     {
         $immutableIterator = new MergedIteratorsIterator(
             [
-                (new ArrayObject(['q', 'w', 'e']))->getIterator(),
-                (new ArrayObject([]))->getIterator(),
+                $this->createIterator('q', 'w', 'e'),
+                $this->createEmptyIterator(),
                 new class() implements Countable, Iterator {
                     public function current(): mixed
                     {
