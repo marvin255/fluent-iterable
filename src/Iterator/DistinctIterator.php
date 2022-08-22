@@ -22,7 +22,7 @@ final class DistinctIterator implements Countable, Iterator
     private readonly Iterator $iterator;
 
     /**
-     * @var array<string, TValue>
+     * @var array<string, bool>
      */
     private array $cached = [];
 
@@ -64,11 +64,12 @@ final class DistinctIterator implements Countable, Iterator
     public function valid(): bool
     {
         while ($this->iterator->valid()) {
-            $current = $this->iterator->current();
-            if ($this->isItemCached($current)) {
+            $item = $this->iterator->current();
+            $key = $this->createKey($item);
+            if ($this->isItemCached($key)) {
                 $this->iterator->next();
             } else {
-                $this->cacheItem($current);
+                $this->cacheItem($key);
                 break;
             }
         }
@@ -81,34 +82,30 @@ final class DistinctIterator implements Countable, Iterator
         return IteratorHelper::count($this->iterator);
     }
 
-    /**
-     * @param TValue $item
-     *
-     * @return bool
-     */
-    private function isItemCached(mixed $item): bool
+    private function isItemCached(string $key): bool
     {
-        $key = $this->createKey($item);
-
-        return isset($this->cached[$key]);
+        return !empty($this->cached[$key]);
     }
 
-    /**
-     * @param TValue $item
-     */
-    private function cacheItem(mixed $item): void
+    private function cacheItem(string $key): void
     {
-        $key = $this->createKey($item);
-        $this->cached[$key] = $item;
+        $this->cached[$key] = true;
     }
 
     /**
      * @param TValue $item
      *
      * @return string
+     * @infection-ignore-all
      */
     private function createKey(mixed $item): string
     {
-        return \is_object($item) ? spl_object_hash($item) : (string) $item;
+        if (\is_scalar($item)) {
+            return \gettype($item) . ((string) $item);
+        } elseif (\is_object($item)) {
+            return spl_object_hash($item);
+        } else {
+            return md5(json_encode($item));
+        }
     }
 }

@@ -46,6 +46,10 @@ class DistinctIteratorTest extends BaseCase
                 $this->createIterator('q', 'q', 'q', 'w', 'w', 'w', 'w', 'e', 'r', 'r'),
                 ['q', 'w', 'e', 'r'],
             ],
+            'duplicated items in the different places' => [
+                $this->createIterator('q', 'w', 'e', 'w', 'r', 'r', 'w', 'w', 'w', 'q', 'q'),
+                ['q', 'w', 'e', 'r'],
+            ],
             'mixed items' => [
                 $this->createIterator(1, 1, 'w', 'w', 'w', 'w', 2, 2, 'r', 'r'),
                 [1, 'w', 2, 'r'],
@@ -53,6 +57,14 @@ class DistinctIteratorTest extends BaseCase
             'no items' => [
                 $this->createEmptyIterator(),
                 [],
+            ],
+            'same mixed items of different types' => [
+                $this->createIterator(1, '1', 2),
+                [1, '1', 2],
+            ],
+            'array items' => [
+                $this->createIterator([1, 'q'], [2, 2], [1, 'q'], ['z' => 1, 'x' => 'q'], ['q', 1]),
+                [[1, 'q'], [2, 2], ['z' => 1, 'x' => 'q'], ['q', 1]],
             ],
         ];
     }
