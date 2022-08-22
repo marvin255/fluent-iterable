@@ -10,6 +10,7 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
 use Marvin255\FluentIterable\Iterator\AnySourceIterator;
 use Marvin255\FluentIterable\Iterator\CallbackFilterIterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
+use Marvin255\FluentIterable\Iterator\DistinctIterator;
 use Marvin255\FluentIterable\Iterator\MergedIteratorsIterator;
 use Marvin255\FluentIterable\Iterator\PeekIterator;
 use Marvin255\FluentIterable\Iterator\SliceIterator;
@@ -149,6 +150,18 @@ final class FluentIterable implements IteratorAggregate
     public function sorted(callable $callback): self
     {
         $iterator = new SortedIterator($this->iterator, $callback);
+
+        return new self($iterator);
+    }
+
+    /**
+     * Return only distinct elements.
+     *
+     * @return self<TValue>
+     */
+    public function distinct(): self
+    {
+        $iterator = new DistinctIterator($this->iterator);
 
         return new self($iterator);
     }
