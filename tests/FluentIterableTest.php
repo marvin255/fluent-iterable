@@ -293,6 +293,40 @@ class FluentIterableTest extends BaseCase
     }
 
     /**
+     * @psalm-param iterable $input
+     * @psalm-param array<int, mixed> $reference
+     * @dataProvider provideDistinct
+     */
+    public function testDistinct(iterable $input, array $reference): void
+    {
+        $result = FluentIterable::of($input)->distinct()->toArray();
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideDistinct(): array
+    {
+        return [
+            'array' => [
+                [1, 2, 3, 3, 3],
+                [1, 2, 3],
+            ],
+            'empty array' => [
+                [],
+                [],
+            ],
+            'iterator' => [
+                $this->createIterator(1, 1, 2, 3, 3, 3, 3),
+                [1, 2, 3],
+            ],
+            'generator' => [
+                $this->createGenerator(1, 2, 3, 3, 3, 3),
+                [1, 2, 3],
+            ],
+        ];
+    }
+
+    /**
      * @psalm-param iterable<int, int> $input
      * @psalm-param array<int, int> $reference
      * @psalm-suppress MixedArrayAssignment
