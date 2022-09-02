@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use Generator;
 use InvalidArgumentException;
 use Iterator;
 use Marvin255\FluentIterable\Iterator\SliceIterator;
@@ -55,19 +54,9 @@ class SliceIteratorTest extends BaseCase
      */
     public function testIterator(Iterator $iterator, ?int $from, ?int $to, mixed $reference): void
     {
-        $immutableIterator = new SliceIterator($iterator, $from, $to);
+        $sliceIterator = new SliceIterator($iterator, $from, $to);
 
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        if (!($iterator instanceof Generator)) {
-            $result = [];
-            foreach ($immutableIterator as $key => $item) {
-                $result[$key] = $item;
-            }
-        }
+        $result = $this->runLoopOnIterator($sliceIterator);
 
         $this->assertSame($reference, $result);
     }
@@ -111,17 +100,11 @@ class SliceIteratorTest extends BaseCase
                 1,
                 ['q'],
             ],
-            'iterator length more that real' => [
+            'iterator length more than real' => [
                 $this->createIterator('q', 'w', 'e', 'r'),
                 2,
                 1000,
                 ['e', 'r'],
-            ],
-            'generator' => [
-                $this->createGenerator('q', 'w', 'e', 'r'),
-                1,
-                2,
-                ['w', 'e'],
             ],
         ];
     }

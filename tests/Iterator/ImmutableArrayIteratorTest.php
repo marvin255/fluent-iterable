@@ -17,17 +17,9 @@ class ImmutableArrayIteratorTest extends BaseCase
      */
     public function testIterator(array $input, array $reference): void
     {
-        $immutableIterator = new ImmutableArrayIterator($input);
+        $iterator = new ImmutableArrayIterator($input);
 
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
+        $result = $this->runLoopOnIterator($iterator);
 
         $this->assertSame($reference, $result);
     }
@@ -58,10 +50,10 @@ class ImmutableArrayIteratorTest extends BaseCase
     {
         $reference = $input = ['qwe', 'asd', 'xcv'];
 
-        $immutableIterator = new ImmutableArrayIterator($input);
+        $iterator = new ImmutableArrayIterator($input);
         $input[] = 'iop';
         $result = [];
-        foreach ($immutableIterator as $key => $item) {
+        foreach ($iterator as $key => $item) {
             $result[$key] = $item;
         }
 
@@ -70,9 +62,9 @@ class ImmutableArrayIteratorTest extends BaseCase
 
     public function testCount(): void
     {
-        $immutableIterator = new ImmutableArrayIterator([1, 2, 3]);
+        $iterator = new ImmutableArrayIterator([1, 2, 3]);
 
-        $result = \count($immutableIterator);
+        $result = \count($iterator);
 
         $this->assertSame(3, $result);
     }

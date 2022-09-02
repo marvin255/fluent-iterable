@@ -34,13 +34,7 @@ class PeekIteratorTest extends BaseCase
             }
         );
 
-        foreach ($iterator as $key => $item) {
-        }
-
-        $iteratorResult = [];
-        foreach ($iterator as $key => $item) {
-            $iteratorResult[$key] = $item;
-        }
+        $iteratorResult = $this->runLoopOnIterator($iterator);
 
         $this->assertSame($reference, $result, 'Every item must be iterater');
         $this->assertSame($iteratorReference, $iteratorResult, "Result array mustn't be changed");

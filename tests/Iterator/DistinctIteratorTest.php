@@ -21,17 +21,9 @@ class DistinctIteratorTest extends BaseCase
      */
     public function testIterator(Iterator $iterator, mixed $reference): void
     {
-        $immutableIterator = new DistinctIterator($iterator);
+        $iterator = new DistinctIterator($iterator);
 
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
+        $result = $this->runLoopOnIterator($iterator);
 
         $this->assertSame($reference, $result);
     }
@@ -75,9 +67,9 @@ class DistinctIteratorTest extends BaseCase
      */
     public function testCount(Iterator $input, int $reference): void
     {
-        $immutableIterator = new DistinctIterator($input);
+        $iterator = new DistinctIterator($input);
 
-        $result = \count($immutableIterator);
+        $result = \count($iterator);
 
         $this->assertSame($reference, $result);
     }

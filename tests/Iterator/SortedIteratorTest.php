@@ -24,10 +24,7 @@ class SortedIteratorTest extends BaseCase
     {
         $iterator = new SortedIterator($iterator, $callback);
 
-        $result = [];
-        foreach ($iterator as $key => $item) {
-            $result[$key] = $item;
-        }
+        $result = $this->runLoopOnIterator($iterator);
 
         $this->assertSame($reference, $result);
     }

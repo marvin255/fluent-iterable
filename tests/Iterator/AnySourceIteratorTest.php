@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use Generator;
 use Marvin255\FluentIterable\Iterator\AnySourceIterator;
 use Marvin255\FluentIterable\Tests\BaseCase;
 
@@ -18,12 +17,9 @@ class AnySourceIteratorTest extends BaseCase
      */
     public function testOf(iterable $input, array $reference): void
     {
-        $immutableIterator = AnySourceIterator::of($input);
+        $iterator = AnySourceIterator::of($input);
 
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
+        $result = $this->runLoopOnIterator($iterator, 1);
 
         $this->assertSame($reference, $result);
     }
@@ -33,19 +29,9 @@ class AnySourceIteratorTest extends BaseCase
      */
     public function testIterator(iterable $input, array $reference): void
     {
-        $immutableIterator = AnySourceIterator::of($input);
+        $iterator = AnySourceIterator::of($input);
 
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        if (!($input instanceof Generator)) {
-            $result = [];
-            foreach ($immutableIterator as $key => $item) {
-                $result[$key] = $item;
-            }
-        }
+        $result = $this->runLoopOnIterator($iterator, 1);
 
         $this->assertSame($reference, $result);
     }

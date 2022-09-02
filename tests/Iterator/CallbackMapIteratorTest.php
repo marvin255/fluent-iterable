@@ -22,17 +22,9 @@ class CallbackMapIteratorTest extends BaseCase
      */
     public function testIterator(Iterator $iterator, callable $callback, mixed $reference): void
     {
-        $immutableIterator = new CallbackMapIterator($iterator, $callback);
+        $iterator = new CallbackMapIterator($iterator, $callback);
 
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
+        $result = $this->runLoopOnIterator($iterator);
 
         $this->assertSame($reference, $result);
     }
@@ -53,9 +45,9 @@ class CallbackMapIteratorTest extends BaseCase
      */
     public function testCount(Iterator $input, int $reference): void
     {
-        $immutableIterator = new CallbackMapIterator($input, fn () => false);
+        $iterator = new CallbackMapIterator($input, fn () => false);
 
-        $result = \count($immutableIterator);
+        $result = \count($iterator);
 
         $this->assertSame($reference, $result);
     }

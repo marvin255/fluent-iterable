@@ -24,10 +24,7 @@ class CallbackFilterIteratorTest extends BaseCase
     {
         $iterator = new CallbackFilterIterator($iterator, $callback);
 
-        $result = [];
-        foreach ($iterator as $key => $item) {
-            $result[$key] = $item;
-        }
+        $result = $this->runLoopOnIterator($iterator);
 
         $this->assertSame($reference, $result);
     }
@@ -44,11 +41,6 @@ class CallbackFilterIteratorTest extends BaseCase
                 $this->createEmptyIterator(),
                 fn (string $letter): bool => $letter !== 'w',
                 [],
-            ],
-            'generator' => [
-                $this->createGenerator('q', 'w', 'e'),
-                fn (string $letter): bool => $letter !== 'w',
-                ['q', 'e'],
             ],
         ];
     }

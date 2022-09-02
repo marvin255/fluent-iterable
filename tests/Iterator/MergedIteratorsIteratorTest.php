@@ -24,17 +24,9 @@ class MergedIteratorsIteratorTest extends BaseCase
      */
     public function testIterator(array $input, array $reference): void
     {
-        $mergedIterator = new MergedIteratorsIterator($input);
+        $iterator = new MergedIteratorsIterator($input);
 
-        $result = [];
-        foreach ($mergedIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $result = [];
-        foreach ($mergedIterator as $key => $item) {
-            $result[$key] = $item;
-        }
+        $result = $this->runLoopOnIterator($iterator);
 
         $this->assertSame($reference, $result);
     }
@@ -68,7 +60,7 @@ class MergedIteratorsIteratorTest extends BaseCase
 
     public function testCount(): void
     {
-        $immutableIterator = new MergedIteratorsIterator(
+        $iterator = new MergedIteratorsIterator(
             [
                 $this->createIterator('q', 'w', 'e'),
                 $this->createEmptyIterator(),
@@ -77,7 +69,7 @@ class MergedIteratorsIteratorTest extends BaseCase
             ]
         );
 
-        $result = \count($immutableIterator);
+        $result = \count($iterator);
 
         $this->assertSame(14, $result);
     }
