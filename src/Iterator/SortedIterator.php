@@ -11,6 +11,7 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  * Iterator that converts internal iteartor to array and sorts it with set sort callback.
  *
  * @template TValue
+ *
  * @implements Iterator<int, TValue>
  */
 final class SortedIterator implements Iterator
@@ -22,6 +23,7 @@ final class SortedIterator implements Iterator
 
     /**
      * @var callable
+     *
      * @psalm-var callable(TValue, TValue): int
      */
     private readonly mixed $callback;
@@ -38,6 +40,7 @@ final class SortedIterator implements Iterator
     /**
      * @param Iterator<mixed, TValue> $iterator
      * @param callable                $callback
+     *
      * @psalm-param callable(TValue, TValue): int $callback
      */
     public function __construct(Iterator $iterator, callable $callback)

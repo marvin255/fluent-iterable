@@ -6,12 +6,14 @@ namespace Marvin255\FluentIterable\Iterator;
 
 use Countable;
 use Iterator;
+use Marvin255\FluentIterable\Helper\HashHelper;
 use Marvin255\FluentIterable\Helper\IteratorHelper;
 
 /**
  * Iterator that returns only distinct values from underlying iterator.
  *
  * @template TValue
+ *
  * @implements Iterator<int, TValue>
  */
 final class DistinctIterator implements Countable, Iterator
@@ -65,7 +67,7 @@ final class DistinctIterator implements Countable, Iterator
     {
         while ($this->iterator->valid()) {
             $item = $this->iterator->current();
-            $key = $this->createKey($item);
+            $key = HashHelper::createHashForData($item);
             if ($this->isItemCached($key)) {
                 $this->iterator->next();
             } else {
@@ -90,22 +92,5 @@ final class DistinctIterator implements Countable, Iterator
     private function cacheItem(string $key): void
     {
         $this->cached[$key] = true;
-    }
-
-    /**
-     * @param TValue $item
-     *
-     * @return string
-     * @infection-ignore-all
-     */
-    private function createKey(mixed $item): string
-    {
-        if (\is_scalar($item)) {
-            return \gettype($item) . ((string) $item);
-        } elseif (\is_object($item)) {
-            return spl_object_hash($item);
-        } else {
-            return md5(json_encode($item));
-        }
     }
 }

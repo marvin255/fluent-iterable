@@ -17,6 +17,7 @@ class CallbackFilterIteratorTest extends BaseCase
      * @psalm-param Iterator<int, mixed> $iterator
      * @psalm-param callable(mixed, int=): bool $callback
      * @psalm-param mixed $reference
+     *
      * @dataProvider provideIteratorData
      */
     public function testIterator(Iterator $iterator, callable $callback, mixed $reference): void
@@ -54,6 +55,7 @@ class CallbackFilterIteratorTest extends BaseCase
 
     /**
      * @psalm-param Iterator<int, mixed> $input
+     *
      * @dataProvider provideCountData
      */
     public function testCount(Iterator $input, int $reference): void

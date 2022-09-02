@@ -16,6 +16,7 @@ class DistinctIteratorTest extends BaseCase
     /**
      * @psalm-param Iterator<mixed> $iterator
      * @psalm-param mixed $reference
+     *
      * @dataProvider provideIterator
      */
     public function testIterator(Iterator $iterator, mixed $reference): void
