@@ -15,6 +15,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param iterable<int, int> $input
      * @psalm-param iterable<int, int> $merge
      * @psalm-param array<int, mixed> $reference
+     *
      * @dataProvider provideMergeData
      */
     public function testMerge(iterable $input, iterable $merge, array $reference): void
@@ -54,6 +55,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param callable(mixed, int=): bool $filter
      * @psalm-param array<int, mixed> $reference
+     *
      * @dataProvider provideFilterData
      */
     public function testFilter(iterable $input, callable $filter, array $reference): void
@@ -98,6 +100,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param callable(mixed, int=): mixed $mapper
      * @psalm-param array<int, mixed> $reference
+     *
      * @dataProvider provideMapData
      */
     public function testMap(iterable $input, callable $mapper, array $reference): void
@@ -142,6 +145,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param int $offset
      * @psalm-param array<int, mixed> $reference
+     *
      * @dataProvider provideSkipData
      */
     public function testSkip(iterable $input, int $offset, array $reference): void
@@ -176,6 +180,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param int $limit
      * @psalm-param array<int, mixed> $reference
+     *
      * @dataProvider provideSliceData
      */
     public function testLimit(iterable $input, int $limit, array $reference): void
@@ -214,7 +219,9 @@ class FluentIterableTest extends BaseCase
     /**
      * @psalm-param iterable $input
      * @psalm-param array<int, mixed> $reference
+     *
      * @dataProvider providePeek
+     *
      * @psalm-suppress MixedArrayAssignment
      */
     public function testPeek(iterable $input, array $reference): void
@@ -257,6 +264,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param callable(mixed, mixed): int $callback
      * @psalm-param array<int, mixed> $reference
+     *
      * @dataProvider provideSorted
      */
     public function testSorted(iterable $input, callable $callback, array $reference): void
@@ -295,6 +303,7 @@ class FluentIterableTest extends BaseCase
     /**
      * @psalm-param iterable $input
      * @psalm-param array<int, mixed> $reference
+     *
      * @dataProvider provideDistinct
      */
     public function testDistinct(iterable $input, array $reference): void
@@ -329,7 +338,9 @@ class FluentIterableTest extends BaseCase
     /**
      * @psalm-param iterable<int, int> $input
      * @psalm-param array<int, int> $reference
+     *
      * @psalm-suppress MixedArrayAssignment
+     *
      * @dataProvider provideWalkData
      */
     public function testWalk(iterable $input, array $reference): void
@@ -371,6 +382,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param callable(mixed, mixed, int=): mixed $reducer
      * @psalm-param mixed $initial
      * @psalm-param mixed $reference
+     *
      * @dataProvider provideReduceData
      */
     public function testReduce(iterable $input, callable $reducer, mixed $initial, mixed $reference): void
@@ -420,6 +432,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param callable(mixed, mixed, int=): int $comparator
      * @psalm-param mixed $reference
+     *
      * @dataProvider provideMinData
      */
     public function testMin(iterable $input, callable $comparator, mixed $reference): void
@@ -459,6 +472,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param callable(mixed, mixed, int=): int $comparator
      * @psalm-param mixed $reference
+     *
      * @dataProvider provideMaxData
      */
     public function testMax(iterable $input, callable $comparator, mixed $reference): void
@@ -499,6 +513,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param callable(int, int=): bool $filter
      * @psalm-param int $orElse
      * @psalm-param mixed $reference
+     *
      * @dataProvider provideFindOneData
      */
     public function testFindOne(iterable $input, callable $filter, int $orElse, mixed $reference): void
@@ -555,6 +570,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param int $index
      * @psalm-param int $orElse
      * @psalm-param mixed $reference
+     *
      * @dataProvider provideFindByIndexData
      */
     public function testFindByIndex(iterable $input, int $index, int $orElse, mixed $reference): void
@@ -604,6 +620,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param iterable<int> $input
      * @psalm-param int $orElse
      * @psalm-param mixed $reference
+     *
      * @dataProvider provideFindFirstData
      */
     public function testFindFirst(iterable $input, int $orElse, mixed $reference): void
@@ -643,6 +660,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param iterable<int> $input
      * @psalm-param int $orElse
      * @psalm-param mixed $reference
+     *
      * @dataProvider provideFindLastData
      */
     public function testFindLast(iterable $input, int $orElse, mixed $reference): void
@@ -682,6 +700,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param iterable<int> $input
      * @psalm-param callable(int, int=): bool $callback
      * @psalm-param bool $reference
+     *
      * @dataProvider provideMatchAll
      */
     public function testMatchAll(iterable $input, callable $callback, bool $reference): void
@@ -726,6 +745,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param iterable<int> $input
      * @psalm-param callable(int, int=): bool $callback
      * @psalm-param bool $reference
+     *
      * @dataProvider provideMatchAny
      */
     public function testMatchAny(iterable $input, callable $callback, bool $reference): void
@@ -770,6 +790,7 @@ class FluentIterableTest extends BaseCase
      * @psalm-param iterable<int> $input
      * @psalm-param callable(int, int=): bool $callback
      * @psalm-param bool $reference
+     *
      * @dataProvider provideMatchNone
      */
     public function testMatchNone(iterable $input, callable $callback, bool $reference): void
@@ -808,6 +829,7 @@ class FluentIterableTest extends BaseCase
     /**
      * @psalm-param iterable $input
      * @psalm-param mixed $count
+     *
      * @dataProvider provideCountData
      */
     public function testCount(iterable $input, int $count): void
@@ -846,6 +868,7 @@ class FluentIterableTest extends BaseCase
     /**
      * @psalm-param iterable $input
      * @psalm-param array $reference
+     *
      * @dataProvider provideGetIteratorData
      */
     public function testGetIterator(iterable $input, array $reference): void

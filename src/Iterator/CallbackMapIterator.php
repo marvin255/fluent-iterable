@@ -14,6 +14,7 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  *
  * @template TValue
  * @template TConverted
+ *
  * @implements Iterator<int, TConverted>
  */
 final class CallbackMapIterator implements Countable, Iterator
@@ -25,6 +26,7 @@ final class CallbackMapIterator implements Countable, Iterator
 
     /**
      * @var callable
+     *
      * @psalm-var callable(TValue, int=): mixed
      */
     private readonly mixed $callback;
@@ -34,6 +36,7 @@ final class CallbackMapIterator implements Countable, Iterator
     /**
      * @param Iterator<mixed, TValue> $iterator
      * @param callable                $callback
+     *
      * @psalm-param callable(TValue, int=): TConverted $callback
      */
     public function __construct(Iterator $iterator, callable $callback)

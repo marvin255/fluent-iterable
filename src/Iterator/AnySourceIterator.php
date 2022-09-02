@@ -14,6 +14,7 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  * All keys will be converted to ints.
  *
  * @template TValue
+ *
  * @implements Iterator<int, TValue>
  */
 final class AnySourceIterator implements Countable, Iterator

@@ -13,6 +13,7 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  * It's useful for debugging.
  *
  * @template TValue
+ *
  * @implements Iterator<int, TValue>
  */
 final class PeekIterator implements Countable, Iterator
@@ -24,6 +25,7 @@ final class PeekIterator implements Countable, Iterator
 
     /**
      * @var callable
+     *
      * @psalm-var callable(TValue, int=): void
      */
     private readonly mixed $callback;
@@ -33,6 +35,7 @@ final class PeekIterator implements Countable, Iterator
     /**
      * @param Iterator<mixed, TValue> $iterator
      * @param callable                $callback
+     *
      * @psalm-param callable(TValue, int=): void $callback
      */
     public function __construct(Iterator $iterator, callable $callback)

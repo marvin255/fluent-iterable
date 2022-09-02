@@ -12,6 +12,7 @@ use Iterator;
  * All keys will be converted to ints.
  *
  * @template TValue
+ *
  * @implements Iterator<int, TValue>
  */
 final class SliceIterator implements Iterator

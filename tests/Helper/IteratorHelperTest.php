@@ -16,6 +16,7 @@ class IteratorHelperTest extends BaseCase
     /**
      * @psalm-param Iterator<mixed, mixed> $iterator
      * @psalm-param int $reference
+     *
      * @dataProvider provideCount
      */
     public function testCount(Iterator $iterator, int $reference): void
@@ -50,6 +51,7 @@ class IteratorHelperTest extends BaseCase
     /**
      * @psalm-param Iterator<mixed, mixed> $iterator
      * @psalm-param array $reference
+     *
      * @dataProvider provideToArray
      */
     public function testToArray(Iterator $iterator, array $reference): void

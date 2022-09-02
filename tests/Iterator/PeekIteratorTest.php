@@ -19,7 +19,9 @@ class PeekIteratorTest extends BaseCase
      * @psalm-param callable(mixed): mixed $callback
      * @psalm-param mixed $reference
      * @psalm-param mixed $iteratorReference
+     *
      * @dataProvider provideIteratorData
+     *
      * @psalm-suppress MixedArrayAssignment
      */
     public function testIterator(Iterator $iterator, mixed $reference, mixed $iteratorReference): void
