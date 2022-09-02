@@ -6,12 +6,12 @@ namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use Iterator;
 use Marvin255\FluentIterable\Iterator\DistinctIterator;
-use Marvin255\FluentIterable\Tests\BaseCase;
+use Marvin255\FluentIterable\Tests\IteratorCase;
 
 /**
  * @internal
  */
-class DistinctIteratorTest extends BaseCase
+class DistinctIteratorTest extends IteratorCase
 {
     /**
      * @psalm-param Iterator<mixed> $iterator
@@ -23,9 +23,7 @@ class DistinctIteratorTest extends BaseCase
     {
         $iterator = new DistinctIterator($iterator);
 
-        $result = $this->runLoopOnIterator($iterator);
-
-        $this->assertSame($reference, $result);
+        $this->assertIteratorContains($reference, $iterator);
     }
 
     public function provideIterator(): array
@@ -69,9 +67,7 @@ class DistinctIteratorTest extends BaseCase
     {
         $iterator = new DistinctIterator($input);
 
-        $result = \count($iterator);
-
-        $this->assertSame($reference, $result);
+        $this->assertCountableCount($reference, $iterator);
     }
 
     public function provideCount(): array

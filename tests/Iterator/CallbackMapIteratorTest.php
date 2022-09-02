@@ -6,12 +6,12 @@ namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use Iterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
-use Marvin255\FluentIterable\Tests\BaseCase;
+use Marvin255\FluentIterable\Tests\IteratorCase;
 
 /**
  * @internal
  */
-class CallbackMapIteratorTest extends BaseCase
+class CallbackMapIteratorTest extends IteratorCase
 {
     /**
      * @psalm-param Iterator<mixed> $iterator
@@ -24,9 +24,7 @@ class CallbackMapIteratorTest extends BaseCase
     {
         $iterator = new CallbackMapIterator($iterator, $callback);
 
-        $result = $this->runLoopOnIterator($iterator);
-
-        $this->assertSame($reference, $result);
+        $this->assertIteratorContains($reference, $iterator);
     }
 
     public function provideIteratorData(): array
@@ -47,9 +45,7 @@ class CallbackMapIteratorTest extends BaseCase
     {
         $iterator = new CallbackMapIterator($input, fn () => false);
 
-        $result = \count($iterator);
-
-        $this->assertSame($reference, $result);
+        $this->assertCountableCount($reference, $iterator);
     }
 
     public function provideCountData(): array

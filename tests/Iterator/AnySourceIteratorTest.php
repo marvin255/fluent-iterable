@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use Marvin255\FluentIterable\Iterator\AnySourceIterator;
-use Marvin255\FluentIterable\Tests\BaseCase;
+use Marvin255\FluentIterable\Tests\IteratorCase;
 
 /**
  * @internal
  */
-class AnySourceIteratorTest extends BaseCase
+class AnySourceIteratorTest extends IteratorCase
 {
     /**
      * @dataProvider provideIteratorData
@@ -19,9 +19,7 @@ class AnySourceIteratorTest extends BaseCase
     {
         $iterator = AnySourceIterator::of($input);
 
-        $result = $this->runLoopOnIterator($iterator, 1);
-
-        $this->assertSame($reference, $result);
+        $this->assertIteratorContains($reference, $iterator);
     }
 
     /**
@@ -31,9 +29,7 @@ class AnySourceIteratorTest extends BaseCase
     {
         $iterator = AnySourceIterator::of($input);
 
-        $result = $this->runLoopOnIterator($iterator, 1);
-
-        $this->assertSame($reference, $result);
+        $this->assertIteratorContains($reference, $iterator);
     }
 
     public function provideIteratorData(): array
@@ -79,11 +75,9 @@ class AnySourceIteratorTest extends BaseCase
      */
     public function testCount(iterable $input, int $reference): void
     {
-        $immutableIterator = AnySourceIterator::of($input);
+        $iterator = AnySourceIterator::of($input);
 
-        $result = \count($immutableIterator);
-
-        $this->assertSame($reference, $result);
+        $this->assertCountableCount($reference, $iterator);
     }
 
     public function provideCountData(): array

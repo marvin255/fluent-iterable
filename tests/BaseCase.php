@@ -144,21 +144,4 @@ abstract class BaseCase extends TestCase
             }
         })();
     }
-
-    /**
-     * Runs foreach loop on this iterator, collects all items to array and returns results.
-     */
-    protected function runLoopOnIterator(Iterator $iterator, int $iterationCount = 2): array
-    {
-        $result = [];
-
-        for ($i = 0; $i < $iterationCount; ++$i) {
-            $result = [];
-            foreach ($iterator as $key => $item) {
-                $result[$key] = $item;
-            }
-        }
-
-        return $result;
-    }
 }

@@ -7,12 +7,12 @@ namespace Marvin255\FluentIterable\Tests\Iterator;
 use Iterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
 use Marvin255\FluentIterable\Iterator\PeekIterator;
-use Marvin255\FluentIterable\Tests\BaseCase;
+use Marvin255\FluentIterable\Tests\IteratorCase;
 
 /**
  * @internal
  */
-class PeekIteratorTest extends BaseCase
+class PeekIteratorTest extends IteratorCase
 {
     /**
      * @psalm-param Iterator<mixed> $iterator
@@ -36,7 +36,7 @@ class PeekIteratorTest extends BaseCase
 
         $iteratorResult = $this->runLoopOnIterator($iterator);
 
-        $this->assertSame($reference, $result, 'Every item must be iterater');
+        $this->assertSame($reference, $result, 'Every item must be iterated');
         $this->assertSame($iteratorReference, $iteratorResult, "Result array mustn't be changed");
     }
 
@@ -63,9 +63,7 @@ class PeekIteratorTest extends BaseCase
     {
         $iterator = new CallbackMapIterator($input, function (): void {});
 
-        $result = \count($iterator);
-
-        $this->assertSame($reference, $result);
+        $this->assertCountableCount($reference, $iterator);
     }
 
     public function provideCountData(): array

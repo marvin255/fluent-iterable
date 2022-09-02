@@ -6,12 +6,12 @@ namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use InvalidArgumentException;
 use Marvin255\FluentIterable\Iterator\MergedIteratorsIterator;
-use Marvin255\FluentIterable\Tests\BaseCase;
+use Marvin255\FluentIterable\Tests\IteratorCase;
 
 /**
  * @internal
  */
-class MergedIteratorsIteratorTest extends BaseCase
+class MergedIteratorsIteratorTest extends IteratorCase
 {
     public function testConstructWrongTypeException(): void
     {
@@ -26,9 +26,7 @@ class MergedIteratorsIteratorTest extends BaseCase
     {
         $iterator = new MergedIteratorsIterator($input);
 
-        $result = $this->runLoopOnIterator($iterator);
-
-        $this->assertSame($reference, $result);
+        $this->assertIteratorContains($reference, $iterator);
     }
 
     public function provideIteratorData(): array
@@ -69,8 +67,6 @@ class MergedIteratorsIteratorTest extends BaseCase
             ]
         );
 
-        $result = \count($iterator);
-
-        $this->assertSame(14, $result);
+        $this->assertCountableCount(14, $iterator);
     }
 }

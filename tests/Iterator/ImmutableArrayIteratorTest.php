@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use Marvin255\FluentIterable\Iterator\ImmutableArrayIterator;
-use Marvin255\FluentIterable\Tests\BaseCase;
+use Marvin255\FluentIterable\Tests\IteratorCase;
 
 /**
  * @internal
  */
-class ImmutableArrayIteratorTest extends BaseCase
+class ImmutableArrayIteratorTest extends IteratorCase
 {
     /**
      * @dataProvider provideIteratorData
@@ -19,9 +19,7 @@ class ImmutableArrayIteratorTest extends BaseCase
     {
         $iterator = new ImmutableArrayIterator($input);
 
-        $result = $this->runLoopOnIterator($iterator);
-
-        $this->assertSame($reference, $result);
+        $this->assertIteratorContains($reference, $iterator);
     }
 
     public function provideIteratorData(): array
@@ -64,8 +62,6 @@ class ImmutableArrayIteratorTest extends BaseCase
     {
         $iterator = new ImmutableArrayIterator([1, 2, 3]);
 
-        $result = \count($iterator);
-
-        $this->assertSame(3, $result);
+        $this->assertCountableCount(3, $iterator);
     }
 }
