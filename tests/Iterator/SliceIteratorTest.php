@@ -45,14 +45,9 @@ class SliceIteratorTest extends IteratorCase
     }
 
     /**
-     * @psalm-param Iterator<mixed> $iterator
-     * @psalm-param int|null $from
-     * @psalm-param int|null $to
-     * @psalm-param mixed $reference
-     *
      * @dataProvider provideIteratorData
      */
-    public function testIterator(Iterator $iterator, ?int $from, ?int $to, mixed $reference): void
+    public function testIterator(Iterator $iterator, ?int $from, ?int $to, array $reference): void
     {
         $sliceIterator = new SliceIterator($iterator, $from, $to);
 

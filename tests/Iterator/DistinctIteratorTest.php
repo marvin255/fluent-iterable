@@ -14,12 +14,9 @@ use Marvin255\FluentIterable\Tests\IteratorCase;
 class DistinctIteratorTest extends IteratorCase
 {
     /**
-     * @psalm-param Iterator<mixed> $iterator
-     * @psalm-param mixed $reference
-     *
      * @dataProvider provideIterator
      */
-    public function testIterator(Iterator $iterator, mixed $reference): void
+    public function testIterator(Iterator $iterator, array $reference): void
     {
         $iterator = new DistinctIterator($iterator);
 

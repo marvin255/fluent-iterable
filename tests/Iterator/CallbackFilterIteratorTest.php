@@ -16,11 +16,11 @@ class CallbackFilterIteratorTest extends IteratorCase
     /**
      * @psalm-param Iterator<int, mixed> $iterator
      * @psalm-param callable(mixed, int=): bool $callback
-     * @psalm-param mixed $reference
+     * @psalm-param array $reference
      *
      * @dataProvider provideIteratorData
      */
-    public function testIterator(Iterator $iterator, callable $callback, mixed $reference): void
+    public function testIterator(Iterator $iterator, callable $callback, array $reference): void
     {
         $iterator = new CallbackFilterIterator($iterator, $callback);
 

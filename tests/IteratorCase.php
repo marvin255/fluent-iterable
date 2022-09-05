@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Tests;
 
 use Countable;
+use Exception;
 use Iterator;
 
 /**
@@ -17,7 +18,7 @@ abstract class IteratorCase extends BaseCase
      */
     protected function assertIteratorContains(array $content, Iterator $iterator): void
     {
-        $result = $this->runLoopOnIterator($iterator, 1);
+        $result = $this->runLoopOnIterator($iterator);
 
         $this->assertSame($content, $result);
     }
@@ -34,15 +35,25 @@ abstract class IteratorCase extends BaseCase
 
     /**
      * Runs foreach loop on this iterator, collects all items to array and returns results.
+     *
+     * @psalm-suppress MixedArrayOffset
      */
-    protected function runLoopOnIterator(Iterator $iterator, int $iterationCount = 2): array
+    protected function runLoopOnIterator(Iterator $iterator): array
     {
         $result = [];
+        foreach ($iterator as $key => $item) {
+            $result[$key] = $item;
+        }
 
-        for ($i = 0; $i < $iterationCount; ++$i) {
-            $result = [];
+        try {
+            $secondRun = [];
             foreach ($iterator as $key => $item) {
-                $result[$key] = $item;
+                $secondRun[$key] = $item;
+            }
+            $result = $secondRun;
+        } catch (Exception $e) {
+            if ($e->getMessage() !== 'Cannot rewind a generator that was already run') {
+                throw $e;
             }
         }
 
