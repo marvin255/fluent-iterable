@@ -1,0 +1,116 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Marvin255\FluentIterable\Iterator;
+
+use Countable;
+use Iterator;
+use Marvin255\FluentIterable\Helper\IteratorHelper;
+
+/**
+ * Iterator that accepts other iterator and callable.
+ * It converts each item from nested iterator with callable and returns new iterable.
+ *
+ * @template TValue
+ * @template TConverted
+ *
+ * @implements Iterator<int, TConverted>
+ */
+final class FlattenIterator implements Countable, Iterator
+{
+    /**
+     * @var Iterator<mixed, TValue>
+     */
+    private readonly Iterator $iterator;
+
+    /**
+     * @var callable
+     *
+     * @psalm-var callable(TValue, int=): iterable<TConverted>
+     */
+    private readonly mixed $callback;
+
+    private int $count = 0;
+
+    /**
+     * @var array<int, TConverted>|null
+     */
+    private ?array $buffer = null;
+
+    private int $bufferCount = 0;
+
+    /**
+     * @param Iterator<mixed, TValue> $iterator
+     * @param callable                $callback
+     *
+     * @psalm-param callable(TValue, int=): iterable<TConverted> $callback
+     */
+    public function __construct(Iterator $iterator, callable $callback)
+    {
+        $this->iterator = $iterator;
+        $this->callback = $callback;
+    }
+
+    /**
+     * @return TConverted
+     *
+     * @psalm-suppress PossiblyNullArrayAccess
+     */
+    public function current(): mixed
+    {
+        /** @var TConverted */
+        $current = $this->buffer[$this->bufferCount];
+
+        return $current;
+    }
+
+    public function key(): int
+    {
+        return $this->count;
+    }
+
+    public function next(): void
+    {
+        ++$this->count;
+        ++$this->bufferCount;
+    }
+
+    public function rewind(): void
+    {
+        $this->count = 0;
+        $this->bufferCount = 0;
+        $this->buffer = null;
+        $this->iterator->rewind();
+    }
+
+    public function valid(): bool
+    {
+        if ($this->buffer !== null && $this->bufferCount < \count($this->buffer)) {
+            return true;
+        }
+
+        if ($this->buffer !== null) {
+            $this->iterator->next();
+        }
+
+        $this->buffer = null;
+        $this->bufferCount = 0;
+        while ($this->buffer === null && $this->iterator->valid()) {
+            $callbackResult = \call_user_func($this->callback, $this->iterator->current(), $this->count);
+            $callbackResult = IteratorHelper::toArrayIterable($callbackResult);
+            if (empty($callbackResult)) {
+                $this->iterator->next();
+            } else {
+                $this->buffer = $callbackResult;
+            }
+        }
+
+        return $this->buffer !== null;
+    }
+
+    public function count(): int
+    {
+        return IteratorHelper::count($this->iterator);
+    }
+}

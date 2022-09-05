@@ -82,4 +82,43 @@ class IteratorHelperTest extends BaseCase
             ],
         ];
     }
+
+    /**
+     * @psalm-param iterable<mixed, mixed> $iterable
+     * @psalm-param array $reference
+     *
+     * @dataProvider provideToArrayIterable
+     */
+    public function testToArrayIterable(iterable $iterable, array $reference): void
+    {
+        $result = IteratorHelper::toArrayIterable($iterable);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideToArrayIterable(): array
+    {
+        return [
+            'iterator' => [
+                $this->createIterator('q', 'w', 'e'),
+                ['q', 'w', 'e'],
+            ],
+            'empty iterator' => [
+                $this->createEmptyIterator(),
+                [],
+            ],
+            'string keys iterator' => [
+                $this->createIteratorFromArray(['q' => 'q', 'w' => 'w', 'e' => 'e']),
+                ['q', 'w', 'e'],
+            ],
+            'generator' => [
+                $this->createGenerator('q', 'w', 'e'),
+                ['q', 'w', 'e'],
+            ],
+            'array' => [
+                ['q', 'w', 'e'],
+                ['q', 'w', 'e'],
+            ],
+        ];
+    }
 }
