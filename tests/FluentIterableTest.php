@@ -218,6 +218,41 @@ class FluentIterableTest extends BaseCase
 
     /**
      * @psalm-param iterable $input
+     * @psalm-param callable(mixed, int=): mixed[] $callback
+     * @psalm-param array<int, mixed> $reference
+     *
+     * @dataProvider provideFlatten
+     */
+    public function testFlatten(iterable $input, callable $callback, array $reference): void
+    {
+        $result = FluentIterable::of($input)->flatten($callback)->toArray();
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideFlatten(): array
+    {
+        return [
+            'nested arrays' => [
+                $this->createIterator([5, 6], [3, 4], [1, 2]),
+                fn (array $item): iterable => $item,
+                [5, 6, 3, 4, 1, 2],
+            ],
+            'nested arrays with different sizes' => [
+                $this->createIterator([1, 2], [3, 4, 5, 6], [7]),
+                fn (array $item): iterable => $item,
+                [1, 2, 3, 4, 5, 6, 7],
+            ],
+            'empty' => [
+                $this->createEmptyIterator(),
+                fn (array $item): iterable => $item,
+                [],
+            ],
+        ];
+    }
+
+    /**
+     * @psalm-param iterable $input
      * @psalm-param array<int, mixed> $reference
      *
      * @dataProvider providePeek

@@ -11,6 +11,7 @@ use Marvin255\FluentIterable\Iterator\AnySourceIterator;
 use Marvin255\FluentIterable\Iterator\CallbackFilterIterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
 use Marvin255\FluentIterable\Iterator\DistinctIterator;
+use Marvin255\FluentIterable\Iterator\FlattenIterator;
 use Marvin255\FluentIterable\Iterator\MergedIteratorsIterator;
 use Marvin255\FluentIterable\Iterator\PeekIterator;
 use Marvin255\FluentIterable\Iterator\SliceIterator;
@@ -162,6 +163,24 @@ final class FluentIterable implements IteratorAggregate
     public function distinct(): self
     {
         $iterator = new DistinctIterator($this->iterator);
+
+        return new self($iterator);
+    }
+
+    /**
+     * Return an iterator which contains flat list of items returned by callable applied to every item of main iterator.
+     *
+     * @template TConverted
+     *
+     * @param callable $callback
+     *
+     * @return self<TConverted>
+     *
+     * @psalm-param callable(TValue, int=): iterable<TConverted> $callback
+     */
+    public function flatten(callable $callback): self
+    {
+        $iterator = new FlattenIterator($this->iterator, $callback);
 
         return new self($iterator);
     }

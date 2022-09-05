@@ -5,31 +5,21 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use Marvin255\FluentIterable\Iterator\ImmutableArrayIterator;
-use Marvin255\FluentIterable\Tests\BaseCase;
+use Marvin255\FluentIterable\Tests\IteratorCase;
 
 /**
  * @internal
  */
-class ImmutableArrayIteratorTest extends BaseCase
+class ImmutableArrayIteratorTest extends IteratorCase
 {
     /**
      * @dataProvider provideIteratorData
      */
     public function testIterator(array $input, array $reference): void
     {
-        $immutableIterator = new ImmutableArrayIterator($input);
+        $iterator = new ImmutableArrayIterator($input);
 
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $this->assertSame($reference, $result);
+        $this->assertIteratorContains($reference, $iterator);
     }
 
     public function provideIteratorData(): array
@@ -58,10 +48,10 @@ class ImmutableArrayIteratorTest extends BaseCase
     {
         $reference = $input = ['qwe', 'asd', 'xcv'];
 
-        $immutableIterator = new ImmutableArrayIterator($input);
+        $iterator = new ImmutableArrayIterator($input);
         $input[] = 'iop';
         $result = [];
-        foreach ($immutableIterator as $key => $item) {
+        foreach ($iterator as $key => $item) {
             $result[$key] = $item;
         }
 
@@ -70,10 +60,8 @@ class ImmutableArrayIteratorTest extends BaseCase
 
     public function testCount(): void
     {
-        $immutableIterator = new ImmutableArrayIterator([1, 2, 3]);
+        $iterator = new ImmutableArrayIterator([1, 2, 3]);
 
-        $result = \count($immutableIterator);
-
-        $this->assertSame(3, $result);
+        $this->assertCountableCount(3, $iterator);
     }
 }

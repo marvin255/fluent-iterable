@@ -6,35 +6,25 @@ namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use Iterator;
 use Marvin255\FluentIterable\Iterator\CallbackMapIterator;
-use Marvin255\FluentIterable\Tests\BaseCase;
+use Marvin255\FluentIterable\Tests\IteratorCase;
 
 /**
  * @internal
  */
-class CallbackMapIteratorTest extends BaseCase
+class CallbackMapIteratorTest extends IteratorCase
 {
     /**
      * @psalm-param Iterator<mixed> $iterator
      * @psalm-param callable(mixed): mixed $callback
-     * @psalm-param mixed $reference
+     * @psalm-param array $reference
      *
      * @dataProvider provideIteratorData
      */
-    public function testIterator(Iterator $iterator, callable $callback, mixed $reference): void
+    public function testIterator(Iterator $iterator, callable $callback, array $reference): void
     {
-        $immutableIterator = new CallbackMapIterator($iterator, $callback);
+        $iterator = new CallbackMapIterator($iterator, $callback);
 
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $this->assertSame($reference, $result);
+        $this->assertIteratorContains($reference, $iterator);
     }
 
     public function provideIteratorData(): array
@@ -53,11 +43,9 @@ class CallbackMapIteratorTest extends BaseCase
      */
     public function testCount(Iterator $input, int $reference): void
     {
-        $immutableIterator = new CallbackMapIterator($input, fn () => false);
+        $iterator = new CallbackMapIterator($input, fn () => false);
 
-        $result = \count($immutableIterator);
-
-        $this->assertSame($reference, $result);
+        $this->assertCountableCount($reference, $iterator);
     }
 
     public function provideCountData(): array

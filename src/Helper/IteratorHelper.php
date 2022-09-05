@@ -30,4 +30,25 @@ final class IteratorHelper
     {
         return iterator_to_array($iterator, false);
     }
+
+    /**
+     * @template T
+     *
+     * @param iterable<mixed, T> $iterable
+     *
+     * @return array<int, T>
+     */
+    public static function toArrayIterable(iterable $iterable): array
+    {
+        if (\is_array($iterable)) {
+            return array_values($iterable);
+        }
+
+        $result = [];
+        foreach ($iterable as $item) {
+            $result[] = $item;
+        }
+
+        return $result;
+    }
 }

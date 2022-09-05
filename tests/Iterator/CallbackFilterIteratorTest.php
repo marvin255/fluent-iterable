@@ -6,30 +6,25 @@ namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use Iterator;
 use Marvin255\FluentIterable\Iterator\CallbackFilterIterator;
-use Marvin255\FluentIterable\Tests\BaseCase;
+use Marvin255\FluentIterable\Tests\IteratorCase;
 
 /**
  * @internal
  */
-class CallbackFilterIteratorTest extends BaseCase
+class CallbackFilterIteratorTest extends IteratorCase
 {
     /**
      * @psalm-param Iterator<int, mixed> $iterator
      * @psalm-param callable(mixed, int=): bool $callback
-     * @psalm-param mixed $reference
+     * @psalm-param array $reference
      *
      * @dataProvider provideIteratorData
      */
-    public function testIterator(Iterator $iterator, callable $callback, mixed $reference): void
+    public function testIterator(Iterator $iterator, callable $callback, array $reference): void
     {
         $iterator = new CallbackFilterIterator($iterator, $callback);
 
-        $result = [];
-        foreach ($iterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $this->assertSame($reference, $result);
+        $this->assertIteratorContains($reference, $iterator);
     }
 
     public function provideIteratorData(): array
@@ -45,11 +40,6 @@ class CallbackFilterIteratorTest extends BaseCase
                 fn (string $letter): bool => $letter !== 'w',
                 [],
             ],
-            'generator' => [
-                $this->createGenerator('q', 'w', 'e'),
-                fn (string $letter): bool => $letter !== 'w',
-                ['q', 'e'],
-            ],
         ];
     }
 
@@ -62,9 +52,7 @@ class CallbackFilterIteratorTest extends BaseCase
     {
         $iterator = new CallbackFilterIterator($input, fn () => false);
 
-        $result = \count($iterator);
-
-        $this->assertSame($reference, $result);
+        $this->assertCountableCount($reference, $iterator);
     }
 
     public function provideCountData(): array

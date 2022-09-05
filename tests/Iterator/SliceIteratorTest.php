@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use Generator;
 use InvalidArgumentException;
 use Iterator;
 use Marvin255\FluentIterable\Iterator\SliceIterator;
-use Marvin255\FluentIterable\Tests\BaseCase;
+use Marvin255\FluentIterable\Tests\IteratorCase;
 
 /**
  * @internal
  */
-class SliceIteratorTest extends BaseCase
+class SliceIteratorTest extends IteratorCase
 {
     public function testConstructNegativeOffset(): void
     {
@@ -46,30 +45,13 @@ class SliceIteratorTest extends BaseCase
     }
 
     /**
-     * @psalm-param Iterator<mixed> $iterator
-     * @psalm-param int|null $from
-     * @psalm-param int|null $to
-     * @psalm-param mixed $reference
-     *
      * @dataProvider provideIteratorData
      */
-    public function testIterator(Iterator $iterator, ?int $from, ?int $to, mixed $reference): void
+    public function testIterator(Iterator $iterator, ?int $from, ?int $to, array $reference): void
     {
-        $immutableIterator = new SliceIterator($iterator, $from, $to);
+        $sliceIterator = new SliceIterator($iterator, $from, $to);
 
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        if (!($iterator instanceof Generator)) {
-            $result = [];
-            foreach ($immutableIterator as $key => $item) {
-                $result[$key] = $item;
-            }
-        }
-
-        $this->assertSame($reference, $result);
+        $this->assertIteratorContains($reference, $sliceIterator);
     }
 
     public function provideIteratorData(): array
@@ -111,17 +93,11 @@ class SliceIteratorTest extends BaseCase
                 1,
                 ['q'],
             ],
-            'iterator length more that real' => [
+            'iterator length more than real' => [
                 $this->createIterator('q', 'w', 'e', 'r'),
                 2,
                 1000,
                 ['e', 'r'],
-            ],
-            'generator' => [
-                $this->createGenerator('q', 'w', 'e', 'r'),
-                1,
-                2,
-                ['w', 'e'],
             ],
         ];
     }

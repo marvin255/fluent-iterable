@@ -39,7 +39,7 @@ Initiate item using factory (any `iterable` instance is allowed)
 $fluent = \Marvin255\FluentIterable\FluentIterable::of($input);
 ```
 
-Apply any number of intermediate methods (`merge`, `filter`, `map`, `skip`, `limit`, `sorted`, `peek`)
+Apply any number of intermediate methods (`merge`, `filter`, `map`, `skip`, `limit`, `sorted`, `peek`, `distinct`, `flatten`)
 
 ```php
 $fluent = $fluent->map(fn (int $item): int => $item + 1)

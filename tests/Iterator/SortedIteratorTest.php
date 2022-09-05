@@ -6,12 +6,12 @@ namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use Iterator;
 use Marvin255\FluentIterable\Iterator\SortedIterator;
-use Marvin255\FluentIterable\Tests\BaseCase;
+use Marvin255\FluentIterable\Tests\IteratorCase;
 
 /**
  * @internal
  */
-class SortedIteratorTest extends BaseCase
+class SortedIteratorTest extends IteratorCase
 {
     /**
      * @psalm-param Iterator<mixed> $iterator
@@ -24,12 +24,7 @@ class SortedIteratorTest extends BaseCase
     {
         $iterator = new SortedIterator($iterator, $callback);
 
-        $result = [];
-        foreach ($iterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $this->assertSame($reference, $result);
+        $this->assertIteratorContains($reference, $iterator);
     }
 
     public function provideIteratorData(): array

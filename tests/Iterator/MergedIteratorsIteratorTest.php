@@ -6,12 +6,12 @@ namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use InvalidArgumentException;
 use Marvin255\FluentIterable\Iterator\MergedIteratorsIterator;
-use Marvin255\FluentIterable\Tests\BaseCase;
+use Marvin255\FluentIterable\Tests\IteratorCase;
 
 /**
  * @internal
  */
-class MergedIteratorsIteratorTest extends BaseCase
+class MergedIteratorsIteratorTest extends IteratorCase
 {
     public function testConstructWrongTypeException(): void
     {
@@ -24,19 +24,9 @@ class MergedIteratorsIteratorTest extends BaseCase
      */
     public function testIterator(array $input, array $reference): void
     {
-        $mergedIterator = new MergedIteratorsIterator($input);
+        $iterator = new MergedIteratorsIterator($input);
 
-        $result = [];
-        foreach ($mergedIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $result = [];
-        foreach ($mergedIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $this->assertSame($reference, $result);
+        $this->assertIteratorContains($reference, $iterator);
     }
 
     public function provideIteratorData(): array
@@ -68,7 +58,7 @@ class MergedIteratorsIteratorTest extends BaseCase
 
     public function testCount(): void
     {
-        $immutableIterator = new MergedIteratorsIterator(
+        $iterator = new MergedIteratorsIterator(
             [
                 $this->createIterator('q', 'w', 'e'),
                 $this->createEmptyIterator(),
@@ -77,8 +67,6 @@ class MergedIteratorsIteratorTest extends BaseCase
             ]
         );
 
-        $result = \count($immutableIterator);
-
-        $this->assertSame(14, $result);
+        $this->assertCountableCount(14, $iterator);
     }
 }

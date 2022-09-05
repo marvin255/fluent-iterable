@@ -6,34 +6,21 @@ namespace Marvin255\FluentIterable\Tests\Iterator;
 
 use Iterator;
 use Marvin255\FluentIterable\Iterator\DistinctIterator;
-use Marvin255\FluentIterable\Tests\BaseCase;
+use Marvin255\FluentIterable\Tests\IteratorCase;
 
 /**
  * @internal
  */
-class DistinctIteratorTest extends BaseCase
+class DistinctIteratorTest extends IteratorCase
 {
     /**
-     * @psalm-param Iterator<mixed> $iterator
-     * @psalm-param mixed $reference
-     *
      * @dataProvider provideIterator
      */
-    public function testIterator(Iterator $iterator, mixed $reference): void
+    public function testIterator(Iterator $iterator, array $reference): void
     {
-        $immutableIterator = new DistinctIterator($iterator);
+        $iterator = new DistinctIterator($iterator);
 
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $result = [];
-        foreach ($immutableIterator as $key => $item) {
-            $result[$key] = $item;
-        }
-
-        $this->assertSame($reference, $result);
+        $this->assertIteratorContains($reference, $iterator);
     }
 
     public function provideIterator(): array
@@ -75,11 +62,9 @@ class DistinctIteratorTest extends BaseCase
      */
     public function testCount(Iterator $input, int $reference): void
     {
-        $immutableIterator = new DistinctIterator($input);
+        $iterator = new DistinctIterator($input);
 
-        $result = \count($immutableIterator);
-
-        $this->assertSame($reference, $result);
+        $this->assertCountableCount($reference, $iterator);
     }
 
     public function provideCount(): array
