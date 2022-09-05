@@ -79,8 +79,6 @@ final class FlattenIterator implements Countable, Iterator
     public function rewind(): void
     {
         $this->count = 0;
-        $this->bufferCount = 0;
-        $this->buffer = null;
         $this->iterator->rewind();
     }
 

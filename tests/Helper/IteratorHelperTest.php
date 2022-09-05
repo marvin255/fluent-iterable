@@ -119,6 +119,10 @@ class IteratorHelperTest extends BaseCase
                 ['q', 'w', 'e'],
                 ['q', 'w', 'e'],
             ],
+            'array with keys' => [
+                ['q' => 'q', 'w' => 'w', 'e' => 'e'],
+                ['q', 'w', 'e'],
+            ],
         ];
     }
 }
