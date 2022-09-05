@@ -53,7 +53,7 @@ Get result using one of finalizing methods (`walk`, `reduce`, `findByIndex`, `fi
 $result = $fluent->toArray();
 ```
 
-Methods that convert list to single item (`reduce`, `findOne`, `findByIndex`, `findFirst`, `findLast`, `min`, `max`) return an [`Optional`](https://github.com/marvin255/optional) instance.
+Methods that convert list to a single item (`reduce`, `findOne`, `findByIndex`, `findFirst`, `findLast`, `min`, `max`) return an [`Optional`](https://github.com/marvin255/optional) instance.
 
 
 
