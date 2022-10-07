@@ -5,7 +5,6 @@ docker_compose_bin := $(shell command -v docker-compose 2> /dev/null) --file "do
 php_container_bin := $(docker_compose_bin) run --rm -u "$(user_id)" "php"
 composer_bin := $(php_container_bin) composer run-script
 
-.PHONY : help build install shell fixer test coverage
 .DEFAULT_GOAL := build
 
 # --- [ Development tasks ] -------------------------------------------------------------------------------------------
@@ -32,4 +31,10 @@ coverage: ## Run tests with coverage
 	$(composer_bin) coverage
 
 infection: ## Run infection testing
+	$(composer_bin) infection
+
+release: ## Run all preparations before release
+	$(composer_bin) fixer
+	$(composer_bin) linter
+	$(composer_bin) test
 	$(composer_bin) infection
