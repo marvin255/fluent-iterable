@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests;
 
-use ArrayObject;
 use Countable;
 use Generator;
 use Iterator;
 use IteratorAggregate;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
 
 /**
  * Base test case for all tests.
@@ -22,41 +20,43 @@ abstract class BaseCase extends TestCase
     /**
      * Creates IteratorAggregate instance using set parameters.
      */
-    protected function createIteratorAggregate(mixed ...$data): IteratorAggregate
+    protected function createIteratorAggregate(mixed ...$data): \IteratorAggregate
     {
-        return new ArrayObject($data);
+        return new \ArrayObject($data);
     }
 
     /**
      * Creates Iterator instance using set parameters.
      */
-    protected function createIterator(mixed ...$data): Iterator
+    protected function createIterator(mixed ...$data): \Iterator
     {
-        return (new ArrayObject($data))->getIterator();
+        return (new \ArrayObject($data))->getIterator();
     }
 
     /**
      * Creates Iterator instance from items of the set array.
      */
-    protected function createIteratorFromArray(array $data): Iterator
+    protected function createIteratorFromArray(array $data): \Iterator
     {
-        return (new ArrayObject($data))->getIterator();
+        return (new \ArrayObject($data))->getIterator();
     }
 
     /**
      * Creates Iterator instance with no items.
      */
-    protected function createEmptyIterator(): Iterator
+    protected function createEmptyIterator(): \Iterator
     {
-        return (new ArrayObject([]))->getIterator();
+        return (new \ArrayObject([]))->getIterator();
     }
 
     /**
      * Creates Iterator which throws exception on the second iteration.
+     *
+     * @psalm-suppress MissingTemplateParam
      */
-    protected function createOneItemAndExceptionIterator(): Iterator
+    protected function createOneItemAndExceptionIterator(): \Iterator
     {
-        return new class() implements Iterator {
+        return new class() implements \Iterator {
             private int $counter = 0;
 
             public function current(): mixed
@@ -82,7 +82,7 @@ abstract class BaseCase extends TestCase
             public function valid(): bool
             {
                 if ($this->counter > 1) {
-                    throw new RuntimeException("Can't iterate over 3");
+                    throw new \RuntimeException("Can't iterate over 3");
                 }
 
                 return true;
@@ -92,10 +92,12 @@ abstract class BaseCase extends TestCase
 
     /**
      * Creates Iterator which implementing Countable and returns set int as count.
+     *
+     * @psalm-suppress MissingTemplateParam
      */
-    protected function createCountableIterator(int $count): Iterator
+    protected function createCountableIterator(int $count): \Iterator
     {
-        return new class($count) implements Countable, Iterator {
+        return new class($count) implements \Countable, \Iterator {
             private int $count;
 
             public function __construct(int $count)
@@ -136,7 +138,7 @@ abstract class BaseCase extends TestCase
     /**
      * Creates Generator instance using set parameters.
      */
-    protected function createGenerator(mixed ...$data): Generator
+    protected function createGenerator(mixed ...$data): \Generator
     {
         return (function () use ($data) {
             foreach ($data as $item) {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable;
 
 use Iterator;
-use IteratorAggregate;
 use Marvin255\FluentIterable\Helper\IteratorHelper;
 use Marvin255\FluentIterable\Iterator\AnySourceIterator;
 use Marvin255\FluentIterable\Iterator\CallbackFilterIterator;
@@ -22,18 +21,20 @@ use Marvin255\Optional\Optional;
  * Fluent interface for any iterable entity.
  *
  * @template TValue
+ *
+ * @template-implements \IteratorAggregate<int, TValue>
  */
-final class FluentIterable implements IteratorAggregate
+final class FluentIterable implements \IteratorAggregate
 {
     /**
-     * @var Iterator<int, TValue>
+     * @var \Iterator<int, TValue>
      */
-    private readonly Iterator $iterator;
+    private readonly \Iterator $iterator;
 
     /**
-     * @param Iterator<int, TValue> $iterator
+     * @param \Iterator<int, TValue> $iterator
      */
-    private function __construct(Iterator $iterator)
+    private function __construct(\Iterator $iterator)
     {
         $this->iterator = $iterator;
     }
@@ -426,9 +427,9 @@ final class FluentIterable implements IteratorAggregate
     /**
      * Return the internal iterator.
      *
-     * @return Iterator<int, TValue>
+     * @return \Iterator<int, TValue>
      */
-    public function getIterator(): Iterator
+    public function getIterator(): \Iterator
     {
         return $this->iterator;
     }

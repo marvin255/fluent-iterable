@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Iterator;
 
-use Countable;
 use Iterator;
 
 /**
@@ -12,7 +11,7 @@ use Iterator;
  *
  * @implements Iterator<int, mixed>
  */
-final class ImmutableArrayIterator implements Countable, Iterator
+final class ImmutableArrayIterator implements \Countable, \Iterator
 {
     /**
      * @var array<int, mixed>

@@ -20,7 +20,7 @@ class CallbackMapIteratorTest extends IteratorCase
      *
      * @dataProvider provideIteratorData
      */
-    public function testIterator(Iterator $iterator, callable $callback, array $reference): void
+    public function testIterator(\Iterator $iterator, callable $callback, array $reference): void
     {
         $iterator = new CallbackMapIterator($iterator, $callback);
 
@@ -41,7 +41,7 @@ class CallbackMapIteratorTest extends IteratorCase
     /**
      * @dataProvider provideCountData
      */
-    public function testCount(Iterator $input, int $reference): void
+    public function testCount(\Iterator $input, int $reference): void
     {
         $iterator = new CallbackMapIterator($input, fn () => false);
 

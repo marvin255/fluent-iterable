@@ -19,7 +19,7 @@ class IteratorHelperTest extends BaseCase
      *
      * @dataProvider provideCount
      */
-    public function testCount(Iterator $iterator, int $reference): void
+    public function testCount(\Iterator $iterator, int $reference): void
     {
         $result = IteratorHelper::count($iterator);
 
@@ -54,7 +54,7 @@ class IteratorHelperTest extends BaseCase
      *
      * @dataProvider provideToArray
      */
-    public function testToArray(Iterator $iterator, array $reference): void
+    public function testToArray(\Iterator $iterator, array $reference): void
     {
         $result = IteratorHelper::toArray($iterator);
 

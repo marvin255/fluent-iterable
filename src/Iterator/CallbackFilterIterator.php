@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Iterator;
 
-use Countable;
 use Iterator;
 use Marvin255\FluentIterable\Helper\IteratorHelper;
 
@@ -15,21 +14,21 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  *
  * @implements Iterator<int, TValue>
  */
-final class CallbackFilterIterator implements Countable, Iterator
+final class CallbackFilterIterator implements \Countable, \Iterator
 {
     private readonly \CallbackFilterIterator $iterator;
 
     private int $count = 0;
 
     /**
-     * @param Iterator<int, TValue> $iterator
-     * @param callable              $callback
+     * @param \Iterator<int, TValue> $iterator
+     * @param callable               $callback
      *
      * @psalm-param callable(TValue, int=): bool $callback
      */
-    public function __construct(Iterator $iterator, callable $callback)
+    public function __construct(\Iterator $iterator, callable $callback)
     {
-        $filterCallback = function (mixed $current, int $key, Iterator $iterator) use ($callback): bool {
+        $filterCallback = function (mixed $current, int $key, \Iterator $iterator) use ($callback): bool {
             /** @psalm-var TValue */
             $item = $current;
 

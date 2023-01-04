@@ -20,7 +20,7 @@ class SortedIteratorTest extends IteratorCase
      *
      * @dataProvider provideIteratorData
      */
-    public function testIterator(Iterator $iterator, callable $callback, array $reference): void
+    public function testIterator(\Iterator $iterator, callable $callback, array $reference): void
     {
         $iterator = new SortedIterator($iterator, $callback);
 

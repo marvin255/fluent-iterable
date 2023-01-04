@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Iterator;
 
-use InvalidArgumentException;
 use Iterator;
 
 /**
@@ -15,12 +14,12 @@ use Iterator;
  *
  * @implements Iterator<int, TValue>
  */
-final class SliceIterator implements Iterator
+final class SliceIterator implements \Iterator
 {
     /**
-     * @var Iterator<mixed, TValue>
+     * @var \Iterator<mixed, TValue>
      */
-    private readonly Iterator $iterator;
+    private readonly \Iterator $iterator;
 
     private readonly ?int $offset;
 
@@ -29,16 +28,16 @@ final class SliceIterator implements Iterator
     private int $count = 0;
 
     /**
-     * @param Iterator<mixed, TValue> $iterator
-     * @param ?int                    $offset
-     * @param ?int                    $length
+     * @param \Iterator<mixed, TValue> $iterator
+     * @param ?int                     $offset
+     * @param ?int                     $length
      */
-    public function __construct(Iterator $iterator, ?int $offset = null, ?int $length = null)
+    public function __construct(\Iterator $iterator, ?int $offset = null, ?int $length = null)
     {
         if ($offset !== null && $offset < 0) {
-            throw new InvalidArgumentException("\"from\" parameter can't be less than 0");
+            throw new \InvalidArgumentException("\"from\" parameter can't be less than 0");
         } elseif ($length !== null && $length <= 0) {
-            throw new InvalidArgumentException("\"length\" parameter can't be less than 0");
+            throw new \InvalidArgumentException("\"length\" parameter can't be less than 0");
         }
 
         $this->iterator = $iterator;

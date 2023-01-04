@@ -24,7 +24,7 @@ class PeekIteratorTest extends IteratorCase
      *
      * @psalm-suppress MixedArrayAssignment
      */
-    public function testIterator(Iterator $iterator, mixed $reference, mixed $iteratorReference): void
+    public function testIterator(\Iterator $iterator, mixed $reference, mixed $iteratorReference): void
     {
         $result = [];
         $iterator = new PeekIterator(
@@ -59,7 +59,7 @@ class PeekIteratorTest extends IteratorCase
     /**
      * @dataProvider provideCountData
      */
-    public function testCount(Iterator $input, int $reference): void
+    public function testCount(\Iterator $input, int $reference): void
     {
         $iterator = new CallbackMapIterator($input, function (): void {});
 
