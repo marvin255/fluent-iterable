@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use Iterator;
 use Marvin255\FluentIterable\Iterator\DistinctIterator;
 use Marvin255\FluentIterable\Tests\IteratorCase;
 
@@ -16,7 +15,7 @@ class DistinctIteratorTest extends IteratorCase
     /**
      * @dataProvider provideIterator
      */
-    public function testIterator(Iterator $iterator, array $reference): void
+    public function testIterator(\Iterator $iterator, array $reference): void
     {
         $iterator = new DistinctIterator($iterator);
 
@@ -60,7 +59,7 @@ class DistinctIteratorTest extends IteratorCase
     /**
      * @dataProvider provideCount
      */
-    public function testCount(Iterator $input, int $reference): void
+    public function testCount(\Iterator $input, int $reference): void
     {
         $iterator = new DistinctIterator($input);
 

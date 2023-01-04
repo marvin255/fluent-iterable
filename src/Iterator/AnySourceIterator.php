@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Iterator;
 
-use Countable;
 use Iterator;
-use IteratorIterator;
 use Marvin255\FluentIterable\Helper\IteratorHelper;
 
 /**
@@ -17,12 +15,12 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  *
  * @implements Iterator<int, TValue>
  */
-final class AnySourceIterator implements Countable, Iterator
+final class AnySourceIterator implements \Countable, \Iterator
 {
     /**
-     * @var Iterator<mixed, TValue>
+     * @var \Iterator<mixed, TValue>
      */
-    private readonly Iterator $iterator;
+    private readonly \Iterator $iterator;
 
     private int $count = 0;
 
@@ -33,10 +31,10 @@ final class AnySourceIterator implements Countable, Iterator
     {
         if (\is_array($entity)) {
             $this->iterator = new ImmutableArrayIterator($entity);
-        } elseif ($entity instanceof Iterator) {
+        } elseif ($entity instanceof \Iterator) {
             $this->iterator = $entity;
         } else {
-            $this->iterator = new IteratorIterator($entity);
+            $this->iterator = new \IteratorIterator($entity);
         }
     }
 

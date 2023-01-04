@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Iterator;
 
-use Countable;
 use Iterator;
 use Marvin255\FluentIterable\Helper\HashHelper;
 use Marvin255\FluentIterable\Helper\IteratorHelper;
@@ -16,12 +15,12 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  *
  * @implements Iterator<int, TValue>
  */
-final class DistinctIterator implements Countable, Iterator
+final class DistinctIterator implements \Countable, \Iterator
 {
     /**
-     * @var Iterator<mixed, TValue>
+     * @var \Iterator<mixed, TValue>
      */
-    private readonly Iterator $iterator;
+    private readonly \Iterator $iterator;
 
     /**
      * @var array<string, bool>
@@ -31,9 +30,9 @@ final class DistinctIterator implements Countable, Iterator
     private int $count = 0;
 
     /**
-     * @param Iterator<mixed, TValue> $iterator
+     * @param \Iterator<mixed, TValue> $iterator
      */
-    public function __construct(Iterator $iterator)
+    public function __construct(\Iterator $iterator)
     {
         $this->iterator = $iterator;
     }

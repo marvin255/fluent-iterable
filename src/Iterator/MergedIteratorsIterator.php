@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Iterator;
 
-use Countable;
-use InvalidArgumentException;
 use Iterator;
 use Marvin255\FluentIterable\Helper\IteratorHelper;
 
@@ -18,10 +16,10 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  *
  * @implements Iterator<int, mixed>
  */
-final class MergedIteratorsIterator implements Countable, Iterator
+final class MergedIteratorsIterator implements \Countable, \Iterator
 {
     /**
-     * @var Iterator[]
+     * @var \Iterator[]
      */
     private readonly array $iterators;
 
@@ -33,8 +31,8 @@ final class MergedIteratorsIterator implements Countable, Iterator
     {
         $checkedIterators = [];
         foreach ($iterators as $iterator) {
-            if (!($iterator instanceof Iterator)) {
-                throw new InvalidArgumentException('All items must be instance of Iterator or array');
+            if (!($iterator instanceof \Iterator)) {
+                throw new \InvalidArgumentException('All items must be instance of Iterator or array');
             }
             $checkedIterators[] = $iterator;
         }
@@ -95,7 +93,7 @@ final class MergedIteratorsIterator implements Countable, Iterator
         return $count;
     }
 
-    private function getCurrentIterator(): Iterator
+    private function getCurrentIterator(): \Iterator
     {
         return $this->iterators[$this->iteratorCounter];
     }

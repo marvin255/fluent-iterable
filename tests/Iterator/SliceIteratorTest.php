@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use InvalidArgumentException;
-use Iterator;
 use Marvin255\FluentIterable\Iterator\SliceIterator;
 use Marvin255\FluentIterable\Tests\IteratorCase;
 
@@ -16,7 +14,7 @@ class SliceIteratorTest extends IteratorCase
 {
     public function testConstructNegativeOffset(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new SliceIterator(
             $this->createEmptyIterator(),
             -1,
@@ -26,7 +24,7 @@ class SliceIteratorTest extends IteratorCase
 
     public function testConstructNegativeLength(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new SliceIterator(
             $this->createEmptyIterator(),
             null,
@@ -36,7 +34,7 @@ class SliceIteratorTest extends IteratorCase
 
     public function testConstructZeroLength(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new SliceIterator(
             $this->createEmptyIterator(),
             10,
@@ -47,7 +45,7 @@ class SliceIteratorTest extends IteratorCase
     /**
      * @dataProvider provideIteratorData
      */
-    public function testIterator(Iterator $iterator, ?int $from, ?int $to, array $reference): void
+    public function testIterator(\Iterator $iterator, ?int $from, ?int $to, array $reference): void
     {
         $sliceIterator = new SliceIterator($iterator, $from, $to);
 

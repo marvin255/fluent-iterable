@@ -20,7 +20,7 @@ class FlattenIteratorTest extends IteratorCase
      *
      * @dataProvider provideIterator
      */
-    public function testIterator(Iterator $iterator, callable $callback, array $reference): void
+    public function testIterator(\Iterator $iterator, callable $callback, array $reference): void
     {
         $iterator = new FlattenIterator($iterator, $callback);
 
@@ -61,7 +61,7 @@ class FlattenIteratorTest extends IteratorCase
     /**
      * @dataProvider provideCount
      */
-    public function testCount(Iterator $input, int $reference): void
+    public function testCount(\Iterator $input, int $reference): void
     {
         $iterator = new FlattenIterator($input, fn (mixed $item): iterable => [$item]);
 

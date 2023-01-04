@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Iterator;
 
-use InvalidArgumentException;
 use Marvin255\FluentIterable\Iterator\MergedIteratorsIterator;
 use Marvin255\FluentIterable\Tests\IteratorCase;
 
@@ -15,7 +14,7 @@ class MergedIteratorsIteratorTest extends IteratorCase
 {
     public function testConstructWrongTypeException(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new MergedIteratorsIterator([123]);
     }
 
