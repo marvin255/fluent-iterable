@@ -9,6 +9,10 @@ namespace Marvin255\FluentIterable\Helper;
  */
 final class IteratorHelper
 {
+    private function __construct()
+    {
+    }
+
     public static function count(\Iterator $iterator): int
     {
         return $iterator instanceof \Countable

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Helper;
 
-use Iterator;
 use Marvin255\FluentIterable\Helper\IteratorHelper;
 use Marvin255\FluentIterable\Tests\BaseCase;
 
@@ -14,7 +13,7 @@ use Marvin255\FluentIterable\Tests\BaseCase;
 class IteratorHelperTest extends BaseCase
 {
     /**
-     * @psalm-param Iterator<mixed, mixed> $iterator
+     * @psalm-param \Iterator<mixed, mixed> $iterator
      * @psalm-param int $reference
      *
      * @dataProvider provideCount
@@ -49,7 +48,7 @@ class IteratorHelperTest extends BaseCase
     }
 
     /**
-     * @psalm-param Iterator<mixed, mixed> $iterator
+     * @psalm-param \Iterator<mixed, mixed> $iterator
      * @psalm-param array $reference
      *
      * @dataProvider provideToArray
