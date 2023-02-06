@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests;
 
-use Countable;
-use Generator;
-use Iterator;
-use IteratorAggregate;
 use PHPUnit\Framework\TestCase;
 
 /**

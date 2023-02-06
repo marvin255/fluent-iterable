@@ -9,6 +9,10 @@ namespace Marvin255\FluentIterable\Helper;
  */
 final class HashHelper
 {
+    private function __construct()
+    {
+    }
+
     /**
      * @param mixed $item
      *
