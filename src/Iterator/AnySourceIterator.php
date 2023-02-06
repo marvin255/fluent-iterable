@@ -46,16 +46,6 @@ final class AnySourceIterator implements \Countable, \Iterator
      * @param iterable<mixed, T> $entity
      *
      * @return self<T>
-     *
-     * @psalm-return (
-     *     T is string ? self<string> : (
-     *         T is int ? self<int> : (
-     *             T is bool ? self<bool> : (
-     *                 T is float ? self<float> : self<T>
-     *             )
-     *         )
-     *     )
-     * )
      */
     public static function of(iterable $entity): AnySourceIterator
     {
