@@ -68,4 +68,14 @@ final class Filter
 
         return $res;
     }
+
+    /**
+     * Return filter that filters value using set regexp.
+     *
+     * @psalm-return pure-callable(string): bool
+     */
+    public static function regexp(string $regexp): callable
+    {
+        return fn (string $value): bool => preg_match($regexp, $value) === 1;
+    }
 }

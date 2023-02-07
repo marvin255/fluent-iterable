@@ -154,4 +154,23 @@ class FilterTest extends BaseCase
             'not empty' => [1, true],
         ];
     }
+
+    /**
+     * @dataProvider provideRegexp
+     */
+    public function testRegexp(string $regexp, string $input, bool $reference): void
+    {
+        $callback = Filter::regexp($regexp);
+        $result = $callback($input);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideRegexp(): array
+    {
+        return [
+            'regexp' => ['/[0-1]+/', '1', true],
+            'regexp negative' => ['/[0-1]+/', 'a', false],
+        ];
+    }
 }
