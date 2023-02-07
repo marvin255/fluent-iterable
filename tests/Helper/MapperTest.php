@@ -76,6 +76,78 @@ class MapperTest extends BaseCase
     }
 
     /**
+     * @dataProvider provideDate
+     */
+    public function testDate(string $input, ?\DateTimeZone $tz, string $reference): void
+    {
+        $callback = Mapper::date($tz);
+        $result = $callback($input);
+
+        $this->assertSame($reference, $result->format('Y-m-d H:i:s e'));
+    }
+
+    /**
+     * @dataProvider provideDate
+     */
+    public function testDateMutable(string $input, ?\DateTimeZone $tz, string $reference): void
+    {
+        $callback = Mapper::dateMutable($tz);
+        $result = $callback($input);
+
+        $this->assertSame($reference, $result->format('Y-m-d H:i:s e'));
+    }
+
+    public function provideDate(): array
+    {
+        $defaultTz = date_default_timezone_get();
+
+        return [
+            'string d.m.Y' => [
+                '10.01.2023',
+                null,
+                "2023-01-10 00:00:00 {$defaultTz}",
+            ],
+            'string d.m.Y H:i:s' => [
+                '10.01.2023 10:10:10',
+                null,
+                "2023-01-10 10:10:10 {$defaultTz}",
+            ],
+            'string d.m.Y H:i:s and tz' => [
+                '10.01.2023 10:10:10',
+                new \DateTimeZone('Asia/Yekaterinburg'),
+                '2023-01-10 10:10:10 Asia/Yekaterinburg',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider provideDateToString
+     */
+    public function testDateToString(\DateTimeInterface $input, string $format, string $reference): void
+    {
+        $callback = Mapper::dateToString($format);
+        $result = $callback($input);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideDateToString(): array
+    {
+        return [
+            'd.m.Y' => [
+                new \DateTimeImmutable('10.01.2023'),
+                'Y-m-d H:i:s',
+                '2023-01-10 00:00:00',
+            ],
+            'd.m.Y H:i:s' => [
+                new \DateTimeImmutable('10.01.2023 10:10:10'),
+                'Y-m-d H:i:s',
+                '2023-01-10 10:10:10',
+            ],
+        ];
+    }
+
+    /**
      * @dataProvider provideString
      */
     public function testString(mixed $input, string $reference): void
