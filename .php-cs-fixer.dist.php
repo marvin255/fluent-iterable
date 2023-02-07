@@ -28,6 +28,7 @@ $rules = [
     'php_unit_mock_short_will_return' => true,
     'php_unit_strict' => true,
     'strict_comparison' => true,
+    'date_time_immutable' => false,
 ];
 
 $config = new PhpCsFixer\Config();

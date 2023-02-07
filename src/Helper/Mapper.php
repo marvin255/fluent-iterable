@@ -72,6 +72,36 @@ final class Mapper
     }
 
     /**
+     * Return mapper that converts mixed values to DateTimeImmutable.
+     *
+     * @psalm-return callable(string): \DateTimeImmutable
+     */
+    public static function date(?\DateTimeZone $timeZone = null): callable
+    {
+        return fn (string $value): \DateTimeImmutable => new \DateTimeImmutable($value, $timeZone);
+    }
+
+    /**
+     * Return mapper that converts mixed values to DateTime.
+     *
+     * @psalm-return callable(string): \DateTime
+     */
+    public static function dateMutable(?\DateTimeZone $timeZone = null): callable
+    {
+        return fn (string $value): \DateTime => new \DateTime($value, $timeZone);
+    }
+
+    /**
+     * Return mapper that casts mixed values to DateTimeInterface.
+     *
+     * @psalm-return callable(\DateTimeInterface): string
+     */
+    public static function dateToString(string $format): callable
+    {
+        return fn (\DateTimeInterface $value): string => $value->format($format);
+    }
+
+    /**
      * Return mapper that casts mixed values to strings.
      *
      * @psalm-return pure-callable(mixed): string
