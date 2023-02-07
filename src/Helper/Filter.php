@@ -9,12 +9,17 @@ namespace Marvin255\FluentIterable\Helper;
  */
 final class Filter
 {
+    /**
+     * @var \Closure[]
+     */
+    private static array $cachedFilters = [];
+
     private function __construct()
     {
     }
 
     /**
-     * Return filter that filters only values that equal to set parameter.
+     * Return filter that compares value with set operator and operand.
      *
      * @psalm-return pure-callable(mixed): bool
      */
@@ -28,5 +33,39 @@ final class Filter
             Compare::LESS_THEN => $value < $operand,
             Compare::LESS_THEN_OR_EQUAL => $value <= $operand,
         };
+    }
+
+    /**
+     * Return filter that filters not null values.
+     *
+     * @psalm-return pure-callable(mixed): bool
+     */
+    public static function notNull(): callable
+    {
+        if (!isset(self::$cachedFilters['notNull'])) {
+            self::$cachedFilters['notNull'] = fn (mixed $value): bool => $value !== null;
+        }
+
+        /** @psalm-var pure-callable(mixed): bool */
+        $res = self::$cachedFilters['notNull'];
+
+        return $res;
+    }
+
+    /**
+     * Return filter that filters not empty values.
+     *
+     * @psalm-return pure-callable(mixed): bool
+     */
+    public static function notEmpty(): callable
+    {
+        if (!isset(self::$cachedFilters['notEmpty'])) {
+            self::$cachedFilters['notEmpty'] = fn (mixed $value): bool => !empty($value);
+        }
+
+        /** @psalm-var pure-callable(mixed): bool */
+        $res = self::$cachedFilters['notEmpty'];
+
+        return $res;
     }
 }

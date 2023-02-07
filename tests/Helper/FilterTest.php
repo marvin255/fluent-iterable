@@ -113,4 +113,45 @@ class FilterTest extends BaseCase
             ],
         ];
     }
+
+    /**
+     * @dataProvider provideNotNull
+     */
+    public function testNotNull(mixed $input, bool $reference): void
+    {
+        $callback = Filter::notNull();
+        $result = $callback($input);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideNotNull(): array
+    {
+        return [
+            'null' => [null, false],
+            'not null' => [1, true],
+        ];
+    }
+
+    /**
+     * @dataProvider provideNotEmpty
+     */
+    public function testNotEmpty(mixed $input, bool $reference): void
+    {
+        $callback = Filter::notEmpty();
+        $result = $callback($input);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideNotEmpty(): array
+    {
+        return [
+            'empty' => [0, false],
+            'empty string' => ['', false],
+            'empty array' => [[], false],
+            'null' => [null, false],
+            'not empty' => [1, true],
+        ];
+    }
 }
