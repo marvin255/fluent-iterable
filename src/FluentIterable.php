@@ -24,7 +24,7 @@ use Marvin255\Optional\Optional;
  *
  * @template-implements \IteratorAggregate<int, TValue>
  */
-final class FluentIterable implements \IteratorAggregate
+final class FluentIterable implements \Countable, \IteratorAggregate
 {
     /**
      * @var \Iterator<int, TValue>
