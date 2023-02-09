@@ -6,6 +6,8 @@ namespace Marvin255\FluentIterable\Helper;
 
 /**
  * Helper for hashing.
+ *
+ * @internal
  */
 final class HashHelper
 {

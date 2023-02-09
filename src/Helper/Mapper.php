@@ -9,8 +9,6 @@ namespace Marvin255\FluentIterable\Helper;
  */
 final class Mapper
 {
-    private const TRIM_DEFAULT_CHARACTERS = " \n\r\t\v\x00";
-
     /**
      * @var \Closure[]
      */
@@ -92,11 +90,11 @@ final class Mapper
     }
 
     /**
-     * Return mapper that casts mixed values to DateTimeInterface.
+     * Return mapper that converts dates to strings with set formats.
      *
      * @psalm-return callable(\DateTimeInterface): string
      */
-    public static function dateToString(string $format): callable
+    public static function dateFormat(string $format): callable
     {
         return fn (\DateTimeInterface $value): string => $value->format($format);
     }
@@ -157,29 +155,9 @@ final class Mapper
      *
      * @psalm-return pure-callable(mixed): string
      */
-    public static function trim(string $characters = self::TRIM_DEFAULT_CHARACTERS): callable
+    public static function trim(string $characters = " \n\r\t\v\x00"): callable
     {
         return fn (mixed $value): string => trim((string) $value, $characters);
-    }
-
-    /**
-     * Return mapper that left trims all input strings.
-     *
-     * @psalm-return pure-callable(mixed): string
-     */
-    public static function ltrim(string $characters = self::TRIM_DEFAULT_CHARACTERS): callable
-    {
-        return fn (mixed $value): string => ltrim((string) $value, $characters);
-    }
-
-    /**
-     * Return mapper that right trims all input strings.
-     *
-     * @psalm-return pure-callable(mixed): string
-     */
-    public static function rtrim(string $characters = self::TRIM_DEFAULT_CHARACTERS): callable
-    {
-        return fn (mixed $value): string => rtrim((string) $value, $characters);
     }
 
     /**
@@ -189,14 +167,6 @@ final class Mapper
      */
     public static function pluck(string $key, mixed $default = null): callable
     {
-        return function (array|object $value) use ($key, $default): mixed {
-            if (\is_array($value) && \array_key_exists($key, $value)) {
-                return $value[$key];
-            } elseif (\is_object($value) && property_exists($value, $key)) {
-                return $value->$key;
-            }
-
-            return $default;
-        };
+        return fn (array|object $value): mixed => DataAccessor::get($key, $value) ?? $default;
     }
 }
