@@ -115,6 +115,121 @@ class FilterTest extends BaseCase
     }
 
     /**
+     * @dataProvider provideCompareParam
+     */
+    public function testCompareParam(string $key, Compare $operator, mixed $operand, mixed $input, bool $reference): void
+    {
+        $callback = Filter::compareParam($key, $operator, $operand);
+        $result = $callback($input);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideCompareParam(): array
+    {
+        return [
+            'equal' => [
+                'test',
+                Compare::EQUAL,
+                1,
+                ['test' => 1],
+                true,
+            ],
+            'equal negative' => [
+                'test',
+                Compare::EQUAL,
+                1,
+                ['test' => 2],
+                false,
+            ],
+            'not equal' => [
+                'test',
+                Compare::NOT_EQUAL,
+                1,
+                ['test' => 2],
+                true,
+            ],
+            'not equal negative' => [
+                'test',
+                Compare::NOT_EQUAL,
+                1,
+                ['test' => 1],
+                false,
+            ],
+            'greater than' => [
+                'test',
+                Compare::GREATER_THAN,
+                0,
+                ['test' => 1],
+                true,
+            ],
+            'greater than negative' => [
+                'test',
+                Compare::GREATER_THAN,
+                1,
+                ['test' => 1],
+                false,
+            ],
+            'greater than or equal' => [
+                'test',
+                Compare::GREATER_THAN_OR_EQUAL,
+                1,
+                ['test' => 2],
+                true,
+            ],
+            'greater than or equal negative' => [
+                'test',
+                Compare::GREATER_THAN_OR_EQUAL,
+                2,
+                ['test' => 1],
+                false,
+            ],
+            'greater than or equal equal' => [
+                'test',
+                Compare::GREATER_THAN_OR_EQUAL,
+                1,
+                ['test' => 1],
+                true,
+            ],
+            'less than' => [
+                'test',
+                Compare::LESS_THEN,
+                2,
+                ['test' => 1],
+                true,
+            ],
+            'less than negative' => [
+                'test',
+                Compare::LESS_THEN,
+                1,
+                ['test' => 1],
+                false,
+            ],
+            'less than or equal' => [
+                'test',
+                Compare::LESS_THEN_OR_EQUAL,
+                2,
+                ['test' => 1],
+                true,
+            ],
+            'less than or equal negative' => [
+                'test',
+                Compare::LESS_THEN_OR_EQUAL,
+                1,
+                ['test' => 2],
+                false,
+            ],
+            'less than or equal equal' => [
+                'test',
+                Compare::LESS_THEN_OR_EQUAL,
+                1,
+                ['test' => 1],
+                true,
+            ],
+        ];
+    }
+
+    /**
      * @dataProvider provideNotNull
      */
     public function testNotNull(mixed $input, bool $reference): void

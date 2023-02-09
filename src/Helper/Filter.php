@@ -36,6 +36,23 @@ final class Filter
     }
 
     /**
+     * Return filter that compares parameter from array or object with set operator and operand.
+     *
+     * @psalm-return pure-callable(mixed): bool
+     */
+    public static function compareParam(string $paramName, Compare $operator, mixed $operand): callable
+    {
+        return fn (array|object $value): bool => match ($operator) {
+            Compare::EQUAL => DataAccessor::get($paramName, $value) === $operand,
+            Compare::NOT_EQUAL => DataAccessor::get($paramName, $value) !== $operand,
+            Compare::GREATER_THAN => DataAccessor::get($paramName, $value) > $operand,
+            Compare::GREATER_THAN_OR_EQUAL => DataAccessor::get($paramName, $value) >= $operand,
+            Compare::LESS_THEN => DataAccessor::get($paramName, $value) < $operand,
+            Compare::LESS_THEN_OR_EQUAL => DataAccessor::get($paramName, $value) <= $operand,
+        };
+    }
+
+    /**
      * Return filter that filters not null values.
      *
      * @psalm-return pure-callable(mixed): bool
