@@ -22,7 +22,6 @@ final class CallbackFilterIterator implements \Countable, \Iterator
 
     /**
      * @param \Iterator<int, TValue> $iterator
-     * @param callable               $callback
      *
      * @psalm-param callable(TValue, int=): bool $callback
      */

@@ -71,8 +71,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
     /**
      * Filter elements of an iterable using a filter function.
      *
-     * @param callable $filter
-     *
      * @return self<TValue>
      *
      * @psalm-param callable(TValue, int=): bool $filter
@@ -89,8 +87,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
      *
      * @template TConverted
      *
-     * @param callable $callback
-     *
      * @return self<TConverted>
      *
      * @psalm-param callable(TValue, int=): TConverted $callback
@@ -105,8 +101,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
     /**
      * Skip some element in the beginning of list.
      *
-     * @param int $offset
-     *
      * @return self<TValue>
      */
     public function skip(int $offset): self
@@ -119,8 +113,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
     /**
      * Set maximal number of items in response.
      *
-     * @param int $limit
-     *
      * @return self<TValue>
      */
     public function limit(int $limit): self
@@ -132,8 +124,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
 
     /**
      * Set sorting for current iterating data.
-     *
-     * @param callable $callback
      *
      * @return self<TValue>
      *
@@ -163,8 +153,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
      *
      * @template TConverted
      *
-     * @param callable $callback
-     *
      * @return self<TConverted>
      *
      * @psalm-param callable(TValue, int=): iterable<TConverted> $callback
@@ -180,8 +168,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
      * Returns an iterator consisting of the elements of this iterator,
      * additionally performing the provided action on each element as elements are consumed from the resulting iterator.
      *
-     * @param callable $callback
-     *
      * @return self<TValue>
      *
      * @psalm-param callable(TValue, int=): void $callback
@@ -195,8 +181,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
 
     /**
      * Apply a user supplied function to every member of an iterable.
-     *
-     * @param callable $callback
      *
      * @psalm-param callable(TValue, int=): void $callback
      */
@@ -212,7 +196,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
      *
      * @template TConverted
      *
-     * @param callable        $callback
      * @param TConverted|null $initial
      *
      * @return Optional<TConverted>
@@ -230,8 +213,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
 
     /**
      * Return minimal item using set comparator.
-     *
-     * @param callable $comparator
      *
      * @return Optional<TValue>
      *
@@ -252,8 +233,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
     /**
      * Return maximal item using set comparator.
      *
-     * @param callable $comparator
-     *
      * @return Optional<TValue>
      *
      * @psalm-param callable(TValue, TValue): int $comparator
@@ -272,8 +251,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
 
     /**
      * Return the first item that fits the filter and breaks the loop.
-     *
-     * @param callable $filter
      *
      * @return Optional<TValue>
      *
@@ -339,10 +316,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
     /**
      * Return true if all elements of iterator match callback.
      *
-     * @param callable $callback
-     *
-     * @return bool
-     *
      * @psalm-param callable(TValue, int=): bool $callback
      */
     public function matchAll(callable $callback): bool
@@ -360,10 +333,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
 
     /**
      * Return true if at least one element of iterator matches callback.
-     *
-     * @param callable $callback
-     *
-     * @return bool
      *
      * @psalm-param callable(TValue, int=): bool $callback
      */
@@ -383,10 +352,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
     /**
      * Return true if no element of iterator matches callback.
      *
-     * @param callable $callback
-     *
-     * @return bool
-     *
      * @psalm-param callable(TValue, int=): bool $callback
      */
     public function matchNone(callable $callback): bool
@@ -396,8 +361,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
 
     /**
      * Returns number of items in those iterable.
-     *
-     * @return int
      */
     public function count(): int
     {
