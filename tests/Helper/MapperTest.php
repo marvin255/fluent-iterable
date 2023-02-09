@@ -246,7 +246,7 @@ class MapperTest extends BaseCase
         return [
             'array' => [
                 'test',
-                null,
+                'default',
                 ['test' => 123],
                 123,
             ],
