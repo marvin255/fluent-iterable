@@ -121,17 +121,17 @@ class MapperTest extends BaseCase
     }
 
     /**
-     * @dataProvider provideDateToString
+     * @dataProvider provideDateFormat
      */
-    public function testDateToString(\DateTimeInterface $input, string $format, string $reference): void
+    public function testDateFormat(\DateTimeInterface $input, string $format, string $reference): void
     {
-        $callback = Mapper::dateToString($format);
+        $callback = Mapper::dateFormat($format);
         $result = $callback($input);
 
         $this->assertSame($reference, $result);
     }
 
-    public function provideDateToString(): array
+    public function provideDateFormat(): array
     {
         return [
             'd.m.Y' => [
@@ -228,46 +228,6 @@ class MapperTest extends BaseCase
     }
 
     /**
-     * @dataProvider provideLtrim
-     */
-    public function testLtrim(mixed $input, string $reference): void
-    {
-        $callback = Mapper::ltrim();
-        $result = $callback($input);
-
-        $this->assertSame($reference, $result);
-    }
-
-    public function provideLtrim(): array
-    {
-        return [
-            'trimmed string' => ['test', 'test'],
-            'non trimmed string' => [" \n\r\t\v\x00test \n\r\t\v\x00", "test \n\r\t\v\x00"],
-            'int' => [123, '123'],
-        ];
-    }
-
-    /**
-     * @dataProvider provideRtrim
-     */
-    public function testRtrim(mixed $input, string $reference): void
-    {
-        $callback = Mapper::rtrim();
-        $result = $callback($input);
-
-        $this->assertSame($reference, $result);
-    }
-
-    public function provideRtrim(): array
-    {
-        return [
-            'trimmed string' => ['test', 'test'],
-            'non trimmed string' => [" \n\r\t\v\x00test \n\r\t\v\x00", " \n\r\t\v\x00test"],
-            'int' => [123, '123'],
-        ];
-    }
-
-    /**
      * @dataProvider providePluck
      */
     public function testPluck(string $key, mixed $default, array|object $input, mixed $reference): void
@@ -286,8 +246,14 @@ class MapperTest extends BaseCase
         return [
             'array' => [
                 'test',
-                null,
+                'default',
                 ['test' => 123],
+                123,
+            ],
+            'nested array' => [
+                'test.test1',
+                null,
+                ['test' => ['test1' => 123]],
                 123,
             ],
             'array default' => [

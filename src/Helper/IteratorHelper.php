@@ -6,6 +6,8 @@ namespace Marvin255\FluentIterable\Helper;
 
 /**
  * Collection of usefull functions to work with iterators.
+ *
+ * @internal
  */
 final class IteratorHelper
 {

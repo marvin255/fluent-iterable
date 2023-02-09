@@ -6,6 +6,8 @@ namespace Marvin255\FluentIterable\Helper;
 
 /**
  * Helper for hashing.
+ *
+ * @internal
  */
 final class HashHelper
 {
@@ -13,11 +15,6 @@ final class HashHelper
     {
     }
 
-    /**
-     * @param mixed $item
-     *
-     * @return string
-     */
     public static function createHashForData(mixed $item): string
     {
         if (\is_string($item)) {

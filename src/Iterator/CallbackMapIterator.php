@@ -34,7 +34,6 @@ final class CallbackMapIterator implements \Countable, \Iterator
 
     /**
      * @param \Iterator<mixed, TValue> $iterator
-     * @param callable                 $callback
      *
      * @psalm-param callable(TValue, int=): TConverted $callback
      */

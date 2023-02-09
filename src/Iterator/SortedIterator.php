@@ -39,7 +39,6 @@ final class SortedIterator implements \Iterator
 
     /**
      * @param \Iterator<mixed, TValue> $iterator
-     * @param callable                 $callback
      *
      * @psalm-param callable(TValue, TValue): int $callback
      */
