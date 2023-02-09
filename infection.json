@@ -14,6 +14,11 @@
             "ignore": [
                 "Marvin255\\FluentIterable\\Helper\\DataAccessor::get"
             ]
+        },
+        "CastString": {
+            "ignore": [
+                "Marvin255\\FluentIterable\\Helper\\Sorter"
+            ]
         }
     }
 }
