@@ -95,4 +95,14 @@ final class Filter
     {
         return fn (string $value): bool => preg_match($regexp, $value) === 1;
     }
+
+    /**
+     * Return filter that filters objects and arrays by value of param using set regexp.
+     *
+     * @psalm-return pure-callable(array|object): bool
+     */
+    public static function regexpParam(string $paramName, string $regexp): callable
+    {
+        return fn (array|object $value): bool => preg_match($regexp, (string) DataAccessor::get($paramName, $value)) === 1;
+    }
 }

@@ -288,4 +288,24 @@ class FilterTest extends BaseCase
             'regexp negative' => ['/[0-1]+/', 'a', false],
         ];
     }
+
+    /**
+     * @dataProvider provideRegexpParam
+     */
+    public function testRegexpParam(string $key, string $regexp, array|object $input, bool $reference): void
+    {
+        $callback = Filter::regexpParam($key, $regexp);
+        $result = $callback($input);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideRegexpParam(): array
+    {
+        return [
+            'regexp' => ['test', '/[0-1]+/', ['test' => '1'], true],
+            'regexp negative' => ['test', '/[0-1]+/', ['test' => 'a'], false],
+            'empty array' => ['test', '/[0-1]+/', [], false],
+        ];
+    }
 }
