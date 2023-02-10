@@ -38,6 +38,23 @@ final class Reducer
     }
 
     /**
+     * Return callable that reduces array of objects to a value of a minimal field.
+     *
+     * @psalm-return pure-callable(array|object|null, array|object): (array|object)
+     */
+    public static function minParam(string $paramName): callable
+    {
+        return function (array|object|null $carry, array|object $item) use ($paramName): array|object {
+            $carryValue = $carry === null ? null : DataAccessor::get($paramName, $carry);
+            $itemValue = DataAccessor::get($paramName, $item);
+            /** @var array|object */
+            $res = $carryValue === null || $itemValue < $carryValue ? $item : $carry;
+
+            return $res;
+        };
+    }
+
+    /**
      * Return callable that reduces numeric array to a maximal item.
      *
      * @psalm-return pure-callable(int|float|null, int|float): (int|float)
@@ -54,6 +71,23 @@ final class Reducer
         $res = self::$cachedReducers['max'];
 
         return $res;
+    }
+
+    /**
+     * Return callable that reduces array of objects to a value of a maximal field.
+     *
+     * @psalm-return pure-callable(array|object|null, array|object): (array|object)
+     */
+    public static function maxParam(string $paramName): callable
+    {
+        return function (array|object|null $carry, array|object $item) use ($paramName): array|object {
+            $carryValue = $carry === null ? null : DataAccessor::get($paramName, $carry);
+            $itemValue = DataAccessor::get($paramName, $item);
+            /** @var array|object */
+            $res = $carryValue === null || $itemValue > $carryValue ? $item : $carry;
+
+            return $res;
+        };
     }
 
     /**

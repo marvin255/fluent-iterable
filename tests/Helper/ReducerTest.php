@@ -50,6 +50,47 @@ class ReducerTest extends BaseCase
     }
 
     /**
+     * @dataProvider provideMinParam
+     */
+    public function testMinParam(string $paramName, array|object|null $carry, array|object $input, array|object $reference): void
+    {
+        $callback = Reducer::minParam($paramName);
+        $result = $callback($carry, $input);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideMinParam(): array
+    {
+        return [
+            'empty carry' => [
+                'test',
+                null,
+                ['test' => 1],
+                ['test' => 1],
+            ],
+            'carry min' => [
+                'test',
+                ['test' => 1],
+                ['test' => 2],
+                ['test' => 1],
+            ],
+            'carry max' => [
+                'test',
+                ['test' => 2],
+                ['test' => 1],
+                ['test' => 1],
+            ],
+            'equal' => [
+                'test',
+                ['test' => 1, 'isCarry' => true],
+                ['test' => 1],
+                ['test' => 1, 'isCarry' => true],
+            ],
+        ];
+    }
+
+    /**
      * @dataProvider provideMax
      */
     public function testMax(int|float|null $carry, int|float $input, int|float $reference): void
@@ -82,6 +123,47 @@ class ReducerTest extends BaseCase
                 1,
                 1,
                 1,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider provideMaxParam
+     */
+    public function testMaxParam(string $paramName, array|object|null $carry, array|object $input, array|object $reference): void
+    {
+        $callback = Reducer::maxParam($paramName);
+        $result = $callback($carry, $input);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideMaxParam(): array
+    {
+        return [
+            'empty carry' => [
+                'test',
+                null,
+                ['test' => 1],
+                ['test' => 1],
+            ],
+            'carry min' => [
+                'test',
+                ['test' => 1],
+                ['test' => 2],
+                ['test' => 2],
+            ],
+            'carry max' => [
+                'test',
+                ['test' => 2],
+                ['test' => 1],
+                ['test' => 2],
+            ],
+            'equal' => [
+                'test',
+                ['test' => 1, 'isCarry' => true],
+                ['test' => 1],
+                ['test' => 1, 'isCarry' => true],
             ],
         ];
     }
