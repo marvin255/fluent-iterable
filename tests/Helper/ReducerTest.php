@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Helper;
 
+use InvalidArgumentException;
 use Marvin255\FluentIterable\Helper\Reducer;
 use Marvin255\FluentIterable\Tests\BaseCase;
 
@@ -198,6 +199,43 @@ class ReducerTest extends BaseCase
                 2,
             ],
         ];
+    }
+
+    /**
+     * @dataProvider provideSumParam
+     */
+    public function testSumParam(string $paramName, int|float|null $carry, array|object $input, int|float $reference): void
+    {
+        $callback = Reducer::sumParam($paramName);
+        $result = $callback($carry, $input);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public function provideSumParam(): array
+    {
+        return [
+            'empty carry' => [
+                'test',
+                null,
+                ['test' => 1],
+                1,
+            ],
+            'carry' => [
+                'test',
+                2,
+                ['test' => 1],
+                3,
+            ],
+        ];
+    }
+
+    public function testSumWrongTypeException(): void
+    {
+        $callback = Reducer::sumParam('test');
+
+        $this->expectException(InvalidArgumentException::class);
+        $callback(null, ['test' => 'test']);
     }
 
     /**

@@ -110,6 +110,23 @@ final class Reducer
     }
 
     /**
+     * Return callable that sums all fields in all items.
+     *
+     * @psalm-return pure-callable(int|float|null, array|object): (int|float)
+     */
+    public static function sumParam(string $paramName): callable
+    {
+        return function (int|float|null $carry, array|object $item) use ($paramName): int|float {
+            $itemValue = DataAccessor::get($paramName, $item);
+            if (!\is_int($itemValue) && !\is_float($itemValue)) {
+                throw new \InvalidArgumentException('Param value must be int or float');
+            }
+
+            return ($carry === null ? 0 : $carry) + $itemValue;
+        };
+    }
+
+    /**
      * Return callable that implodes all items to a string.
      *
      * @psalm-return pure-callable(int|float|string|null, int|float|string|null): string
