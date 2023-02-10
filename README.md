@@ -47,13 +47,13 @@ $fluent = $fluent->map(fn (int $item): int => $item + 1)
     ->skip(1);
 ```
 
-Get result using one of finalizing methods (`walk`, `reduce`, `findByIndex`, `findOne`, `findFirst`, `findLast`, `toArray`, `getIterator`, `count`, `min`, `max`, `matchAll`, `matchNone`, `matchAny`)
+Get result using one of finalizing methods (`walk`, `reduce`, `findByIndex`, `findOne`, `findFirst`, `findLast`, `toArray`, `getIterator`, `count`, `matchAll`, `matchNone`, `matchAny`)
 
 ```php
 $result = $fluent->toArray();
 ```
 
-Methods that convert list to a single item (`reduce`, `findOne`, `findByIndex`, `findFirst`, `findLast`, `min`, `max`) return an [`Optional`](https://github.com/marvin255/optional) instance.
+Methods that convert list to a single item (`reduce`, `findOne`, `findByIndex`, `findFirst`, `findLast`) return an [`Optional`](https://github.com/marvin255/optional) instance.
 
 
 
