@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Helper;
 
-use InvalidArgumentException;
 use Marvin255\FluentIterable\Helper\Reducer;
 use Marvin255\FluentIterable\Tests\BaseCase;
 
@@ -234,7 +233,7 @@ class ReducerTest extends BaseCase
     {
         $callback = Reducer::sumParam('test');
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $callback(null, ['test' => 'test']);
     }
 
