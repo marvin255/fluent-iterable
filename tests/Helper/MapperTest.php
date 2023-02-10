@@ -276,4 +276,27 @@ class MapperTest extends BaseCase
             ],
         ];
     }
+
+    /**
+     * @dataProvider provideConstruct
+     *
+     * @psalm-param class-string $className
+     */
+    public function testConstruct(string $className, mixed $input): void
+    {
+        $callback = Mapper::construct($className);
+        $result = $callback($input);
+
+        $this->assertInstanceOf($className, $result);
+    }
+
+    public function provideConstruct(): array
+    {
+        return [
+            'object' => [
+                \SplFileInfo::class,
+                '/test',
+            ],
+        ];
+    }
 }
