@@ -31,11 +31,11 @@ final class Sorter
      *
      * @psalm-return pure-callable(array|object, array|object): int
      */
-    public static function sortNumericParam(string $key, Order $order = Order::ASC): callable
+    public static function sortNumericParam(string $paramName, Order $order = Order::ASC): callable
     {
         return fn (array|object $value1, array|object $value2): int => match ($order) {
-            Order::ASC => DataAccessor::get($key, $value1) <=> DataAccessor::get($key, $value2),
-            Order::DESC => DataAccessor::get($key, $value2) <=> DataAccessor::get($key, $value1),
+            Order::ASC => DataAccessor::get($paramName, $value1) <=> DataAccessor::get($paramName, $value2),
+            Order::DESC => DataAccessor::get($paramName, $value2) <=> DataAccessor::get($paramName, $value1),
         };
     }
 
@@ -57,11 +57,11 @@ final class Sorter
      *
      * @psalm-return pure-callable(array|object, array|object): int
      */
-    public static function sortStringParam(string $key, Order $order = Order::ASC): callable
+    public static function sortStringParam(string $paramName, Order $order = Order::ASC): callable
     {
         return fn (array|object $value1, array|object $value2): int => match ($order) {
-            Order::ASC => strcmp((string) DataAccessor::get($key, $value1), (string) DataAccessor::get($key, $value2)),
-            Order::DESC => strcmp((string) DataAccessor::get($key, $value2), (string) DataAccessor::get($key, $value1)),
+            Order::ASC => strcmp((string) DataAccessor::get($paramName, $value1), (string) DataAccessor::get($paramName, $value2)),
+            Order::DESC => strcmp((string) DataAccessor::get($paramName, $value2), (string) DataAccessor::get($paramName, $value1)),
         };
     }
 }

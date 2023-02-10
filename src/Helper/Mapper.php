@@ -169,4 +169,23 @@ final class Mapper
     {
         return fn (array|object $value): mixed => DataAccessor::get($key, $value) ?? $default;
     }
+
+    /**
+     * Return mapper that constructs object of the set class using item as param.
+     *
+     * @template CN
+     *
+     * @psalm-param class-string<CN> $className
+     *
+     * @psalm-return pure-callable(mixed): CN
+     *
+     * @psalm-suppress MixedMethodCall
+     */
+    public static function construct(string $className): callable
+    {
+        /** @pslam-var pure-callable(mixed): CN */
+        $callable = fn (mixed $value): object => new $className($value);
+
+        return $callable;
+    }
 }

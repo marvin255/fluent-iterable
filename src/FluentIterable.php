@@ -212,44 +212,6 @@ final class FluentIterable implements \Countable, \IteratorAggregate
     }
 
     /**
-     * Return minimal item using set comparator.
-     *
-     * @return Optional<TValue>
-     *
-     * @psalm-param callable(TValue, TValue): int $comparator
-     */
-    public function min(callable $comparator): Optional
-    {
-        $min = null;
-        foreach ($this->iterator as $item) {
-            if ($min === null || \call_user_func($comparator, $item, $min) < 0) {
-                $min = $item;
-            }
-        }
-
-        return Optional::ofNullable($min);
-    }
-
-    /**
-     * Return maximal item using set comparator.
-     *
-     * @return Optional<TValue>
-     *
-     * @psalm-param callable(TValue, TValue): int $comparator
-     */
-    public function max(callable $comparator): Optional
-    {
-        $max = null;
-        foreach ($this->iterator as $item) {
-            if ($max === null || \call_user_func($comparator, $item, $max) > 0) {
-                $max = $item;
-            }
-        }
-
-        return Optional::ofNullable($max);
-    }
-
-    /**
      * Return the first item that fits the filter and breaks the loop.
      *
      * @return Optional<TValue>
