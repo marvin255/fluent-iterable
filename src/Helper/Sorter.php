@@ -6,6 +6,8 @@ namespace Marvin255\FluentIterable\Helper;
 
 /**
  * Collection of pre-defined sorters for FluentIterable::sorted.
+ *
+ * @psalm-api
  */
 final class Sorter
 {

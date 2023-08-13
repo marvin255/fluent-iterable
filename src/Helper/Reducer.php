@@ -6,6 +6,8 @@ namespace Marvin255\FluentIterable\Helper;
 
 /**
  * Collection of pre-defined reducers for FluentIterable::reduce.
+ *
+ * @psalm-api
  */
 final class Reducer
 {

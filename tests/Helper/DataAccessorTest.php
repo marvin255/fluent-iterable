@@ -22,7 +22,7 @@ class DataAccessorTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideGet(): array
+    public static function provideGet(): array
     {
         $object = new \stdClass();
         $object->test = new \stdClass();

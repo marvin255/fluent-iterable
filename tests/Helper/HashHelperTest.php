@@ -22,7 +22,7 @@ class HashHelperTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideToArray(): array
+    public static function provideToArray(): array
     {
         $obj = new \stdClass();
 

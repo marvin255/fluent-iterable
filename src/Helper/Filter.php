@@ -6,6 +6,8 @@ namespace Marvin255\FluentIterable\Helper;
 
 /**
  * Collection of pre-defined filters for FluentIterable::filter.
+ *
+ * @psalm-api
  */
 final class Filter
 {
@@ -93,6 +95,10 @@ final class Filter
      */
     public static function regexp(string $regexp): callable
     {
+        if (empty($regexp)) {
+            throw new \InvalidArgumentException("Regexp can't be empty");
+        }
+
         return fn (string $value): bool => preg_match($regexp, $value) === 1;
     }
 
@@ -103,6 +109,14 @@ final class Filter
      */
     public static function regexpParam(string $paramName, string $regexp): callable
     {
-        return fn (array|object $value): bool => preg_match($regexp, (string) DataAccessor::get($paramName, $value)) === 1;
+        if (empty($regexp)) {
+            throw new \InvalidArgumentException("Regexp can't be empty");
+        }
+
+        return function (array|object $value) use ($paramName, $regexp): bool {
+            $data = (string) DataAccessor::get($paramName, $value);
+
+            return preg_match($regexp, $data) === 1;
+        };
     }
 }

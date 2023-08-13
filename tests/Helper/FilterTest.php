@@ -24,7 +24,7 @@ class FilterTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideCompare(): array
+    public static function provideCompare(): array
     {
         return [
             'equal' => [
@@ -125,7 +125,7 @@ class FilterTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideCompareParam(): array
+    public static function provideCompareParam(): array
     {
         return [
             'equal' => [
@@ -240,7 +240,7 @@ class FilterTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideNotNull(): array
+    public static function provideNotNull(): array
     {
         return [
             'null' => [null, false],
@@ -259,7 +259,7 @@ class FilterTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideNotEmpty(): array
+    public static function provideNotEmpty(): array
     {
         return [
             'empty' => [0, false],
@@ -281,12 +281,20 @@ class FilterTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideRegexp(): array
+    public static function provideRegexp(): array
     {
         return [
             'regexp' => ['/[0-1]+/', '1', true],
             'regexp negative' => ['/[0-1]+/', 'a', false],
         ];
+    }
+
+    public function testRegexpEmptyRegexpException(): void
+    {
+        $this->expectExceptionObject(
+            new \InvalidArgumentException("Regexp can't be empty")
+        );
+        Filter::regexp('');
     }
 
     /**
@@ -300,12 +308,20 @@ class FilterTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideRegexpParam(): array
+    public static function provideRegexpParam(): array
     {
         return [
             'regexp' => ['test', '/[0-1]+/', ['test' => '1'], true],
             'regexp negative' => ['test', '/[0-1]+/', ['test' => 'a'], false],
             'empty array' => ['test', '/[0-1]+/', [], false],
         ];
+    }
+
+    public function testRegexpParamEmptyRegexpException(): void
+    {
+        $this->expectExceptionObject(
+            new \InvalidArgumentException("Regexp can't be empty")
+        );
+        Filter::regexpParam('param', '');
     }
 }

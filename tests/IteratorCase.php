@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests;
 
-use Countable;
-use Iterator;
-
 /**
  * Test case for iterators.
+ *
+ * @internal
  */
 abstract class IteratorCase extends BaseCase
 {

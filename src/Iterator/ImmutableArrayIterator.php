@@ -10,6 +10,8 @@ use Iterator;
  * Immutable iterator for arrays.
  *
  * @implements Iterator<int, mixed>
+ *
+ * @internal
  */
 final class ImmutableArrayIterator implements \Countable, \Iterator
 {

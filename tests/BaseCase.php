@@ -10,6 +10,8 @@ use PHPUnit\Framework\TestCase;
  * Base test case for all tests.
  *
  * Implements some most using methods.
+ *
+ * @internal
  */
 abstract class BaseCase extends TestCase
 {

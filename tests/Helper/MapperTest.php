@@ -23,7 +23,7 @@ class MapperTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideInt(): array
+    public static function provideInt(): array
     {
         return [
             'string' => ['123', 123],
@@ -43,7 +43,7 @@ class MapperTest extends BaseCase
         $this->assertLessThan(0.0001, abs($reference - $result));
     }
 
-    public function provideFloat(): array
+    public static function provideFloat(): array
     {
         return [
             'string' => ['1.1', 1.1],
@@ -63,7 +63,7 @@ class MapperTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideBool(): array
+    public static function provideBool(): array
     {
         return [
             'string 1' => ['1', true],
@@ -97,7 +97,7 @@ class MapperTest extends BaseCase
         $this->assertSame($reference, $result->format('Y-m-d H:i:s e'));
     }
 
-    public function provideDate(): array
+    public static function provideDate(): array
     {
         $defaultTz = date_default_timezone_get();
 
@@ -131,7 +131,7 @@ class MapperTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideDateFormat(): array
+    public static function provideDateFormat(): array
     {
         return [
             'd.m.Y' => [
@@ -158,7 +158,7 @@ class MapperTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideString(): array
+    public static function provideString(): array
     {
         return [
             'string' => ['1', '1'],
@@ -178,7 +178,7 @@ class MapperTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideUpperCase(): array
+    public static function provideUpperCase(): array
     {
         return [
             'upper case string' => ['TEST', 'TEST'],
@@ -198,7 +198,7 @@ class MapperTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideLowerCase(): array
+    public static function provideLowerCase(): array
     {
         return [
             'upper case string' => ['TEST', 'test'],
@@ -218,7 +218,7 @@ class MapperTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideTrim(): array
+    public static function provideTrim(): array
     {
         return [
             'trimmed string' => ['test', 'test'],
@@ -238,7 +238,7 @@ class MapperTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function providePluck(): array
+    public static function providePluck(): array
     {
         $obj = new \stdClass();
         $obj->test = 123;
@@ -290,7 +290,7 @@ class MapperTest extends BaseCase
         $this->assertInstanceOf($className, $result);
     }
 
-    public function provideConstruct(): array
+    public static function provideConstruct(): array
     {
         return [
             'object' => [
