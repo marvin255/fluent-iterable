@@ -22,7 +22,7 @@ class DataAccessorTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideGet(): array
+    public static function provideGet(): array
     {
         $object = new \stdClass();
         $object->test = new \stdClass();
@@ -63,6 +63,32 @@ class DataAccessorTest extends BaseCase
                 '..test   ',
                 ['test' => 123],
                 123,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider provideGetString
+     */
+    public function testGetString(string $path, array|object $data, string $reference): void
+    {
+        $result = DataAccessor::getString($path, $data);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public static function provideGetString(): array
+    {
+        return [
+            'int' => [
+                'test',
+                ['test' => 123],
+                '123',
+            ],
+            'string' => [
+                'test',
+                ['test' => 'test'],
+                'test',
             ],
         ];
     }

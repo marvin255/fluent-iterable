@@ -10,13 +10,15 @@ use PHPUnit\Framework\TestCase;
  * Base test case for all tests.
  *
  * Implements some most using methods.
+ *
+ * @internal
  */
 abstract class BaseCase extends TestCase
 {
     /**
      * Creates IteratorAggregate instance using set parameters.
      */
-    protected function createIteratorAggregate(mixed ...$data): \IteratorAggregate
+    protected static function createIteratorAggregate(mixed ...$data): \IteratorAggregate
     {
         return new \ArrayObject($data);
     }
@@ -24,7 +26,7 @@ abstract class BaseCase extends TestCase
     /**
      * Creates Iterator instance using set parameters.
      */
-    protected function createIterator(mixed ...$data): \Iterator
+    protected static function createIterator(mixed ...$data): \Iterator
     {
         return (new \ArrayObject($data))->getIterator();
     }
@@ -32,7 +34,7 @@ abstract class BaseCase extends TestCase
     /**
      * Creates Iterator instance from items of the set array.
      */
-    protected function createIteratorFromArray(array $data): \Iterator
+    protected static function createIteratorFromArray(array $data): \Iterator
     {
         return (new \ArrayObject($data))->getIterator();
     }
@@ -40,7 +42,7 @@ abstract class BaseCase extends TestCase
     /**
      * Creates Iterator instance with no items.
      */
-    protected function createEmptyIterator(): \Iterator
+    protected static function createEmptyIterator(): \Iterator
     {
         return (new \ArrayObject([]))->getIterator();
     }
@@ -50,7 +52,7 @@ abstract class BaseCase extends TestCase
      *
      * @psalm-suppress MissingTemplateParam
      */
-    protected function createOneItemAndExceptionIterator(): \Iterator
+    protected static function createOneItemAndExceptionIterator(): \Iterator
     {
         return new class() implements \Iterator {
             private int $counter = 0;
@@ -91,7 +93,7 @@ abstract class BaseCase extends TestCase
      *
      * @psalm-suppress MissingTemplateParam
      */
-    protected function createCountableIterator(int $count): \Iterator
+    protected static function createCountableIterator(int $count): \Iterator
     {
         return new class($count) implements \Countable, \Iterator {
             private int $count;
@@ -134,7 +136,7 @@ abstract class BaseCase extends TestCase
     /**
      * Creates Generator instance using set parameters.
      */
-    protected function createGenerator(mixed ...$data): \Generator
+    protected static function createGenerator(mixed ...$data): \Generator
     {
         return (function () use ($data) {
             foreach ($data as $item) {

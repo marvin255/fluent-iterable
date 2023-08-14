@@ -6,6 +6,8 @@ namespace Marvin255\FluentIterable\Helper;
 
 /**
  * Collection of pre-defined mappers for FluentIterable::map.
+ *
+ * @psalm-api
  */
 final class Mapper
 {
@@ -74,7 +76,7 @@ final class Mapper
      *
      * @psalm-return callable(string): \DateTimeImmutable
      */
-    public static function date(?\DateTimeZone $timeZone = null): callable
+    public static function date(\DateTimeZone $timeZone = null): callable
     {
         return fn (string $value): \DateTimeImmutable => new \DateTimeImmutable($value, $timeZone);
     }
@@ -84,7 +86,7 @@ final class Mapper
      *
      * @psalm-return callable(string): \DateTime
      */
-    public static function dateMutable(?\DateTimeZone $timeZone = null): callable
+    public static function dateMutable(\DateTimeZone $timeZone = null): callable
     {
         return fn (string $value): \DateTime => new \DateTime($value, $timeZone);
     }

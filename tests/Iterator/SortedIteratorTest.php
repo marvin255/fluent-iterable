@@ -27,21 +27,21 @@ class SortedIteratorTest extends IteratorCase
         $this->assertIteratorContains($reference, $iterator);
     }
 
-    public function provideIteratorData(): array
+    public static function provideIteratorData(): array
     {
         return [
             'iterator' => [
-                $this->createIterator(5, 3, 1, 2, 4),
+                self::createIterator(5, 3, 1, 2, 4),
                 fn (int $a, int $b): int => $a <=> $b,
                 [1, 2, 3, 4, 5],
             ],
             'empty iterator' => [
-                $this->createEmptyIterator(),
+                self::createEmptyIterator(),
                 fn (int $a, int $b): int => $a <=> $b,
                 [],
             ],
             'generator' => [
-                $this->createGenerator(3, 1, 2, 4),
+                self::createGenerator(3, 1, 2, 4),
                 fn (int $a, int $b): int => $a <=> $b,
                 [1, 2, 3, 4],
             ],
@@ -50,7 +50,7 @@ class SortedIteratorTest extends IteratorCase
 
     public function testCurrentInitializeArray(): void
     {
-        $input = $this->createIterator(5, 3, 1, 2, 4);
+        $input = self::createIterator(5, 3, 1, 2, 4);
         $iterator = new SortedIterator($input, fn (int $a, int $b): int => $a <=> $b);
 
         $result = $iterator->current();

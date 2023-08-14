@@ -28,7 +28,7 @@ class MergedIteratorsIteratorTest extends IteratorCase
         $this->assertIteratorContains($reference, $iterator);
     }
 
-    public function provideIteratorData(): array
+    public static function provideIteratorData(): array
     {
         return [
             'empty input' => [
@@ -37,18 +37,18 @@ class MergedIteratorsIteratorTest extends IteratorCase
             ],
             'iterators' => [
                 [
-                    $this->createIterator('q', 'w', 'e'),
-                    $this->createIterator(1, 2, 3),
+                    self::createIterator('q', 'w', 'e'),
+                    self::createIterator(1, 2, 3),
                 ],
                 ['q', 'w', 'e', 1, 2, 3],
             ],
             'mixed' => [
                 [
-                    $this->createEmptyIterator(),
-                    $this->createIterator('q', 'w', 'e'),
-                    $this->createEmptyIterator(),
-                    $this->createIterator(1, 2, 3),
-                    $this->createEmptyIterator(),
+                    self::createEmptyIterator(),
+                    self::createIterator('q', 'w', 'e'),
+                    self::createEmptyIterator(),
+                    self::createIterator(1, 2, 3),
+                    self::createEmptyIterator(),
                 ],
                 ['q', 'w', 'e', 1, 2, 3],
             ],
@@ -59,10 +59,10 @@ class MergedIteratorsIteratorTest extends IteratorCase
     {
         $iterator = new MergedIteratorsIterator(
             [
-                $this->createIterator('q', 'w', 'e'),
-                $this->createEmptyIterator(),
-                $this->createCountableIterator(10),
-                $this->createGenerator('y'),
+                self::createIterator('q', 'w', 'e'),
+                self::createEmptyIterator(),
+                self::createCountableIterator(10),
+                self::createGenerator('y'),
             ]
         );
 

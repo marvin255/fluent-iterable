@@ -19,6 +19,8 @@ final class DataAccessor
      * Returns data from the set path.
      *
      * @psalm-pure
+     *
+     * @psalm-suppress MixedAssignment
      */
     public static function get(string $path, array|object $data): mixed
     {
@@ -31,11 +33,20 @@ final class DataAccessor
             } elseif (\is_object($item) && property_exists($item, $chainItem)) {
                 $item = $item->$chainItem;
             } else {
-                $item = null;
-                break;
+                return null;
             }
         }
 
         return $item;
+    }
+
+    /**
+     * Returns string data item from the set path.
+     *
+     * @psalm-pure
+     */
+    public static function getString(string $path, array|object $data): string
+    {
+        return (string) self::get($path, $data);
     }
 }

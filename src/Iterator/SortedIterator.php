@@ -13,6 +13,8 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  * @template TValue
  *
  * @implements Iterator<int, TValue>
+ *
+ * @internal
  */
 final class SortedIterator implements \Iterator
 {

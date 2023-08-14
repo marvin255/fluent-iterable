@@ -27,11 +27,11 @@ class CallbackMapIteratorTest extends IteratorCase
         $this->assertIteratorContains($reference, $iterator);
     }
 
-    public function provideIteratorData(): array
+    public static function provideIteratorData(): array
     {
         return [
             'simple iterator' => [
-                $this->createIterator('q', 'w', 'e'),
+                self::createIterator('q', 'w', 'e'),
                 fn (string $letter): string => "{$letter}a",
                 ['qa', 'wa', 'ea'],
             ],
@@ -48,19 +48,19 @@ class CallbackMapIteratorTest extends IteratorCase
         $this->assertCountableCount($reference, $iterator);
     }
 
-    public function provideCountData(): array
+    public static function provideCountData(): array
     {
         return [
             'iterator' => [
-                $this->createIterator('q', 'w', 'e'),
+                self::createIterator('q', 'w', 'e'),
                 3,
             ],
             'generator' => [
-                $this->createGenerator('q'),
+                self::createGenerator('q'),
                 1,
             ],
             'countable only iterator' => [
-                $this->createCountableIterator(2),
+                self::createCountableIterator(2),
                 2,
             ],
         ];

@@ -27,31 +27,31 @@ class FlattenIteratorTest extends IteratorCase
         $this->assertIteratorContains($reference, $iterator);
     }
 
-    public function provideIterator(): array
+    public static function provideIterator(): array
     {
         return [
             'nested arrays' => [
-                $this->createIterator([5, 6], [3, 4], [1, 2]),
+                self::createIterator([5, 6], [3, 4], [1, 2]),
                 fn (array $item): iterable => $item,
                 [5, 6, 3, 4, 1, 2],
             ],
             'nested arrays with different sizes' => [
-                $this->createIterator([1, 2], [3, 4, 5, 6], [7]),
+                self::createIterator([1, 2], [3, 4, 5, 6], [7]),
                 fn (array $item): iterable => $item,
                 [1, 2, 3, 4, 5, 6, 7],
             ],
             'nested with empty items' => [
-                $this->createIterator([], [], [1, 2], [], [], [], [3, 4], [], []),
+                self::createIterator([], [], [1, 2], [], [], [], [3, 4], [], []),
                 fn (array $item): iterable => $item,
                 [1, 2, 3, 4],
             ],
             'empty' => [
-                $this->createEmptyIterator(),
+                self::createEmptyIterator(),
                 fn (array $item): iterable => $item,
                 [],
             ],
             'multiple empty items' => [
-                $this->createIterator([], [], [], [], [], [], []),
+                self::createIterator([], [], [], [], [], [], []),
                 fn (array $item): iterable => $item,
                 [],
             ],
@@ -68,19 +68,19 @@ class FlattenIteratorTest extends IteratorCase
         $this->assertCountableCount($reference, $iterator);
     }
 
-    public function provideCount(): array
+    public static function provideCount(): array
     {
         return [
             'iterator' => [
-                $this->createIterator('q', 'w', 'e'),
+                self::createIterator('q', 'w', 'e'),
                 3,
             ],
             'generator' => [
-                $this->createGenerator('q'),
+                self::createGenerator('q'),
                 1,
             ],
             'countable only iterator' => [
-                $this->createCountableIterator(2),
+                self::createCountableIterator(2),
                 2,
             ],
         ];

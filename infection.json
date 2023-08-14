@@ -9,26 +9,6 @@
         "text": "infection.log"
     },
     "mutators": {
-        "@default": true,
-        "Break_": {
-            "ignore": [
-                "Marvin255\\FluentIterable\\Helper\\DataAccessor::get"
-            ]
-        },
-        "CastString": {
-            "ignore": [
-                "Marvin255\\FluentIterable\\Helper\\Sorter"
-            ]
-        },
-        "LessThan": {
-            "ignore": [
-                "Marvin255\\FluentIterable\\Helper\\Reducer::min"
-            ]
-        },
-        "GreaterThan": {
-            "ignore": [
-                "Marvin255\\FluentIterable\\Helper\\Reducer::max"
-            ]
-        }
+        "@default": true
     }
 }

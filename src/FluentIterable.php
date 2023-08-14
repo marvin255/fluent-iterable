@@ -23,6 +23,8 @@ use Marvin255\Optional\Optional;
  * @template TValue
  *
  * @template-implements \IteratorAggregate<int, TValue>
+ *
+ * @psalm-api
  */
 final class FluentIterable implements \Countable, \IteratorAggregate
 {

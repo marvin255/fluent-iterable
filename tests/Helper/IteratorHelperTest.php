@@ -25,23 +25,23 @@ class IteratorHelperTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideCount(): array
+    public static function provideCount(): array
     {
         return [
             'iterator' => [
-                $this->createIterator('q', 'w', 'e'),
+                self::createIterator('q', 'w', 'e'),
                 3,
             ],
             'empty iterator' => [
-                $this->createEmptyIterator(),
+                self::createEmptyIterator(),
                 0,
             ],
             'generator' => [
-                $this->createGenerator('q', 'w', 'e'),
+                self::createGenerator('q', 'w', 'e'),
                 3,
             ],
             'countable iterator' => [
-                $this->createCountableIterator(11),
+                self::createCountableIterator(11),
                 11,
             ],
         ];
@@ -60,23 +60,23 @@ class IteratorHelperTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideToArray(): array
+    public static function provideToArray(): array
     {
         return [
             'iterator' => [
-                $this->createIterator('q', 'w', 'e'),
+                self::createIterator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
             'empty iterator' => [
-                $this->createEmptyIterator(),
+                self::createEmptyIterator(),
                 [],
             ],
             'string keys iterator' => [
-                $this->createIteratorFromArray(['q' => 'q', 'w' => 'w', 'e' => 'e']),
+                self::createIteratorFromArray(['q' => 'q', 'w' => 'w', 'e' => 'e']),
                 ['q', 'w', 'e'],
             ],
             'generator' => [
-                $this->createGenerator('q', 'w', 'e'),
+                self::createGenerator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
         ];
@@ -95,23 +95,23 @@ class IteratorHelperTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideToArrayIterable(): array
+    public static function provideToArrayIterable(): array
     {
         return [
             'iterator' => [
-                $this->createIterator('q', 'w', 'e'),
+                self::createIterator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
             'empty iterator' => [
-                $this->createEmptyIterator(),
+                self::createEmptyIterator(),
                 [],
             ],
             'string keys iterator' => [
-                $this->createIteratorFromArray(['q' => 'q', 'w' => 'w', 'e' => 'e']),
+                self::createIteratorFromArray(['q' => 'q', 'w' => 'w', 'e' => 'e']),
                 ['q', 'w', 'e'],
             ],
             'generator' => [
-                $this->createGenerator('q', 'w', 'e'),
+                self::createGenerator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
             'array' => [

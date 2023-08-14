@@ -24,7 +24,7 @@ class SorterTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideSortNumeric(): array
+    public static function provideSortNumeric(): array
     {
         return [
             'asc' => [Order::ASC, 2, 1, 1],
@@ -43,7 +43,7 @@ class SorterTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideSortNumericParam(): array
+    public static function provideSortNumericParam(): array
     {
         return [
             'asc' => ['test', Order::ASC, ['test' => 2], ['test' => 1], 1],
@@ -62,7 +62,7 @@ class SorterTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideSortString(): array
+    public static function provideSortString(): array
     {
         return [
             'asc' => [Order::ASC, 'b', 'a', 1],
@@ -81,7 +81,7 @@ class SorterTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideSortStringParam(): array
+    public static function provideSortStringParam(): array
     {
         return [
             'asc' => ['test', Order::ASC, ['test' => 'b'], ['test' => 'a'], 1],

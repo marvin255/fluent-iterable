@@ -16,7 +16,7 @@ class SliceIteratorTest extends IteratorCase
     {
         $this->expectException(\InvalidArgumentException::class);
         new SliceIterator(
-            $this->createEmptyIterator(),
+            self::createEmptyIterator(),
             -1,
             10
         );
@@ -26,7 +26,7 @@ class SliceIteratorTest extends IteratorCase
     {
         $this->expectException(\InvalidArgumentException::class);
         new SliceIterator(
-            $this->createEmptyIterator(),
+            self::createEmptyIterator(),
             null,
             -10
         );
@@ -36,7 +36,7 @@ class SliceIteratorTest extends IteratorCase
     {
         $this->expectException(\InvalidArgumentException::class);
         new SliceIterator(
-            $this->createEmptyIterator(),
+            self::createEmptyIterator(),
             10,
             0
         );
@@ -52,47 +52,47 @@ class SliceIteratorTest extends IteratorCase
         $this->assertIteratorContains($reference, $sliceIterator);
     }
 
-    public function provideIteratorData(): array
+    public static function provideIteratorData(): array
     {
         return [
             'iterator' => [
-                $this->createIterator('q', 'w', 'e', 'r'),
+                self::createIterator('q', 'w', 'e', 'r'),
                 1,
                 2,
                 ['w', 'e'],
             ],
             'iterator null offset' => [
-                $this->createIterator('q', 'w', 'e', 'r'),
+                self::createIterator('q', 'w', 'e', 'r'),
                 null,
                 2,
                 ['q', 'w'],
             ],
             'iterator null length' => [
-                $this->createIterator('q', 'w', 'e', 'r'),
+                self::createIterator('q', 'w', 'e', 'r'),
                 2,
                 null,
                 ['e', 'r'],
             ],
             'iterator offset greater than length' => [
-                $this->createIterator('q', 'w', 'e', 'r'),
+                self::createIterator('q', 'w', 'e', 'r'),
                 10,
                 15,
                 [],
             ],
             'iterator get one element' => [
-                $this->createIterator('q', 'w', 'e', 'r'),
+                self::createIterator('q', 'w', 'e', 'r'),
                 2,
                 1,
                 ['e'],
             ],
             'iterator get first element' => [
-                $this->createIterator('q', 'w', 'e', 'r'),
+                self::createIterator('q', 'w', 'e', 'r'),
                 0,
                 1,
                 ['q'],
             ],
             'iterator length more than real' => [
-                $this->createIterator('q', 'w', 'e', 'r'),
+                self::createIterator('q', 'w', 'e', 'r'),
                 2,
                 1000,
                 ['e', 'r'],

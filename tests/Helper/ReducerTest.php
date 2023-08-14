@@ -23,7 +23,7 @@ class ReducerTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideMin(): array
+    public static function provideMin(): array
     {
         return [
             'empty carry' => [
@@ -46,6 +46,11 @@ class ReducerTest extends BaseCase
                 1,
                 1,
             ],
+            'equal should use the first value' => [
+                1,
+                1.0,
+                1,
+            ],
         ];
     }
 
@@ -60,7 +65,7 @@ class ReducerTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideMinParam(): array
+    public static function provideMinParam(): array
     {
         return [
             'empty carry' => [
@@ -101,7 +106,7 @@ class ReducerTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideMax(): array
+    public static function provideMax(): array
     {
         return [
             'empty carry' => [
@@ -124,6 +129,11 @@ class ReducerTest extends BaseCase
                 1,
                 1,
             ],
+            'equal should use the first value' => [
+                1,
+                1.0,
+                1,
+            ],
         ];
     }
 
@@ -138,7 +148,7 @@ class ReducerTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideMaxParam(): array
+    public static function provideMaxParam(): array
     {
         return [
             'empty carry' => [
@@ -179,7 +189,7 @@ class ReducerTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideSum(): array
+    public static function provideSum(): array
     {
         return [
             'empty carry' => [
@@ -211,7 +221,7 @@ class ReducerTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideSumParam(): array
+    public static function provideSumParam(): array
     {
         return [
             'empty carry' => [
@@ -248,7 +258,7 @@ class ReducerTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideJoin(): array
+    public static function provideJoin(): array
     {
         return [
             'empty carry' => [

@@ -15,6 +15,8 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  * - doesn't run any transformations and conversions
  *
  * @implements Iterator<int, mixed>
+ *
+ * @internal
  */
 final class MergedIteratorsIterator implements \Countable, \Iterator
 {

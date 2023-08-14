@@ -6,6 +6,8 @@ namespace Marvin255\FluentIterable\Helper;
 
 /**
  * Collection of pre-defined sorters for FluentIterable::sorted.
+ *
+ * @psalm-api
  */
 final class Sorter
 {
@@ -60,8 +62,8 @@ final class Sorter
     public static function sortStringParam(string $paramName, Order $order = Order::ASC): callable
     {
         return fn (array|object $value1, array|object $value2): int => match ($order) {
-            Order::ASC => strcmp((string) DataAccessor::get($paramName, $value1), (string) DataAccessor::get($paramName, $value2)),
-            Order::DESC => strcmp((string) DataAccessor::get($paramName, $value2), (string) DataAccessor::get($paramName, $value1)),
+            Order::ASC => strcmp(DataAccessor::getString($paramName, $value1), DataAccessor::getString($paramName, $value2)),
+            Order::DESC => strcmp(DataAccessor::getString($paramName, $value2), DataAccessor::getString($paramName, $value1)),
         };
     }
 }

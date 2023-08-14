@@ -13,6 +13,8 @@ use Iterator;
  * @template TValue
  *
  * @implements Iterator<int, TValue>
+ *
+ * @internal
  */
 final class SliceIterator implements \Iterator
 {
@@ -32,7 +34,7 @@ final class SliceIterator implements \Iterator
      * @param ?int                     $offset
      * @param ?int                     $length
      */
-    public function __construct(\Iterator $iterator, ?int $offset = null, ?int $length = null)
+    public function __construct(\Iterator $iterator, int $offset = null, int $length = null)
     {
         if ($offset !== null && $offset < 0) {
             throw new \InvalidArgumentException("\"from\" parameter can't be less than 0");

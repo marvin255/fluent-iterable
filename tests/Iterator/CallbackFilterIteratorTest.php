@@ -27,16 +27,16 @@ class CallbackFilterIteratorTest extends IteratorCase
         $this->assertIteratorContains($reference, $iterator);
     }
 
-    public function provideIteratorData(): array
+    public static function provideIteratorData(): array
     {
         return [
             'iterator' => [
-                $this->createIterator('q', 'w', 'e'),
+                self::createIterator('q', 'w', 'e'),
                 fn (string $letter): bool => $letter !== 'w',
                 ['q', 'e'],
             ],
             'empty iterator' => [
-                $this->createEmptyIterator(),
+                self::createEmptyIterator(),
                 fn (string $letter): bool => $letter !== 'w',
                 [],
             ],
@@ -55,15 +55,15 @@ class CallbackFilterIteratorTest extends IteratorCase
         $this->assertCountableCount($reference, $iterator);
     }
 
-    public function provideCountData(): array
+    public static function provideCountData(): array
     {
         return [
             'iterator' => [
-                $this->createIterator('q', 'w', 'e'),
+                self::createIterator('q', 'w', 'e'),
                 3,
             ],
             'generator' => [
-                $this->createGenerator('q'),
+                self::createGenerator('q'),
                 1,
             ],
         ];

@@ -15,6 +15,8 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  * @template TConverted
  *
  * @implements Iterator<int, TConverted>
+ *
+ * @internal
  */
 final class CallbackMapIterator implements \Countable, \Iterator
 {
