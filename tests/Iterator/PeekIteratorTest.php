@@ -66,7 +66,7 @@ class PeekIteratorTest extends IteratorCase
         $this->assertCountableCount($reference, $iterator);
     }
 
-    public function provideCountData(): array
+    public static function provideCountData(): array
     {
         return [
             'iterator' => [
