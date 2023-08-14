@@ -19,6 +19,8 @@ final class DataAccessor
      * Returns data from the set path.
      *
      * @psalm-pure
+     *
+     * @psalm-suppress MixedAssignment
      */
     public static function get(string $path, array|object $data): mixed
     {

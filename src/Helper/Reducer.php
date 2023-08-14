@@ -43,6 +43,8 @@ final class Reducer
      * Return callable that reduces array of objects to a value of a minimal field.
      *
      * @psalm-return pure-callable(array|object|null, array|object): (array|object)
+     *
+     * @psalm-suppress MixedAssignment
      */
     public static function minParam(string $paramName): callable
     {
@@ -79,6 +81,8 @@ final class Reducer
      * Return callable that reduces array of objects to a value of a maximal field.
      *
      * @psalm-return pure-callable(array|object|null, array|object): (array|object)
+     *
+     * @psalm-suppress MixedAssignment
      */
     public static function maxParam(string $paramName): callable
     {
