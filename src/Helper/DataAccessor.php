@@ -40,4 +40,14 @@ final class DataAccessor
 
         return $item;
     }
+
+    /**
+     * Returns string data item from the set path.
+     *
+     * @psalm-pure
+     */
+    public static function getString(string $path, array|object $data): string
+    {
+        return (string) self::get($path, $data);
+    }
 }

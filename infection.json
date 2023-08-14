@@ -15,11 +15,6 @@
                 "Marvin255\\FluentIterable\\Helper\\DataAccessor::get"
             ]
         },
-        "CastString": {
-            "ignore": [
-                "Marvin255\\FluentIterable\\Helper\\Sorter"
-            ]
-        },
         "LessThan": {
             "ignore": [
                 "Marvin255\\FluentIterable\\Helper\\Reducer::min"

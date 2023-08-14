@@ -66,4 +66,30 @@ class DataAccessorTest extends BaseCase
             ],
         ];
     }
+
+    /**
+     * @dataProvider provideGetString
+     */
+    public function testGetString(string $path, array|object $data, string $reference): void
+    {
+        $result = DataAccessor::getString($path, $data);
+
+        $this->assertSame($reference, $result);
+    }
+
+    public static function provideGetString(): array
+    {
+        return [
+            'int' => [
+                'test',
+                ['test' => 123],
+                '123',
+            ],
+            'string' => [
+                'test',
+                ['test' => 'test'],
+                'test',
+            ],
+        ];
+    }
 }
