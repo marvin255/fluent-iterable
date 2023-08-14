@@ -9,11 +9,6 @@
         "text": "infection.log"
     },
     "mutators": {
-        "@default": true,
-        "Break_": {
-            "ignore": [
-                "Marvin255\\FluentIterable\\Helper\\DataAccessor::get"
-            ]
-        }
+        "@default": true
     }
 }

@@ -33,8 +33,7 @@ final class DataAccessor
             } elseif (\is_object($item) && property_exists($item, $chainItem)) {
                 $item = $item->$chainItem;
             } else {
-                $item = null;
-                break;
+                return null;
             }
         }
 
