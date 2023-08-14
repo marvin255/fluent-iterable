@@ -46,6 +46,11 @@ class ReducerTest extends BaseCase
                 1,
                 1,
             ],
+            'equal should use the first value' => [
+                1,
+                1.0,
+                1,
+            ],
         ];
     }
 
@@ -122,6 +127,11 @@ class ReducerTest extends BaseCase
             'equal' => [
                 1,
                 1,
+                1,
+            ],
+            'equal should use the first value' => [
+                1,
+                1.0,
                 1,
             ],
         ];

@@ -14,16 +14,6 @@
             "ignore": [
                 "Marvin255\\FluentIterable\\Helper\\DataAccessor::get"
             ]
-        },
-        "LessThan": {
-            "ignore": [
-                "Marvin255\\FluentIterable\\Helper\\Reducer::min"
-            ]
-        },
-        "GreaterThan": {
-            "ignore": [
-                "Marvin255\\FluentIterable\\Helper\\Reducer::max"
-            ]
         }
     }
 }
