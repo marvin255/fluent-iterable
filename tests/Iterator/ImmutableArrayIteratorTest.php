@@ -22,7 +22,7 @@ class ImmutableArrayIteratorTest extends IteratorCase
         $this->assertIteratorContains($reference, $iterator);
     }
 
-    public function provideIteratorData(): array
+    public static function provideIteratorData(): array
     {
         return [
             'flat array' => [

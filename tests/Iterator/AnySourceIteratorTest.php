@@ -32,7 +32,7 @@ class AnySourceIteratorTest extends IteratorCase
         $this->assertIteratorContains($reference, $iterator);
     }
 
-    public function provideIteratorData(): array
+    public static function provideIteratorData(): array
     {
         return [
             'array' => [
@@ -52,19 +52,19 @@ class AnySourceIteratorTest extends IteratorCase
                 [],
             ],
             'iterator' => [
-                $this->createIterator('q', 'w', 'e'),
+                self::createIterator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
             'iterator aggregate' => [
-                $this->createIteratorAggregate('q', 'w', 'e'),
+                self::createIteratorAggregate('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
             'empty iterator' => [
-                $this->createEmptyIterator(),
+                self::createEmptyIterator(),
                 [],
             ],
             'generator' => [
-                $this->createGenerator('q', 'w', 'e'),
+                self::createGenerator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
         ];
@@ -80,7 +80,7 @@ class AnySourceIteratorTest extends IteratorCase
         $this->assertCountableCount($reference, $iterator);
     }
 
-    public function provideCountData(): array
+    public static function provideCountData(): array
     {
         return [
             'array' => [
@@ -92,19 +92,19 @@ class AnySourceIteratorTest extends IteratorCase
                 0,
             ],
             'iterator' => [
-                $this->createIterator('q', 'w', 'e'),
+                self::createIterator('q', 'w', 'e'),
                 3,
             ],
             'iterator aggregate' => [
-                $this->createIteratorAggregate('q', 'w', 'e'),
+                self::createIteratorAggregate('q', 'w', 'e'),
                 3,
             ],
             'generator' => [
-                $this->createGenerator('q'),
+                self::createGenerator('q'),
                 1,
             ],
             'countable only iterator' => [
-                $this->createCountableIterator(2),
+                self::createCountableIterator(2),
                 2,
             ],
         ];

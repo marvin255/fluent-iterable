@@ -25,7 +25,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideMergeData(): array
+    public static function provideMergeData(): array
     {
         return [
             'array with array' => [
@@ -35,12 +35,12 @@ class FluentIterableTest extends BaseCase
             ],
             'array with iterator' => [
                 [1, 2, 3, 4],
-                $this->createIterator(5, 6, 7),
+                self::createIterator(5, 6, 7),
                 [1, 2, 3, 4, 5, 6, 7],
             ],
             'array with generator' => [
                 [1, 2, 3, 4],
-                $this->createGenerator(5, 6, 7),
+                self::createGenerator(5, 6, 7),
                 [1, 2, 3, 4, 5, 6, 7],
             ],
             'empty' => [
@@ -65,7 +65,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideFilterData(): array
+    public static function provideFilterData(): array
     {
         return [
             'array' => [
@@ -74,12 +74,12 @@ class FluentIterableTest extends BaseCase
                 [3, 4],
             ],
             'iterator' => [
-                $this->createIterator(1, 2, 3, 4),
+                self::createIterator(1, 2, 3, 4),
                 fn (int $item): bool => $item >= 3,
                 [3, 4],
             ],
             'generator' => [
-                $this->createGenerator(1, 2, 3, 4),
+                self::createGenerator(1, 2, 3, 4),
                 fn (int $item): bool => $item >= 3,
                 [3, 4],
             ],
@@ -110,7 +110,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideMapData(): array
+    public static function provideMapData(): array
     {
         return [
             'array' => [
@@ -119,12 +119,12 @@ class FluentIterableTest extends BaseCase
                 [2, 3, 4, 5],
             ],
             'iterator' => [
-                $this->createIterator(1, 2, 3, 4),
+                self::createIterator(1, 2, 3, 4),
                 fn (int $item): int => $item + 1,
                 [2, 3, 4, 5],
             ],
             'generator' => [
-                $this->createGenerator(1, 2, 3, 4),
+                self::createGenerator(1, 2, 3, 4),
                 fn (int $item): int => $item + 1,
                 [2, 3, 4, 5],
             ],
@@ -155,7 +155,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideSkipData(): array
+    public static function provideSkipData(): array
     {
         return [
             'array' => [
@@ -164,12 +164,12 @@ class FluentIterableTest extends BaseCase
                 [3, 4],
             ],
             'iterator' => [
-                $this->createIterator(1, 2, 3, 4),
+                self::createIterator(1, 2, 3, 4),
                 2,
                 [3, 4],
             ],
             'generator' => [
-                $this->createGenerator(1, 2, 3, 4),
+                self::createGenerator(1, 2, 3, 4),
                 2,
                 [3, 4],
             ],
@@ -190,7 +190,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideSliceData(): array
+    public static function provideSliceData(): array
     {
         return [
             'array' => [
@@ -199,12 +199,12 @@ class FluentIterableTest extends BaseCase
                 [1, 2],
             ],
             'iterator' => [
-                $this->createIterator(1, 2, 3, 4),
+                self::createIterator(1, 2, 3, 4),
                 2,
                 [1, 2],
             ],
             'generator' => [
-                $this->createGenerator(1, 2, 3, 4),
+                self::createGenerator(1, 2, 3, 4),
                 2,
                 [1, 2],
             ],
@@ -230,21 +230,21 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideFlatten(): array
+    public static function provideFlatten(): array
     {
         return [
             'nested arrays' => [
-                $this->createIterator([5, 6], [3, 4], [1, 2]),
+                self::createIterator([5, 6], [3, 4], [1, 2]),
                 fn (array $item): iterable => $item,
                 [5, 6, 3, 4, 1, 2],
             ],
             'nested arrays with different sizes' => [
-                $this->createIterator([1, 2], [3, 4, 5, 6], [7]),
+                self::createIterator([1, 2], [3, 4, 5, 6], [7]),
                 fn (array $item): iterable => $item,
                 [1, 2, 3, 4, 5, 6, 7],
             ],
             'empty' => [
-                $this->createEmptyIterator(),
+                self::createEmptyIterator(),
                 fn (array $item): iterable => $item,
                 [],
             ],
@@ -273,7 +273,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function providePeek(): array
+    public static function providePeek(): array
     {
         return [
             'array' => [
@@ -285,11 +285,11 @@ class FluentIterableTest extends BaseCase
                 [],
             ],
             'iterator' => [
-                $this->createIterator('q', 'w', 'e'),
+                self::createIterator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
             'generator' => [
-                $this->createGenerator('q', 'w', 'e'),
+                self::createGenerator('q', 'w', 'e'),
                 ['q', 'w', 'e'],
             ],
         ];
@@ -309,7 +309,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideSorted(): array
+    public static function provideSorted(): array
     {
         return [
             'array' => [
@@ -323,12 +323,12 @@ class FluentIterableTest extends BaseCase
                 [],
             ],
             'iterator' => [
-                $this->createIterator(4, 3, 2, 1),
+                self::createIterator(4, 3, 2, 1),
                 fn (int $a, int $b): int => $a <=> $b,
                 [1, 2, 3, 4],
             ],
             'generator' => [
-                $this->createGenerator(1, 2, 3, 4),
+                self::createGenerator(1, 2, 3, 4),
                 fn (int $a, int $b): int => $a <=> $b,
                 [1, 2, 3, 4],
             ],
@@ -348,7 +348,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideDistinct(): array
+    public static function provideDistinct(): array
     {
         return [
             'array' => [
@@ -360,11 +360,11 @@ class FluentIterableTest extends BaseCase
                 [],
             ],
             'iterator' => [
-                $this->createIterator(1, 1, 2, 3, 3, 3, 3),
+                self::createIterator(1, 1, 2, 3, 3, 3, 3),
                 [1, 2, 3],
             ],
             'generator' => [
-                $this->createGenerator(1, 2, 3, 3, 3, 3),
+                self::createGenerator(1, 2, 3, 3, 3, 3),
                 [1, 2, 3],
             ],
         ];
@@ -390,7 +390,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideWalkData(): array
+    public static function provideWalkData(): array
     {
         return [
             'array' => [
@@ -398,11 +398,11 @@ class FluentIterableTest extends BaseCase
                 [1, 2, 3, 4],
             ],
             'iterator' => [
-                $this->createIterator(1, 2, 3, 4),
+                self::createIterator(1, 2, 3, 4),
                 [1, 2, 3, 4],
             ],
             'generator' => [
-                $this->createGenerator(1, 2, 3, 4),
+                self::createGenerator(1, 2, 3, 4),
                 [1, 2, 3, 4],
             ],
             'empty input' => [
@@ -427,7 +427,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideReduceData(): array
+    public static function provideReduceData(): array
     {
         return [
             'array' => [
@@ -437,13 +437,13 @@ class FluentIterableTest extends BaseCase
                 10,
             ],
             'iterator' => [
-                $this->createIterator(1, 2, 3, 4),
+                self::createIterator(1, 2, 3, 4),
                 fn (int $carry, int $item): int => $carry + $item,
                 0,
                 10,
             ],
             'generator' => [
-                $this->createGenerator(1, 2, 3, 4),
+                self::createGenerator(1, 2, 3, 4),
                 fn (int $carry, int $item): int => $carry + $item,
                 0,
                 10,
@@ -478,7 +478,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideFindOneData(): array
+    public static function provideFindOneData(): array
     {
         return [
             'array' => [
@@ -488,13 +488,13 @@ class FluentIterableTest extends BaseCase
                 3,
             ],
             'iterator' => [
-                $this->createIterator(1, 2, 3, 4),
+                self::createIterator(1, 2, 3, 4),
                 fn (int $item): bool => $item === 3,
                 0,
                 3,
             ],
             'generator' => [
-                $this->createGenerator(1, 2, 3, 4),
+                self::createGenerator(1, 2, 3, 4),
                 fn (int $item): bool => $item === 3,
                 0,
                 3,
@@ -535,7 +535,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideFindByIndexData(): array
+    public static function provideFindByIndexData(): array
     {
         return [
             'array' => [
@@ -545,13 +545,13 @@ class FluentIterableTest extends BaseCase
                 4,
             ],
             'iterator' => [
-                $this->createIterator(1, 2, 3, 4),
+                self::createIterator(1, 2, 3, 4),
                 2,
                 0,
                 3,
             ],
             'generator' => [
-                $this->createGenerator(1, 2, 3, 4),
+                self::createGenerator(1, 2, 3, 4),
                 1,
                 0,
                 2,
@@ -563,7 +563,7 @@ class FluentIterableTest extends BaseCase
                 123,
             ],
             'check break in the loop' => [
-                $this->createOneItemAndExceptionIterator(),
+                self::createOneItemAndExceptionIterator(),
                 1,
                 0,
                 1,
@@ -585,7 +585,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideFindFirstData(): array
+    public static function provideFindFirstData(): array
     {
         return [
             'array' => [
@@ -594,12 +594,12 @@ class FluentIterableTest extends BaseCase
                 1,
             ],
             'iterator' => [
-                $this->createIterator(1, 2, 3, 4),
+                self::createIterator(1, 2, 3, 4),
                 0,
                 1,
             ],
             'generator' => [
-                $this->createGenerator(1, 2, 3, 4),
+                self::createGenerator(1, 2, 3, 4),
                 0,
                 1,
             ],
@@ -625,7 +625,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideFindLastData(): array
+    public static function provideFindLastData(): array
     {
         return [
             'array' => [
@@ -634,12 +634,12 @@ class FluentIterableTest extends BaseCase
                 4,
             ],
             'iterator' => [
-                $this->createIterator(1, 2, 3, 4),
+                self::createIterator(1, 2, 3, 4),
                 0,
                 4,
             ],
             'generator' => [
-                $this->createGenerator(1, 2, 3, 4),
+                self::createGenerator(1, 2, 3, 4),
                 0,
                 4,
             ],
@@ -665,7 +665,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideMatchAll(): array
+    public static function provideMatchAll(): array
     {
         return [
             'match all' => [
@@ -689,7 +689,7 @@ class FluentIterableTest extends BaseCase
                 true,
             ],
             'check break in the loop' => [
-                $this->createOneItemAndExceptionIterator(),
+                self::createOneItemAndExceptionIterator(),
                 fn (int $val): bool => $val > 10,
                 false,
             ],
@@ -710,7 +710,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideMatchAny(): array
+    public static function provideMatchAny(): array
     {
         return [
             'match any' => [
@@ -734,7 +734,7 @@ class FluentIterableTest extends BaseCase
                 true,
             ],
             'check break in the loop' => [
-                $this->createOneItemAndExceptionIterator(),
+                self::createOneItemAndExceptionIterator(),
                 fn (int $val): bool => $val < 10,
                 true,
             ],
@@ -755,7 +755,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideMatchNone(): array
+    public static function provideMatchNone(): array
     {
         return [
             'match none' => [
@@ -794,7 +794,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($count, $result);
     }
 
-    public function provideCountData(): array
+    public static function provideCountData(): array
     {
         return [
             'array' => [
@@ -802,11 +802,11 @@ class FluentIterableTest extends BaseCase
                 4,
             ],
             'iterator' => [
-                $this->createIterator(1, 2, 3),
+                self::createIterator(1, 2, 3),
                 3,
             ],
             'generator' => [
-                $this->createGenerator(1, 4),
+                self::createGenerator(1, 4),
                 2,
             ],
             'empty input' => [
@@ -814,7 +814,7 @@ class FluentIterableTest extends BaseCase
                 0,
             ],
             'countable iterator' => [
-                $this->createCountableIterator(10),
+                self::createCountableIterator(10),
                 10,
             ],
         ];
@@ -838,7 +838,7 @@ class FluentIterableTest extends BaseCase
         $this->assertSame($reference, $result);
     }
 
-    public function provideGetIteratorData(): array
+    public static function provideGetIteratorData(): array
     {
         return [
             'array' => [
@@ -846,11 +846,11 @@ class FluentIterableTest extends BaseCase
                 [1, 2, 3, 4],
             ],
             'iterator' => [
-                $this->createIterator(1, 2, 3, 4),
+                self::createIterator(1, 2, 3, 4),
                 [1, 2, 3, 4],
             ],
             'generator' => [
-                $this->createGenerator(1, 2, 3, 4),
+                self::createGenerator(1, 2, 3, 4),
                 [1, 2, 3, 4],
             ],
             'empty input' => [
@@ -862,7 +862,7 @@ class FluentIterableTest extends BaseCase
 
     public function testFluent(): void
     {
-        $input = $this->createGenerator(1, 2, 3, 4, 5, 6, 7);
+        $input = self::createGenerator(1, 2, 3, 4, 5, 6, 7);
 
         $result = FluentIterable::of($input)
             ->skip(3)
