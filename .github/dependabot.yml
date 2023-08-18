@@ -12,6 +12,7 @@ updates:
       interval: "weekly"
     allow:
       - dependency-name: "marvin255/optional"
+      - dependency-name: "marvin255/data-getter-helper"
       - dependency-name: "phpunit/phpunit"
       - dependency-name: "friendsofphp/php-cs-fixer"
       - dependency-name: "vimeo/psalm"

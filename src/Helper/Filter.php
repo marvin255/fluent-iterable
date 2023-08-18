@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Helper;
 
+use Marvin255\DataGetterHelper\DataGetterHelper;
+
 /**
  * Collection of pre-defined filters for FluentIterable::filter.
  *
@@ -45,12 +47,12 @@ final class Filter
     public static function compareParam(string $paramName, Compare $operator, mixed $operand): callable
     {
         return fn (array|object $value): bool => match ($operator) {
-            Compare::EQUAL => DataAccessor::get($paramName, $value) === $operand,
-            Compare::NOT_EQUAL => DataAccessor::get($paramName, $value) !== $operand,
-            Compare::GREATER_THAN => DataAccessor::get($paramName, $value) > $operand,
-            Compare::GREATER_THAN_OR_EQUAL => DataAccessor::get($paramName, $value) >= $operand,
-            Compare::LESS_THEN => DataAccessor::get($paramName, $value) < $operand,
-            Compare::LESS_THEN_OR_EQUAL => DataAccessor::get($paramName, $value) <= $operand,
+            Compare::EQUAL => DataGetterHelper::get($paramName, $value) === $operand,
+            Compare::NOT_EQUAL => DataGetterHelper::get($paramName, $value) !== $operand,
+            Compare::GREATER_THAN => DataGetterHelper::get($paramName, $value) > $operand,
+            Compare::GREATER_THAN_OR_EQUAL => DataGetterHelper::get($paramName, $value) >= $operand,
+            Compare::LESS_THEN => DataGetterHelper::get($paramName, $value) < $operand,
+            Compare::LESS_THEN_OR_EQUAL => DataGetterHelper::get($paramName, $value) <= $operand,
         };
     }
 
@@ -114,7 +116,7 @@ final class Filter
         }
 
         return function (array|object $value) use ($paramName, $regexp): bool {
-            $data = (string) DataAccessor::get($paramName, $value);
+            $data = DataGetterHelper::string($paramName, $value);
 
             return preg_match($regexp, $data) === 1;
         };

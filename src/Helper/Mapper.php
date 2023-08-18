@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Helper;
 
+use Marvin255\DataGetterHelper\DataGetterHelper;
+
 /**
  * Collection of pre-defined mappers for FluentIterable::map.
  *
@@ -169,7 +171,7 @@ final class Mapper
      */
     public static function pluck(string $key, mixed $default = null): callable
     {
-        return fn (array|object $value): mixed => DataAccessor::get($key, $value) ?? $default;
+        return fn (array|object $value): mixed => DataGetterHelper::get($key, $value, $default);
     }
 
     /**
