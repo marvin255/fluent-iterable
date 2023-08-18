@@ -284,8 +284,16 @@ class FilterTest extends BaseCase
     public static function provideRegexp(): array
     {
         return [
-            'regexp' => ['/[0-1]+/', '1', true],
-            'regexp negative' => ['/[0-1]+/', 'a', false],
+            'regexp' => [
+                '/[0-1]+/',
+                '1',
+                true,
+            ],
+            'regexp negative' => [
+                '/[0-1]+/',
+                'a',
+                false,
+            ],
         ];
     }
 
@@ -311,9 +319,24 @@ class FilterTest extends BaseCase
     public static function provideRegexpParam(): array
     {
         return [
-            'regexp' => ['test', '/[0-1]+/', ['test' => '1'], true],
-            'regexp negative' => ['test', '/[0-1]+/', ['test' => 'a'], false],
-            'empty array' => ['test', '/[0-1]+/', [], false],
+            'regexp' => [
+                'test',
+                '/[0-1]+/',
+                ['test' => '1'],
+                true,
+            ],
+            'regexp negative' => [
+                'test',
+                '/[0-1]+/',
+                ['test' => 'a'],
+                false,
+            ],
+            'empty array' => [
+                'test',
+                '/[0-1]+/',
+                [],
+                false,
+            ],
         ];
     }
 

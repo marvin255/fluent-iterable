@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Helper;
 
+use Marvin255\DataGetterHelper\DataGetterHelper;
+
 /**
  * Collection of pre-defined sorters for FluentIterable::sorted.
  *
@@ -36,8 +38,8 @@ final class Sorter
     public static function sortNumericParam(string $paramName, Order $order = Order::ASC): callable
     {
         return fn (array|object $value1, array|object $value2): int => match ($order) {
-            Order::ASC => DataAccessor::get($paramName, $value1) <=> DataAccessor::get($paramName, $value2),
-            Order::DESC => DataAccessor::get($paramName, $value2) <=> DataAccessor::get($paramName, $value1),
+            Order::ASC => DataGetterHelper::get($paramName, $value1) <=> DataGetterHelper::get($paramName, $value2),
+            Order::DESC => DataGetterHelper::get($paramName, $value2) <=> DataGetterHelper::get($paramName, $value1),
         };
     }
 
@@ -62,8 +64,8 @@ final class Sorter
     public static function sortStringParam(string $paramName, Order $order = Order::ASC): callable
     {
         return fn (array|object $value1, array|object $value2): int => match ($order) {
-            Order::ASC => strcmp(DataAccessor::getString($paramName, $value1), DataAccessor::getString($paramName, $value2)),
-            Order::DESC => strcmp(DataAccessor::getString($paramName, $value2), DataAccessor::getString($paramName, $value1)),
+            Order::ASC => strcmp(DataGetterHelper::string($paramName, $value1), DataGetterHelper::string($paramName, $value2)),
+            Order::DESC => strcmp(DataGetterHelper::string($paramName, $value2), DataGetterHelper::string($paramName, $value1)),
         };
     }
 }

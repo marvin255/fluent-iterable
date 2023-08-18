@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Helper;
 
+use Marvin255\DataGetterHelper\DataGetterHelper;
+
 /**
  * Collection of pre-defined reducers for FluentIterable::reduce.
  *
@@ -49,8 +51,8 @@ final class Reducer
     public static function minParam(string $paramName): callable
     {
         return function (array|object|null $carry, array|object $item) use ($paramName): array|object {
-            $carryValue = $carry === null ? null : DataAccessor::get($paramName, $carry);
-            $itemValue = DataAccessor::get($paramName, $item);
+            $carryValue = $carry === null ? null : DataGetterHelper::float($paramName, $carry);
+            $itemValue = DataGetterHelper::float($paramName, $item);
             /** @var array|object */
             $res = $carryValue === null || $itemValue < $carryValue ? $item : $carry;
 
@@ -87,8 +89,8 @@ final class Reducer
     public static function maxParam(string $paramName): callable
     {
         return function (array|object|null $carry, array|object $item) use ($paramName): array|object {
-            $carryValue = $carry === null ? null : DataAccessor::get($paramName, $carry);
-            $itemValue = DataAccessor::get($paramName, $item);
+            $carryValue = $carry === null ? null : DataGetterHelper::float($paramName, $carry);
+            $itemValue = DataGetterHelper::float($paramName, $item);
             /** @var array|object */
             $res = $carryValue === null || $itemValue > $carryValue ? $item : $carry;
 
@@ -123,7 +125,7 @@ final class Reducer
     public static function sumParam(string $paramName): callable
     {
         return function (int|float|null $carry, array|object $item) use ($paramName): int|float {
-            $itemValue = DataAccessor::get($paramName, $item);
+            $itemValue = DataGetterHelper::get($paramName, $item);
             if (!\is_int($itemValue) && !\is_float($itemValue)) {
                 throw new \InvalidArgumentException('Param value must be int or float');
             }
