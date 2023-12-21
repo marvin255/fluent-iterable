@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Iterator;
 
 use Iterator;
+use Marvin255\FluentIterable\FluentIterableException;
 
 /**
  * Iterator that converts every item using callback function.
@@ -37,9 +38,9 @@ final class SliceIterator implements \Iterator
     public function __construct(\Iterator $iterator, int $offset = null, int $length = null)
     {
         if (null !== $offset && $offset < 0) {
-            throw new \InvalidArgumentException("\"from\" parameter can't be less than 0");
+            throw new FluentIterableException("\"from\" parameter can't be less than 0");
         } elseif (null !== $length && $length <= 0) {
-            throw new \InvalidArgumentException("\"length\" parameter can't be less than 0");
+            throw new FluentIterableException("\"length\" parameter can't be less than 0");
         }
 
         $this->iterator = $iterator;

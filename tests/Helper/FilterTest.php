@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Marvin255\FluentIterable\Tests\Helper;
 
+use Marvin255\FluentIterable\FluentIterableException;
 use Marvin255\FluentIterable\Helper\Compare;
 use Marvin255\FluentIterable\Helper\Filter;
 use Marvin255\FluentIterable\Tests\BaseCase;
@@ -300,7 +301,7 @@ class FilterTest extends BaseCase
     public function testRegexpEmptyRegexpException(): void
     {
         $this->expectExceptionObject(
-            new \InvalidArgumentException("Regexp can't be empty")
+            new FluentIterableException("Regexp can't be empty")
         );
         Filter::regexp('');
     }
@@ -343,7 +344,7 @@ class FilterTest extends BaseCase
     public function testRegexpParamEmptyRegexpException(): void
     {
         $this->expectExceptionObject(
-            new \InvalidArgumentException("Regexp can't be empty")
+            new FluentIterableException("Regexp can't be empty")
         );
         Filter::regexpParam('param', '');
     }

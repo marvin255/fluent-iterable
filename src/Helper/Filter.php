@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Helper;
 
 use Marvin255\DataGetterHelper\DataGetterHelper;
+use Marvin255\FluentIterable\FluentIterableException;
 
 /**
  * Collection of pre-defined filters for FluentIterable::filter.
@@ -98,7 +99,7 @@ final class Filter
     public static function regexp(string $regexp): callable
     {
         if (empty($regexp)) {
-            throw new \InvalidArgumentException("Regexp can't be empty");
+            throw new FluentIterableException("Regexp can't be empty");
         }
 
         return fn (string $value): bool => 1 === preg_match($regexp, $value);
@@ -112,7 +113,7 @@ final class Filter
     public static function regexpParam(string $paramName, string $regexp): callable
     {
         if (empty($regexp)) {
-            throw new \InvalidArgumentException("Regexp can't be empty");
+            throw new FluentIterableException("Regexp can't be empty");
         }
 
         return function (array|object $value) use ($paramName, $regexp): bool {
