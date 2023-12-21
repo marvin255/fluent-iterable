@@ -64,7 +64,7 @@ final class Filter
     public static function notNull(): callable
     {
         if (!isset(self::$cachedFilters['notNull'])) {
-            self::$cachedFilters['notNull'] = fn (mixed $value): bool => $value !== null;
+            self::$cachedFilters['notNull'] = fn (mixed $value): bool => null !== $value;
         }
 
         /** @psalm-var pure-callable(mixed): bool */
@@ -101,7 +101,7 @@ final class Filter
             throw new \InvalidArgumentException("Regexp can't be empty");
         }
 
-        return fn (string $value): bool => preg_match($regexp, $value) === 1;
+        return fn (string $value): bool => 1 === preg_match($regexp, $value);
     }
 
     /**
@@ -118,7 +118,7 @@ final class Filter
         return function (array|object $value) use ($paramName, $regexp): bool {
             $data = DataGetterHelper::string($paramName, $value);
 
-            return preg_match($regexp, $data) === 1;
+            return 1 === preg_match($regexp, $data);
         };
     }
 }

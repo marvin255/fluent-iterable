@@ -50,7 +50,7 @@ abstract class IteratorCase extends BaseCase
             }
             $result = $secondRun;
         } catch (\Exception $e) {
-            if ($e->getMessage() !== 'Cannot rewind a generator that was already run') {
+            if ('Cannot rewind a generator that was already run' !== $e->getMessage()) {
                 throw $e;
             }
         }

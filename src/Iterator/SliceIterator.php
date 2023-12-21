@@ -36,9 +36,9 @@ final class SliceIterator implements \Iterator
      */
     public function __construct(\Iterator $iterator, int $offset = null, int $length = null)
     {
-        if ($offset !== null && $offset < 0) {
+        if (null !== $offset && $offset < 0) {
             throw new \InvalidArgumentException("\"from\" parameter can't be less than 0");
-        } elseif ($length !== null && $length <= 0) {
+        } elseif (null !== $length && $length <= 0) {
             throw new \InvalidArgumentException("\"length\" parameter can't be less than 0");
         }
 
@@ -57,7 +57,7 @@ final class SliceIterator implements \Iterator
 
     public function key(): int
     {
-        return $this->offset !== null
+        return null !== $this->offset
             ? $this->count - $this->offset
             : $this->count;
     }
@@ -76,12 +76,12 @@ final class SliceIterator implements \Iterator
 
     public function valid(): bool
     {
-        $offset = $this->offset === null ? 0 : $this->offset;
-        if ($this->length !== null && $this->count > $offset + $this->length - 1) {
+        $offset = null === $this->offset ? 0 : $this->offset;
+        if (null !== $this->length && $this->count > $offset + $this->length - 1) {
             return false;
         }
 
-        while ($this->offset !== null && $this->count < $this->offset) {
+        while (null !== $this->offset && $this->count < $this->offset) {
             $this->next();
         }
 
