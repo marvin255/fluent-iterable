@@ -10,12 +10,17 @@ Interface which provides `map`, `filter` and other array related functions for a
 E.g.
 
 ```php
-$input = new \ArrayObject([1, 2, 3, 4]);
-$result = \Marvin255\FluentIterable\FluentIterable::of($input)
+use Marvin255\FluentIterable\FluentIterable;
+use Marvin255\FluentIterable\Helper\Reducer;
+use Marvin255\FluentIterable\Helper\Filter;
+use Marvin255\FluentIterable\Helper\Compare;
+
+$input = [1, 2, 3, 4];
+$result = FluentIterable::of($input)
     ->skip(1)
-    ->filter(fn (int $item): bool => $item < 4)
+    ->filter(Filter::compare(Compare::LESS_THEN, 4))
     ->map(fn (int $item): int => $item + 1)
-    ->reduce(fn (int $carry, int $item): int => $carry + $item, 0)
+    ->reduce(Reducer::sum())
     ->get();
 ``` 
 
@@ -36,14 +41,14 @@ composer req marvin255/fluent-iterable
 Initiate item using factory (any `iterable` instance is allowed)
 
 ```php
-$fluent = \Marvin255\FluentIterable\FluentIterable::of($input);
+$fluent = FluentIterable::of($input);
 ```
 
 Apply any number of intermediate methods (`merge`, `filter`, `map`, `skip`, `limit`, `sorted`, `peek`, `distinct`, `flatten`)
 
 ```php
 $fluent = $fluent->map(fn (int $item): int => $item + 1)
-    ->filter(fn (int $item): bool => $item < 4)
+    ->filter(Filter::compare(Compare::LESS_THEN, 4))
     ->skip(1);
 ```
 
@@ -62,15 +67,20 @@ Methods that convert list to a single item (`reduce`, `findOne`, `findByIndex`, 
 You can use `peek` method to show intermediate data. E.g. 
 
 ```php
-$input = new \ArrayObject([1, 2, 3, 4]);
-$result = \Marvin255\FluentIterable\FluentIterable::of($input)
-    ->filter(fn (int $item): bool => $item < 3)
+use Marvin255\FluentIterable\FluentIterable;
+use Marvin255\FluentIterable\Helper\Reducer;
+use Marvin255\FluentIterable\Helper\Filter;
+use Marvin255\FluentIterable\Helper\Compare;
+
+$input = [1, 2, 3, 4];
+$result = FluentIterable::of($input)
+    ->filter(Filter::compare(Compare::LESS_THEN, 3))
     ->peek(
         function (mixed $item): void {
             var_dump($item);
         }
     )
-    ->reduce(fn (int $carry, int $item): int => $carry + $item, 0)
+    ->reduce(Reducer::sum())
     ->get();
 ```
 
