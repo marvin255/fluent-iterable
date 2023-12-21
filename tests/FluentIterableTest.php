@@ -483,31 +483,31 @@ class FluentIterableTest extends BaseCase
         return [
             'array' => [
                 [1, 2, 3, 4],
-                fn (int $item): bool => $item === 3,
+                fn (int $item): bool => 3 === $item,
                 0,
                 3,
             ],
             'iterator' => [
                 self::createIterator(1, 2, 3, 4),
-                fn (int $item): bool => $item === 3,
+                fn (int $item): bool => 3 === $item,
                 0,
                 3,
             ],
             'generator' => [
                 self::createGenerator(1, 2, 3, 4),
-                fn (int $item): bool => $item === 3,
+                fn (int $item): bool => 3 === $item,
                 0,
                 3,
             ],
             'nothing found' => [
                 [1, 2, 3, 4],
-                fn (int $item): bool => $item === 12,
+                fn (int $item): bool => 12 === $item,
                 123123,
                 123123,
             ],
             'empty array' => [
                 [],
-                fn (int $item): bool => $item === 3,
+                fn (int $item): bool => 3 === $item,
                 123123,
                 123123,
             ],

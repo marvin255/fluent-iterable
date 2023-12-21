@@ -31,7 +31,7 @@ final class Reducer
     {
         if (!isset(self::$cachedReducers['min'])) {
             self::$cachedReducers['min'] = function (int|float|null $carry, int|float $item): int|float {
-                return $carry === null || $item < $carry ? $item : $carry;
+                return null === $carry || $item < $carry ? $item : $carry;
             };
         }
 
@@ -51,10 +51,10 @@ final class Reducer
     public static function minParam(string $paramName): callable
     {
         return function (array|object|null $carry, array|object $item) use ($paramName): array|object {
-            $carryValue = $carry === null ? null : DataGetterHelper::float($paramName, $carry);
+            $carryValue = null === $carry ? null : DataGetterHelper::float($paramName, $carry);
             $itemValue = DataGetterHelper::float($paramName, $item);
             /** @var array|object */
-            $res = $carryValue === null || $itemValue < $carryValue ? $item : $carry;
+            $res = null === $carryValue || $itemValue < $carryValue ? $item : $carry;
 
             return $res;
         };
@@ -69,7 +69,7 @@ final class Reducer
     {
         if (!isset(self::$cachedReducers['max'])) {
             self::$cachedReducers['max'] = function (int|float|null $carry, int|float $item): int|float {
-                return $carry === null || $item > $carry ? $item : $carry;
+                return null === $carry || $item > $carry ? $item : $carry;
             };
         }
 
@@ -89,10 +89,10 @@ final class Reducer
     public static function maxParam(string $paramName): callable
     {
         return function (array|object|null $carry, array|object $item) use ($paramName): array|object {
-            $carryValue = $carry === null ? null : DataGetterHelper::float($paramName, $carry);
+            $carryValue = null === $carry ? null : DataGetterHelper::float($paramName, $carry);
             $itemValue = DataGetterHelper::float($paramName, $item);
             /** @var array|object */
-            $res = $carryValue === null || $itemValue > $carryValue ? $item : $carry;
+            $res = null === $carryValue || $itemValue > $carryValue ? $item : $carry;
 
             return $res;
         };
@@ -107,7 +107,7 @@ final class Reducer
     {
         if (!isset(self::$cachedReducers['sum'])) {
             self::$cachedReducers['sum'] = function (int|float|null $carry, int|float|null $item): int|float {
-                return ($carry === null ? 0 : $carry) + ($item === null ? 0 : $item);
+                return (null === $carry ? 0 : $carry) + (null === $item ? 0 : $item);
             };
         }
 
@@ -130,7 +130,7 @@ final class Reducer
                 throw new \InvalidArgumentException('Param value must be int or float');
             }
 
-            return ($carry === null ? 0 : $carry) + $itemValue;
+            return (null === $carry ? 0 : $carry) + $itemValue;
         };
     }
 
@@ -142,7 +142,7 @@ final class Reducer
     public static function join(string $separator = ''): callable
     {
         return function (int|float|string|null $carry, int|float|string|null $item) use ($separator): string {
-            return ($carry === null ? '' : $carry . $separator) . ($item ?? '');
+            return (null === $carry ? '' : $carry . $separator) . ($item ?? '');
         };
     }
 }

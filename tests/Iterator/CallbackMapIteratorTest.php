@@ -15,7 +15,7 @@ class CallbackMapIteratorTest extends IteratorCase
 {
     /**
      * @psalm-param Iterator<mixed> $iterator
-     * @psalm-param callable(mixed): mixed $callback
+     * @psalm-param callable(mixed, int=): mixed $callback
      * @psalm-param array $reference
      *
      * @dataProvider provideIteratorData

@@ -84,17 +84,17 @@ final class FlattenIterator implements \Countable, \Iterator
 
     public function valid(): bool
     {
-        if ($this->buffer !== null && $this->bufferCount < \count($this->buffer)) {
+        if (null !== $this->buffer && $this->bufferCount < \count($this->buffer)) {
             return true;
         }
 
-        if ($this->buffer !== null) {
+        if (null !== $this->buffer) {
             $this->iterator->next();
         }
 
         $this->buffer = null;
         $this->bufferCount = 0;
-        while ($this->buffer === null && $this->iterator->valid()) {
+        while (null === $this->buffer && $this->iterator->valid()) {
             $callbackResult = \call_user_func($this->callback, $this->iterator->current(), $this->count);
             $callbackResult = IteratorHelper::toArrayIterable($callbackResult);
             if (empty($callbackResult)) {
@@ -104,7 +104,7 @@ final class FlattenIterator implements \Countable, \Iterator
             }
         }
 
-        return $this->buffer !== null;
+        return null !== $this->buffer;
     }
 
     public function count(): int

@@ -252,7 +252,7 @@ class ReducerTest extends BaseCase
      */
     public function testJoin(?string $separator, int|float|string|null $carry, int|float|string|null $input, string $reference): void
     {
-        $callback = $separator === null ? Reducer::join() : Reducer::join($separator);
+        $callback = null === $separator ? Reducer::join() : Reducer::join($separator);
         $result = $callback($carry, $input);
 
         $this->assertSame($reference, $result);

@@ -32,12 +32,12 @@ class CallbackFilterIteratorTest extends IteratorCase
         return [
             'iterator' => [
                 self::createIterator('q', 'w', 'e'),
-                fn (string $letter): bool => $letter !== 'w',
+                fn (string $letter): bool => 'w' !== $letter,
                 ['q', 'e'],
             ],
             'empty iterator' => [
                 self::createEmptyIterator(),
-                fn (string $letter): bool => $letter !== 'w',
+                fn (string $letter): bool => 'w' !== $letter,
                 [],
             ],
         ];
