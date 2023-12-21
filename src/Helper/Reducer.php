@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Helper;
 
 use Marvin255\DataGetterHelper\DataGetterHelper;
+use Marvin255\FluentIterable\FluentIterableException;
 
 /**
  * Collection of pre-defined reducers for FluentIterable::reduce.
@@ -127,7 +128,7 @@ final class Reducer
         return function (int|float|null $carry, array|object $item) use ($paramName): int|float {
             $itemValue = DataGetterHelper::get($paramName, $item);
             if (!\is_int($itemValue) && !\is_float($itemValue)) {
-                throw new \InvalidArgumentException('Param value must be int or float');
+                throw new FluentIterableException('Param value must be int or float');
             }
 
             return (null === $carry ? 0 : $carry) + $itemValue;

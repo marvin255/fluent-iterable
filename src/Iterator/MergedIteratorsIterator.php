@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Marvin255\FluentIterable\Iterator;
 
 use Iterator;
+use Marvin255\FluentIterable\FluentIterableException;
 use Marvin255\FluentIterable\Helper\IteratorHelper;
 
 /**
@@ -34,7 +35,7 @@ final class MergedIteratorsIterator implements \Countable, \Iterator
         $checkedIterators = [];
         foreach ($iterators as $iterator) {
             if (!($iterator instanceof \Iterator)) {
-                throw new \InvalidArgumentException('All items must be instance of Iterator or array');
+                throw new FluentIterableException('All items must be instance of Iterator or array');
             }
             $checkedIterators[] = $iterator;
         }
