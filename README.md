@@ -5,9 +5,7 @@
 [![License](https://poser.pugx.org/marvin255/fluent-iterable/license.svg)](https://packagist.org/packages/marvin255/fluent-iterable)
 [![Build Status](https://github.com/marvin255/fluent-iterable/workflows/marvin255_fluent_iterable/badge.svg)](https://github.com/marvin255/fluent-iterable/actions?query=workflow%3A%22marvin255_fluent_iterable%22)
 
-Interface which provides `map`, `filter` and other array related functions for any iterable instance (`array`, `Iterator`, `Generator`) in simple fluent style.
-
-E.g.
+Object that provides `map`, `filter` and other array related functions for any iterable instances (`array`, `Iterator`, `Generator`) in a simple fluent style.
 
 ```php
 use Marvin255\FluentIterable\FluentIterable;
@@ -38,13 +36,13 @@ composer req marvin255/fluent-iterable
 
 ## Usage
 
-Initiate item using factory (any `iterable` instance is allowed)
+Initiate item using factory (any `iterable` instances are allowed)
 
 ```php
 $fluent = FluentIterable::of($input);
 ```
 
-Apply any number of intermediate methods (`merge`, `filter`, `map`, `skip`, `limit`, `sorted`, `peek`, `distinct`, `flatten`)
+Apply intermediate methods (`merge`, `filter`, `map`, `skip`, `limit`, `sorted`, `peek`, `distinct`, `flatten`)
 
 ```php
 $fluent = $fluent->map(fn (int $item): int => $item + 1)
@@ -64,7 +62,7 @@ Methods that convert list to a single item (`reduce`, `findOne`, `findByIndex`, 
 
 ## Debugging
 
-You can use `peek` method to show intermediate data. E.g. 
+`peek` method might be used to show intermediate data.
 
 ```php
 use Marvin255\FluentIterable\FluentIterable;
