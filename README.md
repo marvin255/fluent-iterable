@@ -82,7 +82,7 @@ $result = FluentIterable::of($input)
     ->get();
 ```
 
-Will print something like
+It will output something like
 
 ```
 int(1)
