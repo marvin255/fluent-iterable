@@ -35,7 +35,7 @@ final class SliceIterator implements \Iterator
      * @param ?int                     $offset
      * @param ?int                     $length
      */
-    public function __construct(\Iterator $iterator, int $offset = null, int $length = null)
+    public function __construct(\Iterator $iterator, ?int $offset = null, ?int $length = null)
     {
         if (null !== $offset && $offset < 0) {
             throw new FluentIterableException("\"from\" parameter can't be less than 0");
