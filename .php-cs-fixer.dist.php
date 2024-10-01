@@ -1,18 +1,21 @@
 <?php
 
+use PhpCsFixer\Config;
+use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
+
 $finder = PhpCsFixer\Finder::create()->in(__DIR__);
 
 $rules = [
     '@Symfony' => true,
     'new_with_parentheses' => true,
     'concat_space' => [
-        'spacing' => 'one'
+        'spacing' => 'one',
     ],
     'array_syntax' => [
-        'syntax' => 'short'
+        'syntax' => 'short',
     ],
-    'yoda_style' => true,
-    'phpdoc_no_empty_return' => true,
+    'yoda_style' => false,
+    'phpdoc_no_empty_return' => false,
     'no_superfluous_phpdoc_tags' => true,
     'single_line_throw' => false,
     'array_indentation' => true,
@@ -21,18 +24,18 @@ $rules = [
     'non_printable_character' => true,
     'modernize_types_casting' => true,
     'ordered_interfaces' => [
-        'order' => 'alpha', 
-        'direction' => 'ascend'
+        'order' => 'alpha',
+        'direction' => 'ascend',
     ],
-    'date_time_immutable' => true,
+    'date_time_immutable' => false,
     'native_constant_invocation' => true,
     'combine_nested_dirname' => true,
     'native_function_invocation' => [
         'include' => [
             '@compiler_optimized'
-        ], 
-        'scope' => 'namespaced', 
-        'strict' => true
+        ],
+        'scope' => 'namespaced',
+        'strict' => true,
     ],
     'php_unit_construct' => true,
     'php_unit_dedicate_assert' => true,
@@ -41,9 +44,9 @@ $rules = [
     'php_unit_mock_short_will_return' => true,
     'php_unit_strict' => true,
     'strict_comparison' => true,
-    'date_time_immutable' => false,
 ];
 
-$config = new PhpCsFixer\Config();
-
-return $config->setRules($rules)->setFinder($finder);
+return (new Config())
+    ->setParallelConfig(ParallelConfigFactory::detect())
+    ->setRules($rules)
+    ->setFinder($finder);
