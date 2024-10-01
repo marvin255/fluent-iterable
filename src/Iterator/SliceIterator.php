@@ -32,8 +32,6 @@ final class SliceIterator implements \Iterator
 
     /**
      * @param \Iterator<mixed, TValue> $iterator
-     * @param ?int                     $offset
-     * @param ?int                     $length
      */
     public function __construct(\Iterator $iterator, ?int $offset = null, ?int $length = null)
     {
