@@ -77,6 +77,9 @@ final class CallbackFilterIterator implements \Countable, \Iterator
         return $this->iterator->valid();
     }
 
+    /**
+     * @psalm-suppress PossiblyNullArgument
+     */
     #[\Override]
     public function count(): int
     {
