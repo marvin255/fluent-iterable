@@ -42,21 +42,25 @@ final class DistinctIterator implements \Countable, \Iterator
     /**
      * @return TValue
      */
+    #[\Override]
     public function current(): mixed
     {
         return $this->iterator->current();
     }
 
+    #[\Override]
     public function key(): int
     {
         return $this->count;
     }
 
+    #[\Override]
     public function next(): void
     {
         ++$this->count;
     }
 
+    #[\Override]
     public function rewind(): void
     {
         $this->count = 0;
@@ -64,6 +68,7 @@ final class DistinctIterator implements \Countable, \Iterator
         $this->iterator->rewind();
     }
 
+    #[\Override]
     public function valid(): bool
     {
         while ($this->iterator->valid()) {
@@ -80,6 +85,7 @@ final class DistinctIterator implements \Countable, \Iterator
         return $this->iterator->valid();
     }
 
+    #[\Override]
     public function count(): int
     {
         return IteratorHelper::count($this->iterator);

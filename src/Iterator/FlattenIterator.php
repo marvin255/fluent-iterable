@@ -57,6 +57,7 @@ final class FlattenIterator implements \Countable, \Iterator
      *
      * @psalm-suppress PossiblyNullArrayAccess
      */
+    #[\Override]
     public function current(): mixed
     {
         /** @var TConverted */
@@ -65,23 +66,32 @@ final class FlattenIterator implements \Countable, \Iterator
         return $current;
     }
 
+    #[\Override]
     public function key(): int
     {
         return $this->count;
     }
 
+    #[\Override]
     public function next(): void
     {
         ++$this->count;
         ++$this->bufferCount;
     }
 
+    #[\Override]
     public function rewind(): void
     {
         $this->count = 0;
         $this->iterator->rewind();
     }
 
+    /**
+     * @psalm-suppress PossiblyNullArgument
+     *
+     * @TODO seems like a Psalm bug. Check on next version
+     */
+    #[\Override]
     public function valid(): bool
     {
         if (null !== $this->buffer && $this->bufferCount < \count($this->buffer)) {
@@ -107,6 +117,7 @@ final class FlattenIterator implements \Countable, \Iterator
         return null !== $this->buffer;
     }
 
+    #[\Override]
     public function count(): int
     {
         return IteratorHelper::count($this->iterator);

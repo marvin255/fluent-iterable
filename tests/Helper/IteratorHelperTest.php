@@ -10,7 +10,7 @@ use Marvin255\FluentIterable\Tests\BaseCase;
 /**
  * @internal
  */
-class IteratorHelperTest extends BaseCase
+final class IteratorHelperTest extends BaseCase
 {
     /**
      * @psalm-param \Iterator<mixed, mixed> $iterator

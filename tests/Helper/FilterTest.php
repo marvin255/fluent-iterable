@@ -12,7 +12,7 @@ use Marvin255\FluentIterable\Tests\BaseCase;
 /**
  * @internal
  */
-class FilterTest extends BaseCase
+final class FilterTest extends BaseCase
 {
     /**
      * @dataProvider provideCompare

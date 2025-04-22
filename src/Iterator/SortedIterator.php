@@ -53,6 +53,7 @@ final class SortedIterator implements \Iterator
     /**
      * @return TValue
      */
+    #[\Override]
     public function current(): mixed
     {
         $this->initArray();
@@ -60,21 +61,25 @@ final class SortedIterator implements \Iterator
         return $this->array[$this->count];
     }
 
+    #[\Override]
     public function key(): int
     {
         return $this->count;
     }
 
+    #[\Override]
     public function next(): void
     {
         ++$this->count;
     }
 
+    #[\Override]
     public function rewind(): void
     {
         $this->count = 0;
     }
 
+    #[\Override]
     public function valid(): bool
     {
         $this->initArray();

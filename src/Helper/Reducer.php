@@ -127,6 +127,7 @@ final class Reducer
     {
         return function (int|float|null $carry, array|object $item) use ($paramName): int|float {
             $itemValue = DataGetterHelper::get($paramName, $item);
+
             if (!\is_int($itemValue) && !\is_float($itemValue)) {
                 throw new FluentIterableException('Param value must be int or float');
             }
@@ -143,7 +144,7 @@ final class Reducer
     public static function join(string $separator = ''): callable
     {
         return function (int|float|string|null $carry, int|float|string|null $item) use ($separator): string {
-            return (null === $carry ? '' : $carry . $separator) . ($item ?? '');
+            return (null === $carry ? '' : "{$carry}{$separator}") . ($item ?? '');
         };
     }
 }

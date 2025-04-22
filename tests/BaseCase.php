@@ -57,26 +57,31 @@ abstract class BaseCase extends TestCase
         return new class() implements \Iterator {
             private int $counter = 0;
 
+            #[\Override]
             public function current(): mixed
             {
                 return $this->counter;
             }
 
+            #[\Override]
             public function key(): int
             {
                 return $this->counter;
             }
 
+            #[\Override]
             public function next(): void
             {
                 ++$this->counter;
             }
 
+            #[\Override]
             public function rewind(): void
             {
                 $this->counter = 0;
             }
 
+            #[\Override]
             public function valid(): bool
             {
                 if ($this->counter > 1) {
@@ -103,29 +108,35 @@ abstract class BaseCase extends TestCase
                 $this->count = $count;
             }
 
+            #[\Override]
             public function current(): mixed
             {
                 return 1;
             }
 
+            #[\Override]
             public function key(): int
             {
                 return 1;
             }
 
+            #[\Override]
             public function next(): void
             {
             }
 
+            #[\Override]
             public function rewind(): void
             {
             }
 
+            #[\Override]
             public function valid(): bool
             {
                 return false;
             }
 
+            #[\Override]
             public function count(): int
             {
                 return $this->count;

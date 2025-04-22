@@ -24,7 +24,7 @@ final class HashHelper
         } elseif (\is_object($item)) {
             return 'obj' . md5(serialize($item));
         } else {
-            return 'cust' . md5(json_encode($item));
+            return 'cust' . md5(json_encode($item, \JSON_THROW_ON_ERROR));
         }
     }
 }

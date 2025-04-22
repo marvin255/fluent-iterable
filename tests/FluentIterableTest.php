@@ -9,7 +9,7 @@ use Marvin255\FluentIterable\FluentIterable;
 /**
  * @internal
  */
-class FluentIterableTest extends BaseCase
+final class FluentIterableTest extends BaseCase
 {
     /**
      * @psalm-param iterable<int, int> $input

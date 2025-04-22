@@ -11,7 +11,7 @@ use Marvin255\FluentIterable\Tests\IteratorCase;
 /**
  * @internal
  */
-class MergedIteratorsIteratorTest extends IteratorCase
+final class MergedIteratorsIteratorTest extends IteratorCase
 {
     public function testConstructWrongTypeException(): void
     {

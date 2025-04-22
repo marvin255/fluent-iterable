@@ -10,7 +10,7 @@ use Marvin255\FluentIterable\Tests\BaseCase;
 /**
  * @internal
  */
-class HashHelperTest extends BaseCase
+final class HashHelperTest extends BaseCase
 {
     /**
      * @dataProvider provideToArray

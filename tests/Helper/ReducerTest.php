@@ -11,7 +11,7 @@ use Marvin255\FluentIterable\Tests\BaseCase;
 /**
  * @internal
  */
-class ReducerTest extends BaseCase
+final class ReducerTest extends BaseCase
 {
     /**
      * @dataProvider provideMin

@@ -30,31 +30,37 @@ final class ImmutableArrayIterator implements \Countable, \Iterator
         $this->arrayCount = \count($array);
     }
 
+    #[\Override]
     public function current(): mixed
     {
         return $this->array[$this->counter];
     }
 
+    #[\Override]
     public function key(): int
     {
         return $this->counter;
     }
 
+    #[\Override]
     public function next(): void
     {
         ++$this->counter;
     }
 
+    #[\Override]
     public function rewind(): void
     {
         $this->counter = 0;
     }
 
+    #[\Override]
     public function valid(): bool
     {
         return $this->counter < $this->arrayCount;
     }
 
+    #[\Override]
     public function count(): int
     {
         return $this->arrayCount;

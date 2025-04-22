@@ -46,7 +46,12 @@ final class PeekIterator implements \Countable, \Iterator
 
     /**
      * @return TValue
+     *
+     * @psalm-suppress PossiblyNullArgument
+     *
+     * @TODO seems like a Psalm bug. Check on next version
      */
+    #[\Override]
     public function current(): mixed
     {
         $current = $this->iterator->current();
@@ -56,28 +61,33 @@ final class PeekIterator implements \Countable, \Iterator
         return $current;
     }
 
+    #[\Override]
     public function key(): int
     {
         return $this->count;
     }
 
+    #[\Override]
     public function next(): void
     {
         ++$this->count;
         $this->iterator->next();
     }
 
+    #[\Override]
     public function rewind(): void
     {
         $this->count = 0;
         $this->iterator->rewind();
     }
 
+    #[\Override]
     public function valid(): bool
     {
         return $this->iterator->valid();
     }
 
+    #[\Override]
     public function count(): int
     {
         return IteratorHelper::count($this->iterator);

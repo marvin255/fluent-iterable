@@ -12,7 +12,7 @@ use Marvin255\FluentIterable\Tests\IteratorCase;
 /**
  * @internal
  */
-class PeekIteratorTest extends IteratorCase
+final class PeekIteratorTest extends IteratorCase
 {
     /**
      * @psalm-param Iterator<mixed> $iterator

@@ -11,7 +11,7 @@ use Marvin255\FluentIterable\Tests\BaseCase;
 /**
  * @internal
  */
-class SorterTest extends BaseCase
+final class SorterTest extends BaseCase
 {
     /**
      * @dataProvider provideSortNumeric

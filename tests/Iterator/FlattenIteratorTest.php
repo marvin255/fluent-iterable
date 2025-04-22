@@ -11,7 +11,7 @@ use Marvin255\FluentIterable\Tests\IteratorCase;
 /**
  * @internal
  */
-class FlattenIteratorTest extends IteratorCase
+final class FlattenIteratorTest extends IteratorCase
 {
     /**
      * @psalm-param Iterator<mixed> $iterator

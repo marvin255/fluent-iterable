@@ -10,7 +10,7 @@ use Marvin255\FluentIterable\Tests\BaseCase;
 /**
  * @internal
  */
-class MapperTest extends BaseCase
+final class MapperTest extends BaseCase
 {
     /**
      * @dataProvider provideInt
