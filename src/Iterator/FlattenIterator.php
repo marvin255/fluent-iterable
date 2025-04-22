@@ -86,6 +86,11 @@ final class FlattenIterator implements \Countable, \Iterator
         $this->iterator->rewind();
     }
 
+    /**
+     * @psalm-suppress PossiblyNullArgument
+     *
+     * @TODO seems like a Psalm bug. Check on next version
+     */
     #[\Override]
     public function valid(): bool
     {

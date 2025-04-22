@@ -79,6 +79,8 @@ final class CallbackFilterIterator implements \Countable, \Iterator
 
     /**
      * @psalm-suppress PossiblyNullArgument
+     *
+     * @TODO seems like a Psalm bug. Check on next version
      */
     #[\Override]
     public function count(): int

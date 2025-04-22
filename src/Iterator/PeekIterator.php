@@ -46,6 +46,10 @@ final class PeekIterator implements \Countable, \Iterator
 
     /**
      * @return TValue
+     *
+     * @psalm-suppress PossiblyNullArgument
+     *
+     * @TODO seems like a Psalm bug. Check on next version
      */
     #[\Override]
     public function current(): mixed

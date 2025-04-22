@@ -47,6 +47,10 @@ final class CallbackMapIterator implements \Countable, \Iterator
 
     /**
      * @return TConverted
+     *
+     * @psalm-suppress PossiblyNullArgument
+     *
+     * @TODO seems like a Psalm bug. Check on next version
      */
     #[\Override]
     public function current(): mixed
