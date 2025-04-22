@@ -143,7 +143,8 @@ final class Reducer
     public static function join(string $separator = ''): callable
     {
         return function (int|float|string|null $carry, int|float|string|null $item) use ($separator): string {
-            return (null === $carry ? '' : $carry . $separator) . ($item ?? '');
+            return (null === $carry ? '' : "{$carry}{$separator}")
+                . (null === $item ? '' : (string) $item);
         };
     }
 }
