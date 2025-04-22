@@ -326,6 +326,7 @@ final class FluentIterable implements \Countable, \IteratorAggregate
     /**
      * Returns number of items in those iterable.
      */
+    #[\Override]
     public function count(): int
     {
         return IteratorHelper::count($this->iterator);
@@ -346,6 +347,7 @@ final class FluentIterable implements \Countable, \IteratorAggregate
      *
      * @return \Iterator<int, TValue>
      */
+    #[\Override]
     public function getIterator(): \Iterator
     {
         return $this->iterator;

@@ -47,22 +47,26 @@ final class MergedIteratorsIterator implements \Countable, \Iterator
         return new self($iterators);
     }
 
+    #[\Override]
     public function current(): mixed
     {
         return $this->getCurrentIterator()->current();
     }
 
+    #[\Override]
     public function key(): int
     {
         return $this->itemCounter;
     }
 
+    #[\Override]
     public function next(): void
     {
         ++$this->itemCounter;
         $this->getCurrentIterator()->next();
     }
 
+    #[\Override]
     public function rewind(): void
     {
         $this->itemCounter = 0;
@@ -72,6 +76,7 @@ final class MergedIteratorsIterator implements \Countable, \Iterator
         }
     }
 
+    #[\Override]
     public function valid(): bool
     {
         if (!isset($this->iterators[$this->iteratorCounter])) {
@@ -86,6 +91,7 @@ final class MergedIteratorsIterator implements \Countable, \Iterator
         return $isValid;
     }
 
+    #[\Override]
     public function count(): int
     {
         $count = 0;

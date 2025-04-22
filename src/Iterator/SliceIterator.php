@@ -49,11 +49,13 @@ final class SliceIterator implements \Iterator
     /**
      * @return TValue
      */
+    #[\Override]
     public function current(): mixed
     {
         return $this->iterator->current();
     }
 
+    #[\Override]
     public function key(): int
     {
         return null !== $this->offset
@@ -61,18 +63,21 @@ final class SliceIterator implements \Iterator
             : $this->count;
     }
 
+    #[\Override]
     public function next(): void
     {
         ++$this->count;
         $this->iterator->next();
     }
 
+    #[\Override]
     public function rewind(): void
     {
         $this->count = 0;
         $this->iterator->rewind();
     }
 
+    #[\Override]
     public function valid(): bool
     {
         $offset = null === $this->offset ? 0 : $this->offset;
