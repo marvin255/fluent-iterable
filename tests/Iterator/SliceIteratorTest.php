@@ -11,7 +11,7 @@ use Marvin255\FluentIterable\Tests\IteratorCase;
 /**
  * @internal
  */
-class SliceIteratorTest extends IteratorCase
+final class SliceIteratorTest extends IteratorCase
 {
     public function testConstructNegativeOffset(): void
     {

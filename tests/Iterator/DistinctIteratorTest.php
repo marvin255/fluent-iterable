@@ -10,7 +10,7 @@ use Marvin255\FluentIterable\Tests\IteratorCase;
 /**
  * @internal
  */
-class DistinctIteratorTest extends IteratorCase
+final class DistinctIteratorTest extends IteratorCase
 {
     /**
      * @dataProvider provideIterator
