@@ -43,9 +43,7 @@ final class SliceIteratorTest extends IteratorCase
         );
     }
 
-    /**
-     * @dataProvider provideIteratorData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIteratorData')]
     public function testIterator(\Iterator $iterator, ?int $from, ?int $to, array $reference): void
     {
         $sliceIterator = new SliceIterator($iterator, $from, $to);

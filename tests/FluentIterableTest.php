@@ -15,9 +15,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param iterable<int, int> $input
      * @psalm-param iterable<int, int> $merge
      * @psalm-param array<int, mixed> $reference
-     *
-     * @dataProvider provideMergeData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideMergeData')]
     public function testMerge(iterable $input, iterable $merge, array $reference): void
     {
         $result = FluentIterable::of($input)->merge($merge)->toArray();
@@ -55,9 +54,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param callable(mixed, int=): bool $filter
      * @psalm-param array<int, mixed> $reference
-     *
-     * @dataProvider provideFilterData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFilterData')]
     public function testFilter(iterable $input, callable $filter, array $reference): void
     {
         $result = FluentIterable::of($input)->filter($filter)->toArray();
@@ -100,9 +98,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param callable(mixed, int=): mixed $mapper
      * @psalm-param array<int, mixed> $reference
-     *
-     * @dataProvider provideMapData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideMapData')]
     public function testMap(iterable $input, callable $mapper, array $reference): void
     {
         $result = FluentIterable::of($input)->map($mapper)->toArray();
@@ -145,9 +142,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param int $offset
      * @psalm-param array<int, mixed> $reference
-     *
-     * @dataProvider provideSkipData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSkipData')]
     public function testSkip(iterable $input, int $offset, array $reference): void
     {
         $result = FluentIterable::of($input)->skip($offset)->toArray();
@@ -180,9 +176,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param int $limit
      * @psalm-param array<int, mixed> $reference
-     *
-     * @dataProvider provideSliceData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSliceData')]
     public function testLimit(iterable $input, int $limit, array $reference): void
     {
         $result = FluentIterable::of($input)->limit($limit)->toArray();
@@ -220,9 +215,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param callable(mixed, int=): mixed[] $callback
      * @psalm-param array<int, mixed> $reference
-     *
-     * @dataProvider provideFlatten
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFlatten')]
     public function testFlatten(iterable $input, callable $callback, array $reference): void
     {
         $result = FluentIterable::of($input)->flatten($callback)->toArray();
@@ -255,10 +249,9 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param array<int, mixed> $reference
      *
-     * @dataProvider providePeek
-     *
      * @psalm-suppress MixedArrayAssignment
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providePeek')]
     public function testPeek(iterable $input, array $reference): void
     {
         $result = [];
@@ -299,9 +292,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param iterable $input
      * @psalm-param callable(mixed, mixed): int $callback
      * @psalm-param array<int, mixed> $reference
-     *
-     * @dataProvider provideSorted
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSorted')]
     public function testSorted(iterable $input, callable $callback, array $reference): void
     {
         $result = FluentIterable::of($input)->sorted($callback)->toArray();
@@ -338,9 +330,8 @@ final class FluentIterableTest extends BaseCase
     /**
      * @psalm-param iterable $input
      * @psalm-param array<int, mixed> $reference
-     *
-     * @dataProvider provideDistinct
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideDistinct')]
     public function testDistinct(iterable $input, array $reference): void
     {
         $result = FluentIterable::of($input)->distinct()->toArray();
@@ -375,9 +366,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param array<int, int> $reference
      *
      * @psalm-suppress MixedArrayAssignment
-     *
-     * @dataProvider provideWalkData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideWalkData')]
     public function testWalk(iterable $input, array $reference): void
     {
         $result = [];
@@ -417,9 +407,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param callable(mixed, mixed, int=): mixed $reducer
      * @psalm-param mixed $initial
      * @psalm-param mixed $reference
-     *
-     * @dataProvider provideReduceData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideReduceData')]
     public function testReduce(iterable $input, callable $reducer, mixed $initial, mixed $reference): void
     {
         $result = FluentIterable::of($input)->reduce($reducer, $initial)->get();
@@ -468,9 +457,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param callable(int, int=): bool $filter
      * @psalm-param int $orElse
      * @psalm-param mixed $reference
-     *
-     * @dataProvider provideFindOneData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFindOneData')]
     public function testFindOne(iterable $input, callable $filter, int $orElse, mixed $reference): void
     {
         $result = FluentIterable::of($input)->findOne($filter)->orElse($orElse);
@@ -525,9 +513,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param int $index
      * @psalm-param int $orElse
      * @psalm-param mixed $reference
-     *
-     * @dataProvider provideFindByIndexData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFindByIndexData')]
     public function testFindByIndex(iterable $input, int $index, int $orElse, mixed $reference): void
     {
         $result = FluentIterable::of($input)->findByIndex($index)->orElse($orElse);
@@ -575,9 +562,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param iterable<int> $input
      * @psalm-param int $orElse
      * @psalm-param mixed $reference
-     *
-     * @dataProvider provideFindFirstData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFindFirstData')]
     public function testFindFirst(iterable $input, int $orElse, mixed $reference): void
     {
         $result = FluentIterable::of($input)->findFirst()->orElse($orElse);
@@ -615,9 +601,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param iterable<int> $input
      * @psalm-param int $orElse
      * @psalm-param mixed $reference
-     *
-     * @dataProvider provideFindLastData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFindLastData')]
     public function testFindLast(iterable $input, int $orElse, mixed $reference): void
     {
         $result = FluentIterable::of($input)->findLast()->orElse($orElse);
@@ -655,9 +640,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param iterable<int> $input
      * @psalm-param callable(int, int=): bool $callback
      * @psalm-param bool $reference
-     *
-     * @dataProvider provideMatchAll
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideMatchAll')]
     public function testMatchAll(iterable $input, callable $callback, bool $reference): void
     {
         $result = FluentIterable::of($input)->matchAll($callback);
@@ -700,9 +684,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param iterable<int> $input
      * @psalm-param callable(int, int=): bool $callback
      * @psalm-param bool $reference
-     *
-     * @dataProvider provideMatchAny
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideMatchAny')]
     public function testMatchAny(iterable $input, callable $callback, bool $reference): void
     {
         $result = FluentIterable::of($input)->matchAny($callback);
@@ -745,9 +728,8 @@ final class FluentIterableTest extends BaseCase
      * @psalm-param iterable<int> $input
      * @psalm-param callable(int, int=): bool $callback
      * @psalm-param bool $reference
-     *
-     * @dataProvider provideMatchNone
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideMatchNone')]
     public function testMatchNone(iterable $input, callable $callback, bool $reference): void
     {
         $result = FluentIterable::of($input)->matchNone($callback);
@@ -784,9 +766,8 @@ final class FluentIterableTest extends BaseCase
     /**
      * @psalm-param iterable $input
      * @psalm-param mixed $count
-     *
-     * @dataProvider provideCountData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCountData')]
     public function testCount(iterable $input, int $count): void
     {
         $result = FluentIterable::of($input)->count();
@@ -823,9 +804,8 @@ final class FluentIterableTest extends BaseCase
     /**
      * @psalm-param iterable $input
      * @psalm-param array $reference
-     *
-     * @dataProvider provideGetIteratorData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideGetIteratorData')]
     public function testGetIterator(iterable $input, array $reference): void
     {
         $iterator = FluentIterable::of($input)->getIterator();

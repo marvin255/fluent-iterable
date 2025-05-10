@@ -13,9 +13,7 @@ use Marvin255\FluentIterable\Tests\BaseCase;
  */
 final class SorterTest extends BaseCase
 {
-    /**
-     * @dataProvider provideSortNumeric
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSortNumeric')]
     public function testSortNumeric(Order $order, int|float $input1, int|float $input2, int $reference): void
     {
         $callback = Sorter::sortNumeric($order);
@@ -32,9 +30,7 @@ final class SorterTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideSortNumericParam
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSortNumericParam')]
     public function testSortNumericParam(string $key, Order $order, array|object $input1, array|object $input2, int $reference): void
     {
         $callback = Sorter::sortNumericParam($key, $order);
@@ -51,9 +47,7 @@ final class SorterTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideSortString
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSortString')]
     public function testSortString(Order $order, string $input1, string $input2, int $reference): void
     {
         $callback = Sorter::sortString($order);
@@ -70,9 +64,7 @@ final class SorterTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideSortStringParam
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSortStringParam')]
     public function testSortStringParam(string $key, Order $order, array|object $input1, array|object $input2, int $reference): void
     {
         $callback = Sorter::sortStringParam($key, $order);

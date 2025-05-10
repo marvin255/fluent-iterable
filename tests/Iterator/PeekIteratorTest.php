@@ -20,10 +20,9 @@ final class PeekIteratorTest extends IteratorCase
      * @psalm-param mixed $reference
      * @psalm-param mixed $iteratorReference
      *
-     * @dataProvider provideIteratorData
-     *
      * @psalm-suppress MixedArrayAssignment
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIteratorData')]
     public function testIterator(\Iterator $iterator, mixed $reference, mixed $iteratorReference): void
     {
         $result = [];
@@ -56,9 +55,7 @@ final class PeekIteratorTest extends IteratorCase
         ];
     }
 
-    /**
-     * @dataProvider provideCountData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCountData')]
     public function testCount(\Iterator $input, int $reference): void
     {
         $iterator = new CallbackMapIterator($input, function (): void {});

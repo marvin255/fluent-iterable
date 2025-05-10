@@ -13,9 +13,7 @@ use Marvin255\FluentIterable\Tests\BaseCase;
  */
 final class ReducerTest extends BaseCase
 {
-    /**
-     * @dataProvider provideMin
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideMin')]
     public function testMin(int|float|null $carry, int|float $input, int|float $reference): void
     {
         $callback = Reducer::min();
@@ -55,9 +53,7 @@ final class ReducerTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideMinParam
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideMinParam')]
     public function testMinParam(string $paramName, array|object|null $carry, array|object $input, array|object $reference): void
     {
         $callback = Reducer::minParam($paramName);
@@ -96,9 +92,7 @@ final class ReducerTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideMax
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideMax')]
     public function testMax(int|float|null $carry, int|float $input, int|float $reference): void
     {
         $callback = Reducer::max();
@@ -138,9 +132,7 @@ final class ReducerTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideMaxParam
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideMaxParam')]
     public function testMaxParam(string $paramName, array|object|null $carry, array|object $input, array|object $reference): void
     {
         $callback = Reducer::maxParam($paramName);
@@ -179,9 +171,7 @@ final class ReducerTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideSum
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSum')]
     public function testSum(int|float|null $carry, int|float|null $input, int|float $reference): void
     {
         $callback = Reducer::sum();
@@ -211,9 +201,7 @@ final class ReducerTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideSumParam
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideSumParam')]
     public function testSumParam(string $paramName, int|float|null $carry, array|object $input, int|float $reference): void
     {
         $callback = Reducer::sumParam($paramName);
@@ -248,9 +236,7 @@ final class ReducerTest extends BaseCase
         $callback(null, ['test' => 'test']);
     }
 
-    /**
-     * @dataProvider provideJoin
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideJoin')]
     public function testJoin(?string $separator, int|float|string|null $carry, int|float|string|null $input, string $reference): void
     {
         $callback = null === $separator ? Reducer::join() : Reducer::join($separator);

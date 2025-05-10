@@ -15,9 +15,8 @@ final class IteratorHelperTest extends BaseCase
     /**
      * @psalm-param \Iterator<mixed, mixed> $iterator
      * @psalm-param int $reference
-     *
-     * @dataProvider provideCount
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCount')]
     public function testCount(\Iterator $iterator, int $reference): void
     {
         $result = IteratorHelper::count($iterator);
@@ -50,9 +49,8 @@ final class IteratorHelperTest extends BaseCase
     /**
      * @psalm-param \Iterator<mixed, mixed> $iterator
      * @psalm-param array $reference
-     *
-     * @dataProvider provideToArray
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideToArray')]
     public function testToArray(\Iterator $iterator, array $reference): void
     {
         $result = IteratorHelper::toArray($iterator);
@@ -85,9 +83,8 @@ final class IteratorHelperTest extends BaseCase
     /**
      * @psalm-param iterable<mixed, mixed> $iterable
      * @psalm-param array $reference
-     *
-     * @dataProvider provideToArrayIterable
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideToArrayIterable')]
     public function testToArrayIterable(iterable $iterable, array $reference): void
     {
         $result = IteratorHelper::toArrayIterable($iterable);

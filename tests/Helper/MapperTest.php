@@ -12,9 +12,7 @@ use Marvin255\FluentIterable\Tests\BaseCase;
  */
 final class MapperTest extends BaseCase
 {
-    /**
-     * @dataProvider provideInt
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideInt')]
     public function testInt(mixed $input, int $reference): void
     {
         $callback = Mapper::int();
@@ -32,9 +30,7 @@ final class MapperTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideFloat
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideFloat')]
     public function testFloat(mixed $input, float $reference): void
     {
         $callback = Mapper::float();
@@ -52,9 +48,7 @@ final class MapperTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideBool
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideBool')]
     public function testBool(mixed $input, bool $reference): void
     {
         $callback = Mapper::bool();
@@ -75,9 +69,7 @@ final class MapperTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideDate
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideDate')]
     public function testDate(string $input, ?\DateTimeZone $tz, string $reference): void
     {
         $callback = Mapper::date($tz);
@@ -86,9 +78,7 @@ final class MapperTest extends BaseCase
         $this->assertSame($reference, $result->format('Y-m-d H:i:s e'));
     }
 
-    /**
-     * @dataProvider provideDate
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideDate')]
     public function testDateMutable(string $input, ?\DateTimeZone $tz, string $reference): void
     {
         $callback = Mapper::dateMutable($tz);
@@ -120,9 +110,7 @@ final class MapperTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideDateFormat
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideDateFormat')]
     public function testDateFormat(\DateTimeInterface $input, string $format, string $reference): void
     {
         $callback = Mapper::dateFormat($format);
@@ -147,9 +135,7 @@ final class MapperTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideString
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideString')]
     public function testString(mixed $input, string $reference): void
     {
         $callback = Mapper::string();
@@ -167,9 +153,7 @@ final class MapperTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideUpperCase
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideUpperCase')]
     public function testUpperCase(mixed $input, string $reference): void
     {
         $callback = Mapper::upperCase();
@@ -187,9 +171,7 @@ final class MapperTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideLowerCase
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideLowerCase')]
     public function testLowerCase(mixed $input, string $reference): void
     {
         $callback = Mapper::lowerCase();
@@ -207,9 +189,7 @@ final class MapperTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideTrim
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideTrim')]
     public function testTrim(mixed $input, string $reference): void
     {
         $callback = Mapper::trim();
@@ -227,9 +207,7 @@ final class MapperTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider providePluck
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providePluck')]
     public function testPluck(string $key, mixed $default, array|object $input, mixed $reference): void
     {
         $callback = Mapper::pluck($key, $default);
@@ -278,10 +256,9 @@ final class MapperTest extends BaseCase
     }
 
     /**
-     * @dataProvider provideConstruct
-     *
      * @psalm-param class-string $className
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideConstruct')]
     public function testConstruct(string $className, mixed $input): void
     {
         $callback = Mapper::construct($className);

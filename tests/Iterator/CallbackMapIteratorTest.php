@@ -17,9 +17,8 @@ final class CallbackMapIteratorTest extends IteratorCase
      * @psalm-param Iterator<mixed> $iterator
      * @psalm-param callable(mixed, int=): mixed $callback
      * @psalm-param array $reference
-     *
-     * @dataProvider provideIteratorData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIteratorData')]
     public function testIterator(\Iterator $iterator, callable $callback, array $reference): void
     {
         $iterator = new CallbackMapIterator($iterator, $callback);
@@ -38,9 +37,7 @@ final class CallbackMapIteratorTest extends IteratorCase
         ];
     }
 
-    /**
-     * @dataProvider provideCountData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCountData')]
     public function testCount(\Iterator $input, int $reference): void
     {
         $iterator = new CallbackMapIterator($input, fn () => false);

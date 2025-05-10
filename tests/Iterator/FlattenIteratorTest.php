@@ -17,9 +17,8 @@ final class FlattenIteratorTest extends IteratorCase
      * @psalm-param Iterator<mixed> $iterator
      * @psalm-param callable(mixed, int=): iterable<mixed> $callback
      * @psalm-param array $reference
-     *
-     * @dataProvider provideIterator
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIterator')]
     public function testIterator(\Iterator $iterator, callable $callback, array $reference): void
     {
         $iterator = new FlattenIterator($iterator, $callback);
@@ -58,9 +57,7 @@ final class FlattenIteratorTest extends IteratorCase
         ];
     }
 
-    /**
-     * @dataProvider provideCount
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCount')]
     public function testCount(\Iterator $input, int $reference): void
     {
         $iterator = new FlattenIterator($input, fn (mixed $item): iterable => [$item]);

@@ -14,9 +14,7 @@ use Marvin255\FluentIterable\Tests\BaseCase;
  */
 final class FilterTest extends BaseCase
 {
-    /**
-     * @dataProvider provideCompare
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCompare')]
     public function testCompare(Compare $operator, mixed $operand, mixed $input, bool $reference): void
     {
         $callback = Filter::compare($operator, $operand);
@@ -115,9 +113,7 @@ final class FilterTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideCompareParam
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCompareParam')]
     public function testCompareParam(string $key, Compare $operator, mixed $operand, mixed $input, bool $reference): void
     {
         $callback = Filter::compareParam($key, $operator, $operand);
@@ -230,9 +226,7 @@ final class FilterTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideNotNull
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideNotNull')]
     public function testNotNull(mixed $input, bool $reference): void
     {
         $callback = Filter::notNull();
@@ -249,9 +243,7 @@ final class FilterTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideNotEmpty
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideNotEmpty')]
     public function testNotEmpty(mixed $input, bool $reference): void
     {
         $callback = Filter::notEmpty();
@@ -271,9 +263,7 @@ final class FilterTest extends BaseCase
         ];
     }
 
-    /**
-     * @dataProvider provideRegexp
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideRegexp')]
     public function testRegexp(string $regexp, string $input, bool $reference): void
     {
         $callback = Filter::regexp($regexp);
@@ -306,9 +296,7 @@ final class FilterTest extends BaseCase
         Filter::regexp('');
     }
 
-    /**
-     * @dataProvider provideRegexpParam
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideRegexpParam')]
     public function testRegexpParam(string $key, string $regexp, array|object $input, bool $reference): void
     {
         $callback = Filter::regexpParam($key, $regexp);

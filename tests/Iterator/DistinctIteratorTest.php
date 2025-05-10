@@ -12,9 +12,7 @@ use Marvin255\FluentIterable\Tests\IteratorCase;
  */
 final class DistinctIteratorTest extends IteratorCase
 {
-    /**
-     * @dataProvider provideIterator
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIterator')]
     public function testIterator(\Iterator $iterator, array $reference): void
     {
         $iterator = new DistinctIterator($iterator);
@@ -56,9 +54,7 @@ final class DistinctIteratorTest extends IteratorCase
         ];
     }
 
-    /**
-     * @dataProvider provideCount
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCount')]
     public function testCount(\Iterator $input, int $reference): void
     {
         $iterator = new DistinctIterator($input);
