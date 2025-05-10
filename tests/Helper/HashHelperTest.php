@@ -12,9 +12,7 @@ use Marvin255\FluentIterable\Tests\BaseCase;
  */
 final class HashHelperTest extends BaseCase
 {
-    /**
-     * @dataProvider provideToArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideToArray')]
     public function testToArray(mixed $input, string $reference): void
     {
         $result = HashHelper::createHashForData($input);

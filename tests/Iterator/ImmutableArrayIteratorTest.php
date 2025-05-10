@@ -12,9 +12,7 @@ use Marvin255\FluentIterable\Tests\IteratorCase;
  */
 final class ImmutableArrayIteratorTest extends IteratorCase
 {
-    /**
-     * @dataProvider provideIteratorData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIteratorData')]
     public function testIterator(array $input, array $reference): void
     {
         $iterator = new ImmutableArrayIterator($input);

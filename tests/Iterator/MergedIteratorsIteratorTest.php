@@ -19,9 +19,7 @@ final class MergedIteratorsIteratorTest extends IteratorCase
         new MergedIteratorsIterator([123]);
     }
 
-    /**
-     * @dataProvider provideIteratorData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIteratorData')]
     public function testIterator(array $input, array $reference): void
     {
         $iterator = new MergedIteratorsIterator($input);

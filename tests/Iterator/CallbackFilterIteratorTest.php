@@ -17,9 +17,8 @@ final class CallbackFilterIteratorTest extends IteratorCase
      * @psalm-param Iterator<int, mixed> $iterator
      * @psalm-param callable(mixed, int=): bool $callback
      * @psalm-param array $reference
-     *
-     * @dataProvider provideIteratorData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIteratorData')]
     public function testIterator(\Iterator $iterator, callable $callback, array $reference): void
     {
         $iterator = new CallbackFilterIterator($iterator, $callback);
@@ -45,9 +44,8 @@ final class CallbackFilterIteratorTest extends IteratorCase
 
     /**
      * @psalm-param Iterator<int, mixed> $input
-     *
-     * @dataProvider provideCountData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCountData')]
     public function testCount(\Iterator $input, int $reference): void
     {
         $iterator = new CallbackFilterIterator($input, fn () => false);

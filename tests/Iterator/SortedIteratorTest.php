@@ -17,9 +17,8 @@ final class SortedIteratorTest extends IteratorCase
      * @psalm-param Iterator<mixed> $iterator
      * @psalm-param callable(mixed, mixed): int $callback
      * @psalm-param mixed[] $reference
-     *
-     * @dataProvider provideIteratorData
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIteratorData')]
     public function testIterator(\Iterator $iterator, callable $callback, array $reference): void
     {
         $iterator = new SortedIterator($iterator, $callback);

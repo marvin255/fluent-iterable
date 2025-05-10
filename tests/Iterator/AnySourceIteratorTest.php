@@ -12,9 +12,7 @@ use Marvin255\FluentIterable\Tests\IteratorCase;
  */
 final class AnySourceIteratorTest extends IteratorCase
 {
-    /**
-     * @dataProvider provideIteratorData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIteratorData')]
     public function testOf(iterable $input, array $reference): void
     {
         $iterator = AnySourceIterator::of($input);
@@ -22,9 +20,7 @@ final class AnySourceIteratorTest extends IteratorCase
         $this->assertIteratorContains($reference, $iterator);
     }
 
-    /**
-     * @dataProvider provideIteratorData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIteratorData')]
     public function testIterator(iterable $input, array $reference): void
     {
         $iterator = AnySourceIterator::of($input);
@@ -70,9 +66,7 @@ final class AnySourceIteratorTest extends IteratorCase
         ];
     }
 
-    /**
-     * @dataProvider provideCountData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCountData')]
     public function testCount(iterable $input, int $reference): void
     {
         $iterator = AnySourceIterator::of($input);
