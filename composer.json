@@ -7,7 +7,7 @@
   "require": {
     "php": ">=8.3",
     "marvin255/optional": "^0.2",
-    "marvin255/data-getter-helper": "^0.5"
+    "marvin255/data-getter-helper": "^0.5 || ^0.6"
   },
   "require-dev": {
     "phpunit/phpunit": "^12.0",
