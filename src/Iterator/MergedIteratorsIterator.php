@@ -15,7 +15,7 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  * - creates new numeric keys for each element
  * - doesn't run any transformations and conversions
  *
- * @implements Iterator<int, mixed>
+ * @implements \Iterator<int, mixed>
  *
  * @internal
  */

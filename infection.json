@@ -9,6 +9,11 @@
         "text": "infection.log"
     },
     "mutators": {
-        "@default": true
+        "@default": true,
+        "ReturnRemoval": {
+            "ignore": [
+                "Marvin255\\FluentIterable\\Helper\\IteratorHelper::toArrayIterable"
+            ]
+        }
     }
 }

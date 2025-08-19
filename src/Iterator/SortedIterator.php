@@ -12,7 +12,7 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  *
  * @template TValue
  *
- * @implements Iterator<int, TValue>
+ * @implements \Iterator<int, TValue>
  *
  * @internal
  */

@@ -14,7 +14,7 @@ use Marvin255\FluentIterable\Helper\IteratorHelper;
  * @template TValue
  * @template TConverted
  *
- * @implements Iterator<int, TConverted>
+ * @implements \Iterator<int, TConverted>
  *
  * @internal
  */
