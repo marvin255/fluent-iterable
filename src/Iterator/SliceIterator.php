@@ -13,7 +13,7 @@ use Marvin255\FluentIterable\FluentIterableException;
  *
  * @template TValue
  *
- * @implements Iterator<int, TValue>
+ * @implements \Iterator<int, TValue>
  *
  * @internal
  */

@@ -9,7 +9,7 @@ use Iterator;
 /**
  * Immutable iterator for arrays.
  *
- * @implements Iterator<int, mixed>
+ * @implements \Iterator<int, mixed>
  *
  * @internal
  */

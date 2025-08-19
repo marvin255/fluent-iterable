@@ -73,9 +73,9 @@ final class FluentIterable implements \Countable, \IteratorAggregate
     /**
      * Filter elements of an iterable using a filter function.
      *
-     * @return self<TValue>
-     *
      * @psalm-param callable(TValue, int=): bool $filter
+     *
+     * @return self<TValue>
      */
     public function filter(callable $filter): self
     {
@@ -89,9 +89,9 @@ final class FluentIterable implements \Countable, \IteratorAggregate
      *
      * @template TConverted
      *
-     * @return self<TConverted>
-     *
      * @psalm-param callable(TValue, int=): TConverted $callback
+     *
+     * @return self<TConverted>
      */
     public function map(callable $callback): self
     {
@@ -127,9 +127,9 @@ final class FluentIterable implements \Countable, \IteratorAggregate
     /**
      * Set sorting for current iterating data.
      *
-     * @return self<TValue>
-     *
      * @psalm-param callable(TValue, TValue): int $callback
+     *
+     * @return self<TValue>
      */
     public function sorted(callable $callback): self
     {
@@ -155,9 +155,9 @@ final class FluentIterable implements \Countable, \IteratorAggregate
      *
      * @template TConverted
      *
-     * @return self<TConverted>
-     *
      * @psalm-param callable(TValue, int=): iterable<TConverted> $callback
+     *
+     * @return self<TConverted>
      */
     public function flatten(callable $callback): self
     {
@@ -170,9 +170,9 @@ final class FluentIterable implements \Countable, \IteratorAggregate
      * Returns an iterator consisting of the elements of this iterator,
      * additionally performing the provided action on each element as elements are consumed from the resulting iterator.
      *
-     * @return self<TValue>
-     *
      * @psalm-param callable(TValue, int=): void $callback
+     *
+     * @return self<TValue>
      */
     public function peek(callable $callback): self
     {
@@ -200,9 +200,9 @@ final class FluentIterable implements \Countable, \IteratorAggregate
      *
      * @param TConverted|null $initial
      *
-     * @return Optional<TConverted>
-     *
      * @psalm-param callable(TConverted|null, TValue, int=): TConverted $callback
+     *
+     * @return Optional<TConverted>
      */
     public function reduce(callable $callback, mixed $initial = null): Optional
     {
@@ -216,9 +216,9 @@ final class FluentIterable implements \Countable, \IteratorAggregate
     /**
      * Return the first item that fits the filter and breaks the loop.
      *
-     * @return Optional<TValue>
-     *
      * @psalm-param callable(TValue, int=): bool $filter
+     *
+     * @return Optional<TValue>
      */
     public function findOne(callable $filter): Optional
     {
