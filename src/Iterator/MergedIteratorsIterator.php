@@ -34,7 +34,7 @@ final class MergedIteratorsIterator implements \Countable, \Iterator
     {
         $checkedIterators = [];
         foreach ($iterators as $iterator) {
-            if (!($iterator instanceof \Iterator)) {
+            if (!$iterator instanceof \Iterator) {
                 throw new FluentIterableException('All items must be instance of Iterator or array');
             }
             $checkedIterators[] = $iterator;
